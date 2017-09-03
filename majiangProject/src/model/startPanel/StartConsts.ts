@@ -1,0 +1,4 @@
+class StartConsts {
+	public constructor() {
+	}
+}

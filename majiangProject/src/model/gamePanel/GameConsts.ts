@@ -1,0 +1,4 @@
+class GameConsts {
+	public constructor() {
+	}
+}

@@ -1,0 +1,4 @@
+class GameProxy {
+	public constructor() {
+	}
+}
