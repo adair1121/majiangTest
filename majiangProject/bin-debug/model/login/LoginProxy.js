@@ -11,7 +11,7 @@ var LoginProxy = (function (_super) {
     function LoginProxy(controller) {
         var _this = _super.call(this, controller) || this;
         /**注册从服务器返回消息的监听 */
-        _this.receiveServerMsg(SocketConst.LOGIN, _this.loginSuccess, _this);
+        _this.receiveServerMsg(LoginConsts.LOGIN_S2C, _this.loginSuccess, _this);
         return _this;
     }
     /**
@@ -28,7 +28,7 @@ var LoginProxy = (function (_super) {
      * 用户登录成功返回
      */
     LoginProxy.prototype.loginSuccess = function (obj) {
-        this.applyFunc(SocketConst.LOGIN_S2C, obj);
+        this.applyFunc(LoginConsts.LOGIN_S2C, obj);
     };
     return LoginProxy;
 }(BaseProxy));

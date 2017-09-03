@@ -171,15 +171,16 @@ var Main = (function (_super) {
         this.initSence();
         this.initMode();
         //设置加载进度界面
-        App.SceneManager.runScene(SceneConsts.UI);
+        App.SceneManager.runScene(SceneConsts.UI_SENCE);
         // SocketManager.getInstance().connectServer(Config.gameHost,Config.gamePort); 
     };
     Main.prototype.initSence = function () {
-        App.SceneManager.register(SceneConsts.LOADING, new SenceLoading());
-        App.SceneManager.register(SceneConsts.UI, new UIScene());
+        App.SceneManager.register(SceneConsts.LOADING_SENCE, new SenceLoading());
+        App.SceneManager.register(SceneConsts.UI_SENCE, new UIScene());
     };
     Main.prototype.initMode = function () {
-        App.ControllerManager.register(ControllerConst.LOGIN, new LoginController);
+        App.ControllerManager.register(ControllerConst.LOGIN_CONTROLLER, new LoginController);
+        App.ControllerManager.register(ControllerConst.START_CONTROLLER, new StartController);
     };
     return Main;
 }(eui.UILayer));

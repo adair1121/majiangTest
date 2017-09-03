@@ -1,8 +1,12 @@
-class ViewLogin extends BaseEuiView{
-	public btnLogin:eui.Button;
+class ViewStart extends BaseEuiView{
+	public playerIcon:eui.Image;
+	public playerName:eui.Label;
+	public playerId:eui.Label;
+	public createRoomBtn:eui.Button;
+	public joinRoomBtn:eui.Button;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
-		this.skinName = "ViewLoginSkin";
+		this.skinName = "ViewStartSkin";
 	}
 	/**
 	 * 对面板进行初始化
@@ -31,15 +35,12 @@ class ViewLogin extends BaseEuiView{
 	}
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
-			case this.btnLogin:
-				// this.applyFunc(LoginConsts.LOGIN_C2S,{userName:"share of one",pwd:"1111111"});
-				//测试代码
-				App.ViewManager.close(ViewConst.Login);
-				App.ViewManager.open(ViewConst.Start);
+			case this.createRoomBtn:
+				alert("创建房间");
+				break;
+			case this.joinRoomBtn:
+				alert("加入房间");
 				break;
 		}
-	}
-	public loginSuccess():void{
-		
 	}
 }

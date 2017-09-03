@@ -6,7 +6,7 @@ var SceneConsts = (function () {
     }
     return SceneConsts;
 }());
-SceneConsts.LOADING = 0;
-SceneConsts.UI = 1;
+SceneConsts.LOADING_SENCE = 10000;
+SceneConsts.UI_SENCE = 10001;
 __reflect(SceneConsts.prototype, "SceneConsts");
 //# sourceMappingURL=SceneConsts.js.map

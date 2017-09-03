@@ -68,6 +68,17 @@ var App = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(App, "MessageCenter", {
+        /**
+         * 服务器返回的消息处理中心
+         * @type {MessageCenter}
+         */
+        get: function () {
+            return MessageCenter.getInstance();
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * 初始化函数
      * @constructor

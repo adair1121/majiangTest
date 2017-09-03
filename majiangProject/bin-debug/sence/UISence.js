@@ -34,7 +34,7 @@ var UIScene = (function (_super) {
         rect.percentHeight = 100;
         rect.percentWidth = 100;
         LayerManager.UI_Main.addChild(rect);
-        //初始打开Home页面
+        //初始打开Login页面
         App.ViewManager.open(ViewConst.Login);
         //播放背景音乐
         // App.SoundManager.playBg("sound_bg");

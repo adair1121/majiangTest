@@ -6,7 +6,8 @@ var ViewConst = (function () {
     }
     return ViewConst;
 }());
-ViewConst.Loading = 0;
-ViewConst.Login = 1;
+ViewConst.Loading = 10000;
+ViewConst.Login = 10001;
+ViewConst.Start = 10002;
 __reflect(ViewConst.prototype, "ViewConst");
 //# sourceMappingURL=ViewConst.js.map

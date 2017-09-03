@@ -40,7 +40,7 @@ class BaseProxy {
      * @param callbackObj 处理函数所属对象
      */
     public receiveServerMsg(key:any, callbackFunc:Function, callbackObj:any):void {
-        // App.MessageCenter.addListener(key, callbackFunc, callbackObj);
+        App.MessageCenter.addListener(key, callbackFunc, callbackObj);
     }
 
     /**

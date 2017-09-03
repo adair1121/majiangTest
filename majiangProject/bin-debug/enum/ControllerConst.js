@@ -6,6 +6,7 @@ var ControllerConst = (function () {
     }
     return ControllerConst;
 }());
-ControllerConst.LOGIN = 0;
+ControllerConst.LOGIN_CONTROLLER = 10001;
+ControllerConst.START_CONTROLLER = 10002;
 __reflect(ControllerConst.prototype, "ControllerConst");
 //# sourceMappingURL=ControllerConst.js.map

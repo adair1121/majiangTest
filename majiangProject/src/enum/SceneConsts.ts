@@ -1,6 +1,6 @@
 class SceneConsts {
-	public static LOADING:number = 0;
-	public static UI:number = 1;
+	public static LOADING_SENCE:number = 10000;
+	public static UI_SENCE:number = 10001;
 	public constructor() {
 	}
 }

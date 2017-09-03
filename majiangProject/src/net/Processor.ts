@@ -21,6 +21,9 @@ module proto {
 			// SocketManager.getInstance().sendProto(msg_login);
 
 		}
+		public do_s_Login(mess:Pro):void{
+			App.MessageCenter.dispatch(LoginConsts.LOGIN_S2C,mess);
+		}
 		// public do_s_mess(mess:Pro):void {}
 		// public do_s_move(mess:Pro):void {}
 		// public do_s_Mapload(mess:Pro):void {}

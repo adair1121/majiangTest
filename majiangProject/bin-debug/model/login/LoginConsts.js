@@ -6,7 +6,7 @@ var LoginConsts = (function () {
     }
     return LoginConsts;
 }());
-LoginConsts.LOGIN_C2S = 10001;
-LoginConsts.LOGIN_S2C = 10002;
+LoginConsts.LOGIN_C2S = "10001";
+LoginConsts.LOGIN_S2C = "10002";
 __reflect(LoginConsts.prototype, "LoginConsts");
 //# sourceMappingURL=LoginConsts.js.map

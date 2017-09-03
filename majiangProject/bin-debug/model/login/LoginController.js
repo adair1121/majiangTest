@@ -20,7 +20,7 @@ var LoginController = (function (_super) {
         /**注册C2S */
         _this.registerFunc(LoginConsts.LOGIN_C2S, _this.onLogin, _this);
         /**注册s2c */
-        _this.registerFunc(SocketConst.LOGIN_S2C, _this.loginSuccess, _this);
+        _this.registerFunc(LoginConsts.LOGIN_S2C, _this.loginSuccess, _this);
         return _this;
     }
     /**
@@ -28,8 +28,8 @@ var LoginController = (function (_super) {
      * @param userName
      * @param pwd
      */
-    LoginController.prototype.onLogin = function (userName, pwd) {
-        this.loginProxy.login(userName, pwd);
+    LoginController.prototype.onLogin = function (dataObj) {
+        this.loginProxy.login(dataObj.userName, dataObj.pwd);
     };
     /**
      * 登陆成功处理
@@ -41,6 +41,7 @@ var LoginController = (function (_super) {
         this.loginView.loginSuccess();
         //UI跳转
         App.ViewManager.close(ViewConst.Login);
+        App.ViewManager.open(ViewConst.Start);
         // var model:BaseModel = this.getControllerModel(ControllerConst.Login);
     };
     return LoginController;

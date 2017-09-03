@@ -54,3 +54,5 @@ declare class LoadingUISkin extends eui.Skin{
 }
 declare class ViewLoginSkin extends eui.Skin{
 }
+declare class ViewStartSkin extends eui.Skin{
+}

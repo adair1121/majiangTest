@@ -61,6 +61,13 @@ class App {
         return DisplayUtils.getInstance();
     }
     /**
+     * 服务器返回的消息处理中心
+     * @type {MessageCenter}
+     */
+    public static get MessageCenter():MessageCenter {
+        return MessageCenter.getInstance();
+    }
+    /**
      * 初始化函数
      * @constructor
      */

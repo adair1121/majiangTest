@@ -17,15 +17,15 @@ class LoginController extends BaseController{
 		/**注册C2S */
 		this.registerFunc(LoginConsts.LOGIN_C2S,this.onLogin,this);
 		/**注册s2c */
-		this.registerFunc(SocketConst.LOGIN_S2C,this.loginSuccess,this);
+		this.registerFunc(LoginConsts.LOGIN_S2C,this.loginSuccess,this);
 	}
 	/**
      * 请求登陆处理
      * @param userName
      * @param pwd
      */
-    private onLogin(userName:string, pwd:string):void{
-        this.loginProxy.login(userName, pwd);
+    private onLogin(dataObj:any):void{
+        this.loginProxy.login(dataObj.userName, dataObj.pwd);
     }
 	/**
      * 登陆成功处理
@@ -37,6 +37,8 @@ class LoginController extends BaseController{
         this.loginView.loginSuccess();
         //UI跳转
         App.ViewManager.close(ViewConst.Login);
+
+		App.ViewManager.open(ViewConst.Start);
 
         // var model:BaseModel = this.getControllerModel(ControllerConst.Login);
     }

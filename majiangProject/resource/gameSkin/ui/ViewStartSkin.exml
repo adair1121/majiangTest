@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ViewStartSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Button id="createRoomBtn" label="创建房间" x="1078.73" y="169.67"/>
+	<e:Button id="joinRoomBtn" label="加入房间" x="1078.73" y="458.46"/>
+	<e:Image id="playerIcon" source="bg_jpg" x="0" y="0" width="80" height="80"/>
+	<e:Label id="playerName" text="share one of" x="90" y="6" size="18" fontFamily="SimHei"/>
+	<e:Label id="playerId" text="ID:00000000" x="88.67" y="34.66" size="18" fontFamily="SimHei"/>
+	<e:Label text="房卡:" x="88.67" y="62" size="18" fontFamily="SimHei"/>
+	<e:Label id="cardNum" text="0" x="138.17" y="62" size="18" fontFamily="SimHei"/>
+</e:Skin>
