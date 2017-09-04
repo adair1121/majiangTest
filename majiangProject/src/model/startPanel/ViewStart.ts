@@ -36,10 +36,10 @@ class ViewStart extends BaseEuiView{
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
 			case this.createRoomBtn:
-				alert("创建房间");
+				App.ViewManager.open(ViewConst.Create);
 				break;
 			case this.joinRoomBtn:
-				alert("加入房间");
+				App.ViewManager.open(ViewConst.Join);
 				break;
 		}
 	}

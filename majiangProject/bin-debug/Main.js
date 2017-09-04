@@ -181,6 +181,8 @@ var Main = (function (_super) {
     Main.prototype.initMode = function () {
         App.ControllerManager.register(ControllerConst.LOGIN_CONTROLLER, new LoginController);
         App.ControllerManager.register(ControllerConst.START_CONTROLLER, new StartController);
+        App.ControllerManager.register(ControllerConst.JOIN_ROOM, new PopJoinRoomController);
+        App.ControllerManager.register(ControllerConst.CREATE_ROOM, new PopCreateRoomController);
     };
     return Main;
 }(eui.UILayer));

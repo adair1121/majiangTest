@@ -39,10 +39,10 @@ var ViewStart = (function (_super) {
     ViewStart.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.createRoomBtn:
-                alert("创建房间");
+                App.ViewManager.open(ViewConst.Create);
                 break;
             case this.joinRoomBtn:
-                alert("加入房间");
+                App.ViewManager.open(ViewConst.Join);
                 break;
         }
     };

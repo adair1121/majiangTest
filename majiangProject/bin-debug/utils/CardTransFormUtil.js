@@ -4,6 +4,9 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 var CardTransFormUtil = (function () {
     function CardTransFormUtil() {
     }
+    /**
+     * 卡牌转换
+     */
     CardTransFormUtil.trasnFormCardId = function (cardNum) {
         var num = cardNum & 0xF0;
         if (num >= 16) {
@@ -12,6 +15,22 @@ var CardTransFormUtil = (function () {
         else {
             return cardNum & 0x0F;
         }
+    };
+    /**
+     * 卡牌排序
+     */
+    CardTransFormUtil.cardSort = function (cardGather) {
+        var arr = GlobalFunc.deepCopy(cardGather);
+        var cardArr = [];
+        for (var i = 0; i < arr.length; i++) {
+            var obj = {};
+            var cardNum = CardTransFormUtil.trasnFormCardId(arr[i]);
+            obj.card = arr[i];
+            obj.transFormCard = cardNum;
+            cardArr.push(obj);
+        }
+        var operArr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "transFormCard", cardArr);
+        return operArr;
     };
     return CardTransFormUtil;
 }());

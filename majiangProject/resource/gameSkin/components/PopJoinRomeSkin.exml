@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PopJoinRomeSkin" width="430" height="465" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="430" height="465" y="0" x="0">
+		<e:Image source="pop_content_png" right="0" left="0" top="0" bottom="0" anchorOffsetX="0"/>
+		<e:Label text="加入房间" size="30" fontFamily="SimHei" textColor="0xffffff" horizontalCenter="10" top="20"/>
+		<e:List id="keyList" width="400" height="261.99" anchorOffsetX="0" anchorOffsetY="0" itemRendererSkinName="MyButtonSkin" useVirtualLayout="false" x="15.99" y="180.98">
+			<e:ArrayCollection>
+			<e:Array>
+				<e:Object label="1"/>
+				<e:Object label="2"/>
+				<e:Object label="3"/>
+				<e:Object label="4"/>
+				<e:Object label="5"/>
+				<e:Object label="6"/>
+				<e:Object label="7"/>
+				<e:Object label="8"/>
+				<e:Object label="9"/>
+				<e:Object label="0"/>
+			</e:Array>
+			</e:ArrayCollection>
+			<e:layout>
+			<e:TileLayout requestedRowCount="3" requestedColumnCount="3" rowAlign="justifyUsingGap" columnAlign="justifyUsingGap" horizontalAlign="left" verticalAlign="top" orientation="rows"/>
+			</e:layout>
+		</e:List>
+		<e:Label text="房号:" x="40" y="94.19" size="20" fontFamily="SimHei" textColor="0x1e1c1c"/>
+		<e:Label text="密码:" x="40" y="143.69" size="20" fontFamily="SimHei" textColor="0x1E1C1C"/>
+		<e:Image id="btnClose" source="button_close_png" width="60" height="60" right="17" top="10"/>
+		<e:Group x="99" y="89.36" anchorOffsetX="0" width="172.33" anchorOffsetY="0" height="30">
+			<e:Image id="txtHome" source="pop_content_bg_png" x="0" y="0" anchorOffsetY="0" height="30" anchorOffsetX="0" width="172"/>
+			<e:BitmapLabel id="account" width="172" height="25" anchorOffsetX="0" anchorOffsetY="0" text="" font="normalFnt_fnt" x="1" y="2.33" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="100" y="138.69" width="172" height="30">
+			<e:Image id="txtPwd" source="pop_content_bg_png" x="0" y="0" anchorOffsetY="0" height="30" anchorOffsetX="0" width="172"/>
+			<e:BitmapLabel id="pwd" width="172" height="28" anchorOffsetX="0" anchorOffsetY="0" text="" font="normalFnt_fnt" x="0" y="3" touchEnabled="false"/>
+		</e:Group>
+		<e:Image id="joinBtn" source="button_key_png" x="294.01" y="91.69" anchorOffsetX="0" width="116.66"/>
+		<e:Label text="加入" x="323" y="108.69" fontFamily="SimHei" touchEnabled="false"/>
+	</e:Group>
+</e:Skin>

@@ -29,7 +29,12 @@
     "resource/eui_skins/ToggleSwitchSkin.exml",
     "resource/eui_skins/VScrollBarSkin.exml",
     "resource/eui_skins/VSliderSkin.exml",
+    "resource/gameSkin/components/MyButtonSkin.exml",
+    "resource/gameSkin/components/MyRadioSkin.exml",
+    "resource/gameSkin/components/PopCreateRoomSkin.exml",
+    "resource/gameSkin/components/PopJoinRomeSkin.exml",
     "resource/gameSkin/ui/LoadingUISkin.exml",
+    "resource/gameSkin/ui/ViewGameSkin.exml",
     "resource/gameSkin/ui/ViewLoginSkin.exml",
     "resource/gameSkin/ui/ViewStartSkin.exml"
   ]

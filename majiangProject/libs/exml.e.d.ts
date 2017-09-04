@@ -50,7 +50,17 @@ declare module skins{
 	class VSliderSkin extends eui.Skin{
 	}
 }
+declare class MyButtonSkin extends eui.Skin{
+}
+declare class MyRadioSkin extends eui.Skin{
+}
+declare class PopCreateRoomSkin extends eui.Skin{
+}
+declare class PopJoinRomeSkin extends eui.Skin{
+}
 declare class LoadingUISkin extends eui.Skin{
+}
+declare class ViewGameSkin extends eui.Skin{
 }
 declare class ViewLoginSkin extends eui.Skin{
 }
