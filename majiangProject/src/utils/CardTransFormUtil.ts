@@ -22,15 +22,19 @@ class CardTransFormUtil {
 		
 	}
 	/**
-	 * 卡牌转换
+	 * 卡牌way1转换
 	 */
-	public static trasnFormCardId(cardNum:number):number{
+	public static trasnFormCardIdWay1(cardNum:number):number{
 		var num:number = cardNum&0xF0;
 		if(num >= 16){
 			return parseInt(((cardNum&0xF0)>>4)+""+(cardNum&0x0F));
 		}else{
 			return cardNum&0x0F;
 		}
+	}
+	/**卡牌转换way2 */
+	public static trasnFormCardIdWay2(cardNum:number):number{
+		return parseInt(cardNum+"");
 	}
 	/**
 	 * 卡牌排序
@@ -40,7 +44,7 @@ class CardTransFormUtil {
 		var cardArr:any[] = [];
 		for(var i:number = 0;i<arr.length;i++){
 			var obj:any = {}
-			var cardNum:number = CardTransFormUtil.trasnFormCardId(arr[i]);
+			var cardNum:number = CardTransFormUtil.trasnFormCardIdWay2(arr[i]);
 			obj.card = arr[i];
 			obj.transFormCard = cardNum;
 			cardArr.push(obj);
