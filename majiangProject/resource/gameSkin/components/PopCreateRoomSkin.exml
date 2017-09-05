@@ -31,7 +31,7 @@
 		</e:Group>
 		<e:Label text="创建房间" size="30" fontFamily="SimHei" textColor="0xFFFFFF" horizontalCenter="10" top="20"/>
 		<e:Image id="btnClose" source="button_close_png" width="60" height="60" x="353" y="10"/>
-		<e:Group id="radioGroup" x="33" y="98.32999999999998">
+		<e:Group id="radioGroup" x="33" y="98.32999999999998" anchorOffsetX="0" width="353.33" anchorOffsetY="0" height="102.33">
 			<e:RadioButton id="radioBtnOne" label="一人场" x="0" y="0" skinName="MyRadioSkin"/>
 			<e:RadioButton id="radioBtnTwo" label="二人场" x="246" y="0" skinName="MyRadioSkin"/>
 			<e:RadioButton id="radioBtnThree" label="三人场" x="0" y="60.610000000000014" skinName="MyRadioSkin"/>

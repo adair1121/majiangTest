@@ -18,9 +18,7 @@ var Config = (function () {
     return Config;
 }());
 /**游戏地址 */
-// public static gameHost:string="127.0.0.1";//本机
-// public static gameHost:string="192.168.1.50";//开发
-Config.gameHost = "192.168.1.51"; //测试
+Config.gameHost = "111.231.114.223"; //测试
 Config.gamePort = 5005;
 /**版本号 */
 Config.THMVERSION = "0.0.1";

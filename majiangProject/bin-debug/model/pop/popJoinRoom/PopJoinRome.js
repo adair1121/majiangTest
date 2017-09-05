@@ -10,6 +10,9 @@ var PopJoinRome = (function (_super) {
     __extends(PopJoinRome, _super);
     function PopJoinRome($controller, $parent) {
         var _this = _super.call(this, $controller, $parent) || this;
+        _this.accountNum = "";
+        _this.pwdNum = "";
+        _this.type = "";
         _this.TYPE_ACC = "account";
         _this.TYPE_PWD = "pwd";
         _this.skinName = "PopJoinRomeSkin";

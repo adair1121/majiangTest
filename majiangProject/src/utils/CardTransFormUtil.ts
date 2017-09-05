@@ -1,4 +1,9 @@
 class CardTransFormUtil {
+	public static NORTH:number = 10001;
+	public static SOUTH:number = 10002;
+	public static WEST:number = 10003;
+	public static EAST:number = 10004;
+	private static curDirection:number = 0;
 	public static cardDataArray:number[] = [
 		0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09, //万
 		0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08,0x09, //万
@@ -43,14 +48,5 @@ class CardTransFormUtil {
 		var operArr:any[] = GlobalFunc.sortRule(GlobalFunc.NORMALIZE,"transFormCard",cardArr);
 		return operArr;
 	}
-	/**
-	 * 
-	 */
-}
-class CardEnum {
-	public static TYPE_WAN:number = 0;
-	public static TYPE_TIAO:number = 1;
-	public static TYPE_TONG:number = 2;
-	public constructor() {
-	}
+	
 }

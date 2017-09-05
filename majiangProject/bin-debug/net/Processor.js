@@ -20,9 +20,11 @@ var proto;
         };
         Processor.prototype.do_close = function () {
             console.log("与服务器断开连接");
+            Config.connectState = false;
         };
         Processor.prototype.do_connect = function () {
             console.log("连接服务器成功");
+            Config.connectState = true;
             // var msg_login:proto.c_Login=new proto.c_Login();
             // msg_login.name=Config.username;
             // msg_login.pass=Config.password;

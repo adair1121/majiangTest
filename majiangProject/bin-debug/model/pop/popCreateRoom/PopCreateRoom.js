@@ -10,6 +10,7 @@ var PopCreateRoom = (function (_super) {
     __extends(PopCreateRoom, _super);
     function PopCreateRoom($controller, $parent) {
         var _this = _super.call(this, $controller, $parent) || this;
+        _this.pwdNum = "";
         _this.skinName = "PopCreateRoomSkin";
         return _this;
     }

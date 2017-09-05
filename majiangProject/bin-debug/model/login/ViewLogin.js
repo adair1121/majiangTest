@@ -39,10 +39,28 @@ var ViewLogin = (function (_super) {
     ViewLogin.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.btnLogin:
-                // this.applyFunc(LoginConsts.LOGIN_C2S,{userName:"share of one",pwd:"1111111"});
-                //测试代码
-                App.ViewManager.close(ViewConst.Login);
-                App.ViewManager.open(ViewConst.Start);
+                if (Config.connectState) {
+                    var account = egret.localStorage.getItem("account");
+                    var pwd = egret.localStorage.getItem("pwd");
+                    egret.localStorage.clear();
+                    if (!account) {
+                        account = GlobalFunc.guid();
+                    }
+                    if (!pwd) {
+                        pwd = "111111";
+                    }
+                    alert(account);
+                    alert(pwd);
+                    // this.applyFunc(LoginConsts.LOGIN_C2S,{userName:"share of one",pwd:"1111111"});
+                    //测试代码
+                    App.ViewManager.close(ViewConst.Login);
+                    App.ViewManager.open(ViewConst.Start);
+                }
+                else {
+                    alert("网络不好,请稍后再试");
+                }
+                break;
+            case this.wxLogin:
                 break;
         }
     };

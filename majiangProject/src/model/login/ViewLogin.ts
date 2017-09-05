@@ -1,5 +1,6 @@
 class ViewLogin extends BaseEuiView{
-	public btnLogin:eui.Button;
+	public btnLogin:eui.Image;
+	public wxLogin:eui.Image;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
 		this.skinName = "ViewLoginSkin";
@@ -32,10 +33,27 @@ class ViewLogin extends BaseEuiView{
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
 			case this.btnLogin:
-				// this.applyFunc(LoginConsts.LOGIN_C2S,{userName:"share of one",pwd:"1111111"});
-				//测试代码
-				App.ViewManager.close(ViewConst.Login);
-				App.ViewManager.open(ViewConst.Start);
+				if(Config.connectState){
+					var account = egret.localStorage.getItem("account");
+					var pwd = egret.localStorage.getItem("pwd");
+					// egret.localStorage.clear();
+					if(!account){
+						account = GlobalFunc.guid();
+						egret.localStorage.setItem("account",account);
+					}
+					if(!pwd){
+						pwd = "111111";
+						egret.localStorage.setItem("pwd",pwd);
+					}
+					// this.applyFunc(LoginConsts.LOGIN_C2S,{userName:"share of one",pwd:"1111111"});
+					//测试代码
+					App.ViewManager.close(ViewConst.Login);
+					App.ViewManager.open(ViewConst.Start);
+				}else{
+					alert("网络不好,请稍后再试");
+				}
+				break;
+			case this.wxLogin:
 				break;
 		}
 	}
