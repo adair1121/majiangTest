@@ -42,32 +42,6 @@ var GlobalFunc;
         return true;
     }
     GlobalFunc.checkTextSpace = checkTextSpace;
-    /**读取单个属性 */
-    function searchAttrValue(searchId, searchSource) {
-        for (var i = 0, len = searchSource.length, item; i < len; i++) {
-            item = searchSource[i];
-            if (searchId === item.attrID) {
-                return item.myvalue;
-            }
-        }
-    }
-    GlobalFunc.searchAttrValue = searchAttrValue;
-    /**读取多个属性 */
-    function searchMoreAttrValue(searchIdList, searchSource) {
-        var obj = {};
-        for (var j = 0, len2 = searchIdList.length, id; j < len2; j++) {
-            id = searchIdList[j];
-            for (var i = 0, len = searchSource.length, item; i < len; i++) {
-                item = searchSource[i];
-                if (item.attrID === id) {
-                    obj[id] = item.myvalue;
-                    continue;
-                }
-            }
-        }
-        return obj;
-    }
-    GlobalFunc.searchMoreAttrValue = searchMoreAttrValue;
     /**排序规则 */
     function sortRule(type, comparingValues, sourceCollection) {
         var relationNum = 1;
@@ -146,7 +120,7 @@ var GlobalFunc;
         function S4() {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         }
-        return (S4() + S4() + S4() + S4() + S4());
+        return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
     GlobalFunc.guid = guid;
 })(GlobalFunc || (GlobalFunc = {}));

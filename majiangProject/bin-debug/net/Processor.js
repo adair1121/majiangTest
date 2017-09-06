@@ -31,7 +31,7 @@ var proto;
             // msg_login.isReLogin=false; 
             // SocketManager.getInstance().sendProto(msg_login);
         };
-        Processor.prototype.do_s_Login = function (mess) {
+        Processor.prototype.do_s_LoginAccount = function (mess) {
             App.MessageCenter.dispatch(LoginConsts.LOGIN_S2C, mess);
         };
         return Processor;

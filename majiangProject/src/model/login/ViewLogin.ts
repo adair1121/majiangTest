@@ -34,18 +34,18 @@ class ViewLogin extends BaseEuiView{
 		switch(evt.target){
 			case this.btnLogin:
 				if(Config.connectState){
-					var account = egret.localStorage.getItem("account");
-					var pwd = egret.localStorage.getItem("pwd");
-					// egret.localStorage.clear();
-					if(!account){
-						account = GlobalFunc.guid();
-						egret.localStorage.setItem("account",account);
-					}
-					if(!pwd){
-						pwd = "111111";
-						egret.localStorage.setItem("pwd",pwd);
-					}
-					// this.applyFunc(LoginConsts.LOGIN_C2S,{userName:"share of one",pwd:"1111111"});
+					// var account = egret.localStorage.getItem("account");
+					// var pwd = egret.localStorage.getItem("pwd");
+					// // egret.localStorage.clear();
+					// if(!account){
+					// 	account = GlobalFunc.guid();
+					// 	egret.localStorage.setItem("account",account);
+					// }
+					// if(!pwd){
+					// 	pwd = "111111";
+					// 	egret.localStorage.setItem("pwd",pwd);
+					// }
+					// this.applyFunc(LoginConsts.LOGIN_C2S,{userName:account,pwd:pwd});
 					//测试代码
 					App.ViewManager.close(ViewConst.Login);
 					App.ViewManager.open(ViewConst.Start);

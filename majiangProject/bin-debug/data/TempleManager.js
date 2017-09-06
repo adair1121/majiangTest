@@ -8,7 +8,7 @@ var temple;
         }
         TempleManager.init = function () {
             var txts = [];
-            // RES.getResByUrl("resource/cfg/ItemTemple.txt",this.getFunc,this,RES.ResourceItem.TYPE_JSON);
+            RES.getResByUrl("resource/cfg/CardConfigTemple.txt", this.getFunc, this, RES.ResourceItem.TYPE_JSON);
         };
         //
         TempleManager.getFunc = function (da) {

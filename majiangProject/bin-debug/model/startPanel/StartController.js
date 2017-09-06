@@ -17,8 +17,26 @@ var StartController = (function (_super) {
         App.ViewManager.register(ViewConst.Start, _this.startView);
         //初始化proxy
         _this.startProxy = new StartProxy(_this);
+        //注册创建房间c2s
+        _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.creatRoom, _this);
+        //注册创建房间s2c
+        _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.creatRoomRes, _this);
+        //注册加入房间c2s
+        _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.joinRoom, _this);
+        //注册加入房间s2c
+        _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.joinRoomRes, _this);
         return _this;
     }
+    StartController.prototype.creatRoom = function (dataObj) {
+        this.startProxy.createRoom(dataObj);
+    };
+    StartController.prototype.creatRoomRes = function (msg) {
+    };
+    StartController.prototype.joinRoom = function (dataObj) {
+        this.startProxy.joinRoom(dataObj);
+    };
+    StartController.prototype.joinRoomRes = function (msg) {
+    };
     return StartController;
 }(BaseController));
 __reflect(StartController.prototype, "StartController");

@@ -8,7 +8,8 @@ var ControllerConst = (function () {
 }());
 ControllerConst.LOGIN_CONTROLLER = 10001;
 ControllerConst.START_CONTROLLER = 10002;
-ControllerConst.JOIN_ROOM = 10003;
-ControllerConst.CREATE_ROOM = 10004;
+ControllerConst.GAME_CONTROLLER = 10003;
+ControllerConst.JOIN_ROOM = 10004;
+ControllerConst.CREATE_ROOM = 10005;
 __reflect(ControllerConst.prototype, "ControllerConst");
 //# sourceMappingURL=ControllerConst.js.map

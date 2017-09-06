@@ -5,9 +5,9 @@ var CardTransFormUtil = (function () {
     function CardTransFormUtil() {
     }
     /**
-     * 卡牌转换
+     * 卡牌way1转换
      */
-    CardTransFormUtil.trasnFormCardId = function (cardNum) {
+    CardTransFormUtil.trasnFormCardIdWay1 = function (cardNum) {
         var num = cardNum & 0xF0;
         if (num >= 16) {
             return parseInt(((cardNum & 0xF0) >> 4) + "" + (cardNum & 0x0F));
@@ -15,6 +15,10 @@ var CardTransFormUtil = (function () {
         else {
             return cardNum & 0x0F;
         }
+    };
+    /**卡牌转换way2 10进制*/
+    CardTransFormUtil.trasnFormCardIdWay2 = function (cardNum) {
+        return parseInt(cardNum + "");
     };
     /**
      * 卡牌排序
@@ -24,7 +28,7 @@ var CardTransFormUtil = (function () {
         var cardArr = [];
         for (var i = 0; i < arr.length; i++) {
             var obj = {};
-            var cardNum = CardTransFormUtil.trasnFormCardId(arr[i]);
+            var cardNum = CardTransFormUtil.trasnFormCardIdWay2(arr[i]);
             obj.card = arr[i];
             obj.transFormCard = cardNum;
             cardArr.push(obj);
@@ -34,6 +38,11 @@ var CardTransFormUtil = (function () {
     };
     return CardTransFormUtil;
 }());
+CardTransFormUtil.NORTH = 10001;
+CardTransFormUtil.SOUTH = 10002;
+CardTransFormUtil.WEST = 10003;
+CardTransFormUtil.EAST = 10004;
+CardTransFormUtil.curDirection = 0;
 CardTransFormUtil.cardDataArray = [
     0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
     0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09,
@@ -49,13 +58,4 @@ CardTransFormUtil.cardDataArray = [
     0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29 //同
 ];
 __reflect(CardTransFormUtil.prototype, "CardTransFormUtil");
-var CardEnum = (function () {
-    function CardEnum() {
-    }
-    return CardEnum;
-}());
-CardEnum.TYPE_WAN = 0;
-CardEnum.TYPE_TIAO = 1;
-CardEnum.TYPE_TONG = 2;
-__reflect(CardEnum.prototype, "CardEnum");
 //# sourceMappingURL=CardTransFormUtil.js.map

@@ -39,7 +39,9 @@ var ViewStart = (function (_super) {
     ViewStart.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.createRoomBtn:
-                App.ViewManager.open(ViewConst.Create);
+                App.ViewManager.close(ViewConst.Start);
+                App.ViewManager.open(ViewConst.Game);
+                // App.ViewManager.open(ViewConst.Create);
                 break;
             case this.joinRoomBtn:
                 App.ViewManager.open(ViewConst.Join);

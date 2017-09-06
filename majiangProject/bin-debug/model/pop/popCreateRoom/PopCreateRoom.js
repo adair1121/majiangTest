@@ -11,6 +11,12 @@ var PopCreateRoom = (function (_super) {
     function PopCreateRoom($controller, $parent) {
         var _this = _super.call(this, $controller, $parent) || this;
         _this.pwdNum = "";
+        _this.countNum = "";
+        _this.scoreNum = "";
+        _this.TYPE_PWD = 10001;
+        _this.TYPE_COUNT = 10002;
+        _this.TYPE_SCORE = 10003;
+        _this.focus = 0;
         _this.skinName = "PopCreateRoomSkin";
         return _this;
     }
@@ -48,6 +54,11 @@ var PopCreateRoom = (function (_super) {
     PopCreateRoom.prototype.close = function (param) {
         this.pwdNum = "";
         this.pwd.text = this.pwdNum;
+        this.countNum = "";
+        this.counts.text = this.countNum;
+        this.scoreNum = "";
+        this.basicScore.text = this.scoreNum;
+        this.focus = 0;
     };
     PopCreateRoom.prototype.radioChangeHandler = function (evt) {
         var radioButtonGroup = evt.target;
@@ -55,8 +66,20 @@ var PopCreateRoom = (function (_super) {
         this.roomNum = this.radioGroup.getChildIndex(radioBtn) + 1;
     };
     PopCreateRoom.prototype.onItemTap = function (evt) {
-        this.pwdNum += evt.item.num + "";
-        this.pwd.text = this.pwdNum;
+        switch (this.focus) {
+            case this.TYPE_PWD:
+                this.pwdNum += evt.item.num + "";
+                this.pwd.text = this.pwdNum;
+                break;
+            case this.TYPE_COUNT:
+                this.countNum = evt.item.num + "";
+                this.counts.text = this.countNum;
+                break;
+            case this.TYPE_SCORE:
+                this.scoreNum = evt.item.num + "";
+                this.basicScore.text = this.scoreNum;
+                break;
+        }
     };
     PopCreateRoom.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
@@ -65,7 +88,29 @@ var PopCreateRoom = (function (_super) {
                 break;
             case this.createBtn:
                 //加入房间
-                alert("创建房间--roomNum:" + this.roomNum + "--pwd:" + this.pwdNum);
+                if (!parseInt(this.pwdNum)) {
+                    alert("请设置房间面膜");
+                    return;
+                }
+                if (!parseInt(this.scoreNum)) {
+                    alert("请输入底分");
+                    return;
+                }
+                if (!parseInt(this.countNum)) {
+                    alert("请设置局数");
+                    return;
+                }
+                var obj = { roomNum: this.roomNum, romePwd: this.pwdNum, score: this.scoreNum, counts: this.countNum };
+                this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.CREATE_ROOM_C2S, obj);
+                break;
+            case this.txtPwd:
+                this.focus = this.TYPE_PWD;
+                break;
+            case this.txtBasicScore:
+                this.focus = this.TYPE_SCORE;
+                break;
+            case this.txtCounts:
+                this.focus = this.TYPE_COUNT;
                 break;
         }
     };

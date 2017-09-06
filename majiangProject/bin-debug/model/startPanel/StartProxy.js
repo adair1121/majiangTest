@@ -9,8 +9,28 @@ var __extends = (this && this.__extends) || function (d, b) {
 var StartProxy = (function (_super) {
     __extends(StartProxy, _super);
     function StartProxy(controller) {
-        return _super.call(this, controller) || this;
+        var _this = _super.call(this, controller) || this;
+        /**注册从服务器返回消息的监听 */
+        _this.receiveServerMsg(StartConsts.CREATE_ROOM_S2C, _this.createRoomRes, _this);
+        _this.receiveServerMsg(StartConsts.JOIN_ROOM_S2C, _this.joinRoomRes, _this);
+        return _this;
     }
+    StartProxy.prototype.createRoom = function (dataObj) {
+        var msg = new proto.c_CreateRoom();
+        msg.playerCount = dataObj.roomNum;
+        msg.times = dataObj.counts;
+        msg.roomPassword = dataObj.roomPwd;
+        msg.basicScore = dataObj.score;
+        this.sendSocketMsg(msg);
+    };
+    StartProxy.prototype.joinRoom = function (dataObj) {
+    };
+    StartProxy.prototype.createRoomRes = function (obj) {
+        this.applyFunc(StartConsts.CREATE_ROOM_S2C, obj);
+    };
+    StartProxy.prototype.joinRoomRes = function (obj) {
+        this.applyFunc(StartConsts.JOIN_ROOM_S2C, obj);
+    };
     return StartProxy;
 }(BaseProxy));
 __reflect(StartProxy.prototype, "StartProxy");

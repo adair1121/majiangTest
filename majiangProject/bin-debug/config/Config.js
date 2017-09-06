@@ -27,44 +27,23 @@ Config.RESVERSION = "0.0.1";
 Config.username = "g42";
 Config.password = "greentea";
 /**窗口大小 */
-Config.w_width = 480;
-Config.w_height = 800;
-/**默认装备资源路径 */
-Config.path_default_equip = "resource/assets/picicon/images/public/default/equip/";
-/**装备资源路径 */
-Config.path_equip = "resource/assets/picicon/images/item/equip/";
-/**技能图标资源路径 */
-Config.path_skillIcon = "resource/assets/picicon/images/skillIcon/";
-/**道具资源路径 */
-Config.path_goods = "resource/assets/picicon/images/item/goods/";
-/**掉落装备资源 */
-Config.path_drop = "resource/assets/picicon/images/item/dropIcon/";
-/**人物模型路径（男） */
-Config.path_man = "resource/assets/picicon/images/roleInfo/cloth/malebody/";
-/**人物模型路径（女） */
-Config.path_woman = "resource/assets/picicon/images/roleInfo/cloth/femalebody/";
-/**武器模型路径 */
-Config.path_weapon = "resource/assets/picicon/images/roleInfo/weapon/";
-/**翅膀模型路径 */
-Config.path_wing = "resource/assets/movie/wing/";
-/**翅膀动态模型内观路径 */
-Config.path_wing_in = "resource/assets/movie/wing_in/";
-/** 人物动态模型内观路径*/
-Config.path_role_in = "resource/assets/movie/role_in/";
-/**为期动态资源内观路径 */
-Config.path_weapon_in = "resource/assets/movie/weapon_in/";
-/**其他资源路径 */
-Config.path_public = "resource/assets/picicon/images/public/";
-/**boss头像路径 */
-Config.path_monHead = "resource/assets/picicon/images/monsterHead/";
-/**外观mc路径 */
-Config.path_roleMc = "resource/assets/movie/role/";
-Config.path_weaponMc = "resource/assets/movie/weapon/";
-Config.path_monMc = "resource/assets/movie/monster/";
-Config.path_effectMc = "resource/assets/movie/effect/";
-Config.path_shadowMc = "resource/assets/movie/shadow/yzm";
-Config.path_wingMc = "resource/assets/movie/wing/";
-Config.path_buffMc = "resource/assets/movie/buff/";
+Config.w_width = 1280;
+Config.w_height = 720;
+/**平铺卡牌出牌尺寸 */
+Config.w_tieldCard = 47;
+Config.h_tieldCard = 56;
+/** 平铺卡牌组合尺寸*/
+Config.w_tieldGroup = 98;
+Config.h_tieldGroup = 142;
+/**玩家手牌尺寸 */
+Config.w_handCard = 88;
+Config.h_handCard = 128;
+/**当前玩家手牌容器初始x */
+Config.x_handCard = 96;
+/**当前玩家手牌容器初始y */
+Config.y_handCard = 580;
+/**卡牌资源路径 */
+Config.path_card = "../resource/assets/ui/card/";
 /**时间戳 */
 Config.time_stamps = 0;
 __reflect(Config.prototype, "Config");

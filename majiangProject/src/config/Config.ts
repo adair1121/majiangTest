@@ -27,6 +27,18 @@ class Config {
 	public static w_tieldGroup:number = 98;
 	public static h_tieldGroup:number = 142;
 
+	/**玩家手牌尺寸 */
+	public static w_handCard:number = 88;
+	public static h_handCard:number = 128;
+
+	/**当前玩家手牌容器初始x */
+	public static x_handCard:number = 96;
+	/**当前玩家手牌容器初始y */
+	public static y_handCard:number = 580;
+
+	/**卡牌资源路径 */
+	public static path_card:string = "../resource/assets/ui/card/";
+
 	/**网络连接状态 */
 	public static connectState:boolean;
 	/**当前游戏宽度 */

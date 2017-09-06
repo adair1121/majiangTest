@@ -30,15 +30,20 @@ class LoginController extends BaseController{
 	/**
      * 登陆成功处理
      */
-    private loginSuccess(userInfo:any):void{
-        //保存数据
-        this.loginModel.userInfo = userInfo;
-        //本模块UI处理
-        this.loginView.loginSuccess();
-        //UI跳转
-        App.ViewManager.close(ViewConst.Login);
+    private loginSuccess(msg:proto.s_LoginAccount):void{
+		if(msg.isSuccess){
+			 //保存数据
+			this.loginModel.userInfo = msg.userInfo;
+			//本模块UI处理
+			this.loginView.loginSuccess();
+			//UI跳转
+			App.ViewManager.close(ViewConst.Login);
 
-		App.ViewManager.open(ViewConst.Start);
+			App.ViewManager.open(ViewConst.Start);
+		}else{
+			alert(msg.errMsg);
+		}
+       
 
         // var model:BaseModel = this.getControllerModel(ControllerConst.Login);
     }

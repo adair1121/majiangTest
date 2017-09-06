@@ -22,7 +22,7 @@ module proto {
 			// SocketManager.getInstance().sendProto(msg_login);
 
 		}
-		public do_s_Login(mess:Pro):void{
+		public do_s_LoginAccount(mess:Pro):void{
 			App.MessageCenter.dispatch(LoginConsts.LOGIN_S2C,mess);
 		}
 		// public do_s_mess(mess:Pro):void {}

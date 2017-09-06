@@ -38,30 +38,6 @@ module GlobalFunc {
 		}
 		return true;
 	}
-	/**读取单个属性 */
-	export function searchAttrValue(searchId:number,searchSource:proto.AttrValue[]):number{
-		for(var i:number = 0,len:number = searchSource.length,item:proto.AttrValue;i<len;i++){
-			item = searchSource[i];
-			if(searchId === item.attrID){
-				return item.myvalue;
-			}
-		}
-	}
-	/**读取多个属性 */
-	export function searchMoreAttrValue(searchIdList:number[],searchSource:proto.AttrValue[]):any{
-		var obj:any = {};
-		for(var j:number = 0,len2:number = searchIdList.length,id:number;j<len2;j++){
-			id = searchIdList[j];
-			for(var i:number = 0,len:number = searchSource.length,item:proto.AttrValue;i<len;i++){
-				item = searchSource[i];
-				if(item.attrID === id){
-					obj[id] = item.myvalue;
-					continue;
-				}
-			}
-		}
-		return obj;
-	}
 	/**排序规则 */
 	export function sortRule(type:string,comparingValues:string,sourceCollection:any[]):any{
 		var relationNum:number = 1;

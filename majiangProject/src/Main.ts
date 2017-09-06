@@ -179,6 +179,7 @@ class Main extends eui.UILayer {
     private initMode():void{
         App.ControllerManager.register(ControllerConst.LOGIN_CONTROLLER,new LoginController);
         App.ControllerManager.register(ControllerConst.START_CONTROLLER,new StartController);
+        App.ControllerManager.register(ControllerConst.GAME_CONTROLLER,new GameController);
         App.ControllerManager.register(ControllerConst.JOIN_ROOM,new PopJoinRoomController);
         App.ControllerManager.register(ControllerConst.CREATE_ROOM,new PopCreateRoomController);
     }

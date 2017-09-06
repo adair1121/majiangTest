@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="PopCreateRoomSkin" width="430" height="600" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Group x="0" y="0" width="430" height="600">
-		<e:Image source="pop_content_png" anchorOffsetX="0" left="0" top="0" right="0" bottom="0" height="585"/>
-		<e:Group x="170.01" y="509.69000000000005">
+<e:Skin class="PopCreateRoomSkin" width="430" height="680" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group x="0" y="0" width="430" height="680">
+		<e:Image source="pop_content_png" anchorOffsetX="0" left="0" top="0" right="0" bottom="0" height="585" scale9Grid="18,84,829,423"/>
+		<e:Group x="170.01" y="589.99">
 			<e:Image id="createBtn" source="button_key_png" x="0" y="0" anchorOffsetX="0" width="116.66"/>
 			<e:Label text="创建" x="28.99000000000001" y="17" fontFamily="SimHei" touchEnabled="false"/>
 		</e:Group>
-		<e:List id="keyList" width="400" height="261.99" anchorOffsetX="0" anchorOffsetY="0" itemRendererSkinName="MyButtonSkin" useVirtualLayout="false" x="15.99" y="244.98">
+		<e:List id="keyList" width="400" height="261.99" anchorOffsetX="0" anchorOffsetY="0" itemRendererSkinName="MyButtonSkin" useVirtualLayout="false" x="15.99" y="328.32">
 			<e:ArrayCollection>
-			<e:Array>
-				<e:Object label="1"/>
-				<e:Object label="2"/>
-				<e:Object label="3"/>
-				<e:Object label="4"/>
-				<e:Object label="5"/>
-				<e:Object label="6"/>
-				<e:Object label="7"/>
-				<e:Object label="8"/>
-				<e:Object label="9"/>
-				<e:Object label="0"/>
-			</e:Array>
+				<e:Array>
+					<e:Object label="1"/>
+					<e:Object label="2"/>
+					<e:Object label="3"/>
+					<e:Object label="4"/>
+					<e:Object label="5"/>
+					<e:Object label="6"/>
+					<e:Object label="7"/>
+					<e:Object label="8"/>
+					<e:Object label="9"/>
+					<e:Object label="0"/>
+				</e:Array>
 			</e:ArrayCollection>
 			<e:layout>
 			<e:TileLayout requestedRowCount="3" requestedColumnCount="3" rowAlign="justifyUsingGap" columnAlign="justifyUsingGap" horizontalAlign="left" verticalAlign="top" orientation="rows"/>
@@ -28,6 +28,14 @@
 		<e:Group x="129.34" y="208.7" width="172" height="30">
 			<e:Image id="txtPwd" source="pop_content_bg_png" x="0" y="0" anchorOffsetY="0" height="30" anchorOffsetX="0" width="172"/>
 			<e:BitmapLabel id="pwd" width="172" height="28" anchorOffsetX="0" anchorOffsetY="0" text="" font="normalFnt_fnt" x="0" y="3" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="130.28" y="250.53" width="172" height="30">
+			<e:Image id="txtBasicScore" source="pop_content_bg_png" x="0" y="0" anchorOffsetY="0" height="30" anchorOffsetX="0" width="172"/>
+			<e:BitmapLabel id="basicScore" width="172" height="28" anchorOffsetX="0" anchorOffsetY="0" text="" font="normalFnt_fnt" x="0" y="3" touchEnabled="false"/>
+		</e:Group>
+		<e:Group x="131.2" y="293.88" width="172" height="30">
+			<e:Image id="txtCounts" source="pop_content_bg_png" x="0" y="0" anchorOffsetY="0" height="30" anchorOffsetX="0" width="172"/>
+			<e:BitmapLabel id="counts" width="172" height="28" anchorOffsetX="0" anchorOffsetY="0" text="" font="normalFnt_fnt" x="0" y="3" touchEnabled="false"/>
 		</e:Group>
 		<e:Label text="创建房间" size="30" fontFamily="SimHei" textColor="0xFFFFFF" horizontalCenter="10" top="20"/>
 		<e:Image id="btnClose" source="button_close_png" width="60" height="60" x="353" y="10"/>
@@ -38,5 +46,7 @@
 			<e:RadioButton id="radioBtnFour" label="四人场" x="246" y="60.610000000000014" skinName="MyRadioSkin"/>
 		</e:Group>
 		<e:Label text="房间密码:" x="33" y="212.82" size="20" fontFamily="SimHei" textColor="0x1e1c1c"/>
+		<e:Label text="底分:" x="33" y="255.53" size="20" fontFamily="SimHei" textColor="0x1E1C1C"/>
+		<e:Label text="局数:" x="33" y="296.88" size="20" fontFamily="SimHei" textColor="0x1E1C1C"/>
 	</e:Group>
 </e:Skin>

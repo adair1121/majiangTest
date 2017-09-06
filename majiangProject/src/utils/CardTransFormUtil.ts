@@ -32,7 +32,7 @@ class CardTransFormUtil {
 			return cardNum&0x0F;
 		}
 	}
-	/**卡牌转换way2 */
+	/**卡牌转换way2 10进制*/
 	public static trasnFormCardIdWay2(cardNum:number):number{
 		return parseInt(cardNum+"");
 	}

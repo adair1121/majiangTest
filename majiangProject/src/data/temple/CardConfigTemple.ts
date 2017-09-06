@@ -1,0 +1,1 @@
+module data{	export interface CardConfigTemple{		/**		* id		*/		id:number;		/**		* 资源说明		*/		information:string;		/**		* 图片文件名		*/		icon:string;		/**		* 声音文件名男		*/		manVoice:string;		/**		* 声音文件名女		*/		womenVoice:string;	}}

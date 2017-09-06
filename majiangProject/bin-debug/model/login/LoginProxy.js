@@ -8,8 +8,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var LoginProxy = (function (_super) {
     __extends(LoginProxy, _super);
-    function LoginProxy(controller) {
-        var _this = _super.call(this, controller) || this;
+    function LoginProxy($controller) {
+        var _this = _super.call(this, $controller) || this;
         /**注册从服务器返回消息的监听 */
         _this.receiveServerMsg(LoginConsts.LOGIN_S2C, _this.loginSuccess, _this);
         return _this;
@@ -18,11 +18,10 @@ var LoginProxy = (function (_super) {
      * 用户登录
      */
     LoginProxy.prototype.login = function (userName, pwd) {
-        var paramObj = {
-            "uName": userName,
-            "pwd": pwd
-        };
-        this.sendSocketMsg(paramObj);
+        var msg = new proto.c_LoginAccount();
+        msg.userName = userName;
+        msg.password = pwd;
+        this.sendSocketMsg(msg);
     };
     /**
      * 用户登录成功返回

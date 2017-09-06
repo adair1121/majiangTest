@@ -34,14 +34,19 @@ var LoginController = (function (_super) {
     /**
      * 登陆成功处理
      */
-    LoginController.prototype.loginSuccess = function (userInfo) {
-        //保存数据
-        this.loginModel.userInfo = userInfo;
-        //本模块UI处理
-        this.loginView.loginSuccess();
-        //UI跳转
-        App.ViewManager.close(ViewConst.Login);
-        App.ViewManager.open(ViewConst.Start);
+    LoginController.prototype.loginSuccess = function (msg) {
+        if (msg.isSuccess) {
+            //保存数据
+            this.loginModel.userInfo = msg.userInfo;
+            //本模块UI处理
+            this.loginView.loginSuccess();
+            //UI跳转
+            App.ViewManager.close(ViewConst.Login);
+            App.ViewManager.open(ViewConst.Start);
+        }
+        else {
+            alert(msg.errMsg);
+        }
         // var model:BaseModel = this.getControllerModel(ControllerConst.Login);
     };
     return LoginController;

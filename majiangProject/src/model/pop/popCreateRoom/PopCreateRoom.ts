@@ -5,13 +5,23 @@ class PopCreateRoom extends BaseEuiView{
 	public radioBtnFour:eui.RadioButton;
 	public pwd:eui.BitmapLabel;
 	public txtPwd:eui.Image;
+	public basicScore:eui.BitmapLabel;
+	public txtBasicScore:eui.Image;
+	public counts:eui.BitmapLabel;
+	public txtCounts:eui.Image;
 	public keyList:eui.List;
 	public btnClose:eui.Image;
 	public createBtn:eui.Image;
 	private collect:eui.ArrayCollection;
 	private pwdNum:string = "";
+	private countNum:string = "";
+	private scoreNum:string = "";
 	public radioGroup:eui.Group;
 	private roomNum:number;
+	private TYPE_PWD:number = 10001;
+	private TYPE_COUNT:number = 10002;
+	private TYPE_SCORE:number = 10003;
+	private focus:number = 0;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
 		this.skinName = "PopCreateRoomSkin";
@@ -50,6 +60,11 @@ class PopCreateRoom extends BaseEuiView{
 	public close(param:any[]):void{
 		this.pwdNum = "";
 		this.pwd.text = this.pwdNum;
+		this.countNum = "";
+		this.counts.text = this.countNum;
+		this.scoreNum = "";
+		this.basicScore.text = this.scoreNum;
+		this.focus = 0;
 	}
 	private radioChangeHandler(evt:eui.UIEvent):void{
 		var radioButtonGroup:eui.RadioButtonGroup = evt.target;
@@ -57,8 +72,21 @@ class PopCreateRoom extends BaseEuiView{
 		this.roomNum = this.radioGroup.getChildIndex(radioBtn)+1;
 	}
 	private onItemTap(evt:eui.ItemTapEvent):void{
-		this.pwdNum += evt.item.num+"";
-		this.pwd.text = this.pwdNum;
+		switch(this.focus){
+			case this.TYPE_PWD:
+				this.pwdNum += evt.item.num+"";
+				this.pwd.text = this.pwdNum;
+				break;
+			case this.TYPE_COUNT:
+				this.countNum = evt.item.num+"";
+				this.counts.text = this.countNum;
+				break;
+			case this.TYPE_SCORE:
+				this.scoreNum = evt.item.num+"";
+				this.basicScore.text = this.scoreNum;
+				break;
+		}
+		
 	}
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
@@ -67,7 +95,29 @@ class PopCreateRoom extends BaseEuiView{
 				break;
 			case this.createBtn:
 				//加入房间
-				alert("创建房间--roomNum:"+this.roomNum+"--pwd:"+this.pwdNum);
+				if(!parseInt(this.pwdNum)){
+					alert("请设置房间面膜");
+					return;
+				}
+				if(!parseInt(this.scoreNum)){
+					alert("请输入底分");
+					return;
+				}
+				if(!parseInt(this.countNum)){
+					alert("请设置局数");
+					return;
+				}
+				var obj:any = {roomNum:this.roomNum,romePwd:this.pwdNum,score:this.scoreNum,counts:this.countNum}
+				this.applyControllerFunc(ControllerConst.START_CONTROLLER,StartConsts.CREATE_ROOM_C2S,obj);
+				break;
+			case this.txtPwd:
+				this.focus = this.TYPE_PWD;
+				break;
+			case this.txtBasicScore:
+				this.focus = this.TYPE_SCORE;
+				break;
+			case this.txtCounts:
+				this.focus = this.TYPE_COUNT;
 				break;
 		}
 	}

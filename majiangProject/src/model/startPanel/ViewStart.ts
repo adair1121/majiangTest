@@ -36,7 +36,9 @@ class ViewStart extends BaseEuiView{
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
 			case this.createRoomBtn:
-				App.ViewManager.open(ViewConst.Create);
+				App.ViewManager.close(ViewConst.Start);
+				App.ViewManager.open(ViewConst.Game);
+				// App.ViewManager.open(ViewConst.Create);
 				break;
 			case this.joinRoomBtn:
 				App.ViewManager.open(ViewConst.Join);

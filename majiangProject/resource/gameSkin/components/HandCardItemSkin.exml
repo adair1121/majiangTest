@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="HandCardItemSkin" width="88" height="128" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="front_inhand_image_30_png" left="0" top="0"/>
+	<e:Image id="cardIcon" source="0x01_png" horizontalCenter="0.5" verticalCenter="8.5" anchorOffsetX="0" width="64.62" anchorOffsetY="0" height="77"/>
+</e:Skin>

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="ViewGameSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui">
+<e:Skin class="ViewGameSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="main_game_png" left="0" top="0" right="0" bottom="0"/>
-	<e:List width="315.33" height="224" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" bottom="88">
+	<e:List id="southList" width="504" height="152" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="6" useVirtualLayout="false" bottom="92">
 		<e:ArrayCollection>
 			<e:Array>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
@@ -23,75 +30,91 @@
 			<e:TileLayout/>
 		</e:layout>
 	</e:List>
-	<e:List width="315.33" height="224" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="88">
+	<e:List id="northList" width="504" height="154" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="92">
 		<e:ArrayCollection>
-		<e:Array>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-		</e:Array>
+			<e:Array>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+			</e:Array>
 		</e:ArrayCollection>
 		<e:layout>
 		<e:TileLayout/>
 		</e:layout>
 	</e:List>
-	<e:List width="315.33" height="224" y="200" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" x="383">
+	<e:List id="westList" width="504" height="148" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" left="226" top="111">
 		<e:ArrayCollection>
-		<e:Array>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-		</e:Array>
+			<e:Array>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+			</e:Array>
 		</e:ArrayCollection>
 		<e:layout>
 		<e:TileLayout/>
 		</e:layout>
 	</e:List>
-	<e:List width="315.33" height="224" y="517.57" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" x="897">
+	<e:List id="eastList" width="504" height="152" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="206" top="100">
 		<e:ArrayCollection>
-		<e:Array>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-			<e:Object card="null"/>
-		</e:Array>
+			<e:Array>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+			</e:Array>
 		</e:ArrayCollection>
 		<e:layout>
 		<e:TileLayout/>
-		</e:layout>
-	</e:List>
-	<e:List width="952" height="57" horizontalCenter="0" bottom="23" anchorOffsetY="0">
-		<e:layout>
-			<e:HorizontalLayout gap="0"/>
 		</e:layout>
 	</e:List>
 </e:Skin>

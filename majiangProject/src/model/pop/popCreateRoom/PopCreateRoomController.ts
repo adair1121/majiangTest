@@ -15,4 +15,5 @@ class PopCreateRoomController extends BaseController{
 		//初始化proxy
 		this.popCreateRoomProxy = new PopCreateRoomProxy(this);
 	}
+	
 }
