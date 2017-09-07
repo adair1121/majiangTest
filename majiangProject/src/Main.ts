@@ -170,7 +170,7 @@ class Main extends eui.UILayer {
         this.initMode();
          //设置加载进度界面
         App.SceneManager.runScene(SceneConsts.UI_SENCE);
-        SocketManager.getInstance().connectServer(Config.gameHost,Config.gamePort); 
+        // SocketManager.getInstance().connectServer(Config.gameHost,Config.gamePort); 
     }
     private initSence():void{
          App.SceneManager.register(SceneConsts.LOADING_SENCE, new SenceLoading());

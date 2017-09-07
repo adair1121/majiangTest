@@ -32,6 +32,17 @@ class CardTransFormUtil {
 			return cardNum&0x0F;
 		}
 	}
+	/**
+	 * 获取卡牌类型
+	 */
+	public static getCardType(cardNum:number):number{
+		var num:number = cardNum&0xF0;
+		if(num >= 16){
+			return (cardNum&0xF0)>>4
+		}else{
+			return cardNum&0x0F;
+		}
+	}
 	/**卡牌转换way2 10进制*/
 	public static trasnFormCardIdWay2(cardNum:number):number{
 		return parseInt(cardNum+"");
@@ -41,16 +52,14 @@ class CardTransFormUtil {
 	 */
 	public static cardSort(cardGather:number[]):any[]{
 		var arr:number[] = GlobalFunc.deepCopy(cardGather);
-		var cardArr:any[] = [];
+		var cardArr:number[] = [];
 		for(var i:number = 0;i<arr.length;i++){
-			var obj:any = {}
 			var cardNum:number = CardTransFormUtil.trasnFormCardIdWay2(arr[i]);
-			obj.card = arr[i];
-			obj.transFormCard = cardNum;
-			cardArr.push(obj);
+			cardArr.push(cardNum);
 		}
-		var operArr:any[] = GlobalFunc.sortRule(GlobalFunc.NORMALIZE,"transFormCard",cardArr);
+		var operArr:any[] = GlobalFunc.sortRule(GlobalFunc.NORMALIZE,"",cardArr);
 		return operArr;
 	}
 	
 }
+

@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,loading_png,bubble_png,setting_png,timeBg_png,pop_content_bg_png,pop_content_png,defaultRoomIcon_png,role_1_1_png,role_1_2_png,role_2_1_png,role_2_2_png,role_2_3_png,role_bg_png,seat_head_vip4_png,seat_head_vip5_png,seat_head_vip6_png,seat_head_vip7_png,seat_head_vip8_png,seat_head_vip9_png,seat_head_vip10_png,seat_head_龙戒头像框_png,seat_head_默认头像框_png,seat_head_01_png,seat_head_02_png,seat_head_03_png,seat_head_vip1_png,seat_head_vip2_png,seat_head_vip3_png,rome_list_bg_png,rome_list_title_png,button_key_png,normalFnt_fnt,normalFnt_png,0x01_png,0x02_png,0x03_png,0x04_png,0x05_png,0x06_png,0x07_png,0x08_png,0x09_png,0x11_png,0x12_png,0x13_png,0x14_png,0x15_png,0x16_png,0x17_png,0x18_png,0x19_png,0x21_png,0x22_png,0x23_png,0x24_png,0x25_png,0x26_png,0x27_png,0x28_png,0x29_png,opposite_block_image_30_png,front_inhand_image_30_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,loading_png,bubble_png,setting_png,timeBg_png,pop_content_bg_png,pop_content_png,defaultRoomIcon_png,role_1_1_png,role_1_2_png,role_2_1_png,role_2_2_png,role_2_3_png,role_bg_png,seat_head_vip4_png,seat_head_vip5_png,seat_head_vip6_png,seat_head_vip7_png,seat_head_vip8_png,seat_head_vip9_png,seat_head_vip10_png,seat_head_龙戒头像框_png,seat_head_默认头像框_png,seat_head_01_png,seat_head_02_png,seat_head_03_png,seat_head_vip1_png,seat_head_vip2_png,seat_head_vip3_png,rome_list_bg_png,rome_list_title_png,button_key_png,normalFnt_fnt,normalFnt_png,0x01_png,0x02_png,0x03_png,0x04_png,0x05_png,0x06_png,0x07_png,0x08_png,0x09_png,0x11_png,0x12_png,0x13_png,0x14_png,0x15_png,0x16_png,0x17_png,0x18_png,0x19_png,0x21_png,0x22_png,0x23_png,0x24_png,0x25_png,0x26_png,0x27_png,0x28_png,0x29_png,opposite_block_image_30_png,front_inhand_image_30_png,front_block_back_30_png",
 			"name": "preload"
 		}
 	],
@@ -560,6 +560,11 @@
 			"name": "front_inhand_image_30_png",
 			"type": "image",
 			"url": "assets/ui/card/front_inhand_image_30.png"
+		},
+		{
+			"name": "front_block_back_30_png",
+			"type": "image",
+			"url": "assets/ui/card/front_block_back_30.png"
 		}
 	]
 }

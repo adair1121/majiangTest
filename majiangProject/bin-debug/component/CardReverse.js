@@ -6,20 +6,14 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var HandCardItem = (function (_super) {
-    __extends(HandCardItem, _super);
-    function HandCardItem(icon) {
+var CardReverse = (function (_super) {
+    __extends(CardReverse, _super);
+    function CardReverse() {
         var _this = _super.call(this) || this;
-        _this.path_icon = "";
-        _this.skinName = "HandCardItemSkin";
-        _this.cardId = icon;
-        _this.path_icon = Config.path_card + icon + ".png";
+        _this.skinName = "CardReverseSkin";
         return _this;
     }
-    HandCardItem.prototype.childrenCreated = function () {
-        this.cardIcon.source = this.path_icon;
-    };
-    return HandCardItem;
+    return CardReverse;
 }(eui.Component));
-__reflect(HandCardItem.prototype, "HandCardItem");
-//# sourceMappingURL=HandCardItem.js.map
+__reflect(CardReverse.prototype, "CardReverse");
+//# sourceMappingURL=CardReverse.js.map

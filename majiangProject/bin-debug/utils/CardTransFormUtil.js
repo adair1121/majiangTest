@@ -16,6 +16,18 @@ var CardTransFormUtil = (function () {
             return cardNum & 0x0F;
         }
     };
+    /**
+     * 获取卡牌类型
+     */
+    CardTransFormUtil.getCardType = function (cardNum) {
+        var num = cardNum & 0xF0;
+        if (num >= 16) {
+            return (cardNum & 0xF0) >> 4;
+        }
+        else {
+            return cardNum & 0x0F;
+        }
+    };
     /**卡牌转换way2 10进制*/
     CardTransFormUtil.trasnFormCardIdWay2 = function (cardNum) {
         return parseInt(cardNum + "");
@@ -27,13 +39,10 @@ var CardTransFormUtil = (function () {
         var arr = GlobalFunc.deepCopy(cardGather);
         var cardArr = [];
         for (var i = 0; i < arr.length; i++) {
-            var obj = {};
             var cardNum = CardTransFormUtil.trasnFormCardIdWay2(arr[i]);
-            obj.card = arr[i];
-            obj.transFormCard = cardNum;
-            cardArr.push(obj);
+            cardArr.push(cardNum);
         }
-        var operArr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "transFormCard", cardArr);
+        var operArr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", cardArr);
         return operArr;
     };
     return CardTransFormUtil;

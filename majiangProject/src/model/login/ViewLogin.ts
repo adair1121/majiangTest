@@ -33,6 +33,9 @@ class ViewLogin extends BaseEuiView{
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
 			case this.btnLogin:
+			//测试代码
+					App.ViewManager.close(ViewConst.Login);
+					App.ViewManager.open(ViewConst.Start);
 				if(Config.connectState){
 					// var account = egret.localStorage.getItem("account");
 					// var pwd = egret.localStorage.getItem("pwd");

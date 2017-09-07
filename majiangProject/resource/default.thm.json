@@ -30,6 +30,7 @@
     "resource/eui_skins/VScrollBarSkin.exml",
     "resource/eui_skins/VSliderSkin.exml",
     "resource/gameSkin/components/CardItemSkin.exml",
+    "resource/gameSkin/components/CardReverseSkin.exml",
     "resource/gameSkin/components/HandCardItemSkin.exml",
     "resource/gameSkin/components/MyButtonSkin.exml",
     "resource/gameSkin/components/MyRadioSkin.exml",
