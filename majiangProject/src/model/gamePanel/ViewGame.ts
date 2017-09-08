@@ -122,7 +122,7 @@ class ViewGame extends BaseEuiView{
 		for(var i:number = 0,len = cardGroup.length;i<len;i++){
 			var cardTempleId:number = CardTransFormUtil.trasnFormCardIdWay2(cardGroup[i]);
 			var cardTemple:data.CardConfigTemple = temple.TempleManager.select(cardTempleId) as data.CardConfigTemple;
-			var card:HandCardItem = new HandCardItem(cardTemple.icon);
+			var card:HandCardItem = new HandCardItem(cardTemple);
 			if(!ifAddCard){
 				card.x = card.width*i;
 			}else{

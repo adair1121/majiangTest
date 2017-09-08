@@ -58,11 +58,19 @@ declare class HandCardItemSkin extends eui.Skin{
 }
 declare class MyButtonSkin extends eui.Skin{
 }
+declare class MyHSliderSkin extends eui.Skin{
+}
+declare class MyProgressBarSkin extends eui.Skin{
+}
 declare class MyRadioSkin extends eui.Skin{
 }
 declare class PopCreateRoomSkin extends eui.Skin{
 }
+declare class PopHomeSetSkin extends eui.Skin{
+}
 declare class PopJoinRomeSkin extends eui.Skin{
+}
+declare class PopMyScore extends eui.Skin{
 }
 declare class LoadingUISkin extends eui.Skin{
 }

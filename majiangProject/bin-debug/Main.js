@@ -184,6 +184,8 @@ var Main = (function (_super) {
         App.ControllerManager.register(ControllerConst.GAME_CONTROLLER, new GameController);
         App.ControllerManager.register(ControllerConst.JOIN_ROOM, new PopJoinRoomController);
         App.ControllerManager.register(ControllerConst.CREATE_ROOM, new PopCreateRoomController);
+        App.ControllerManager.register(ControllerConst.SYSTEM_SET, new PopSystemSetController);
+        App.ControllerManager.register(ControllerConst.MY_SCORE, new PopMyScoreController);
     };
     return Main;
 }(eui.UILayer));

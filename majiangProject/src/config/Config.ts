@@ -36,9 +36,15 @@ class Config {
 	/**当前玩家手牌容器初始y */
 	public static y_handCard:number = 580;
 
+	/**默认游戏背景音乐强度百分比 */
+	public static bgSoundPercent:number = 50;
+	/**默认游戏音效强度百分比 */
+	public static soundEffectPercent:number = 50;
+
 	/**卡牌资源路径 */
 	public static path_card:string = "../resource/assets/ui/card/";
-
+	/**音频路径 */
+	public static audio_path:string = "../resource/assets/audio/";
 	/**网络连接状态 */
 	public static connectState:boolean;
 	/**当前游戏宽度 */

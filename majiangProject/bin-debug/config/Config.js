@@ -42,8 +42,14 @@ Config.h_handCard = 128;
 Config.x_handCard = 96;
 /**当前玩家手牌容器初始y */
 Config.y_handCard = 580;
+/**默认游戏背景音乐强度百分比 */
+Config.bgSoundPercent = 50;
+/**默认游戏音效强度百分比 */
+Config.soundEffectPercent = 50;
 /**卡牌资源路径 */
 Config.path_card = "../resource/assets/ui/card/";
+/**音频路径 */
+Config.audio_path = "../resource/assets/audio/";
 /**时间戳 */
 Config.time_stamps = 0;
 __reflect(Config.prototype, "Config");

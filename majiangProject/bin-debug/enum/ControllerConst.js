@@ -11,5 +11,7 @@ ControllerConst.START_CONTROLLER = 10002;
 ControllerConst.GAME_CONTROLLER = 10003;
 ControllerConst.JOIN_ROOM = 10004;
 ControllerConst.CREATE_ROOM = 10005;
+ControllerConst.SYSTEM_SET = 10006;
+ControllerConst.MY_SCORE = 10007;
 __reflect(ControllerConst.prototype, "ControllerConst");
 //# sourceMappingURL=ControllerConst.js.map

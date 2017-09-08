@@ -8,16 +8,30 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var HandCardItem = (function (_super) {
     __extends(HandCardItem, _super);
-    function HandCardItem(icon) {
+    function HandCardItem(template) {
         var _this = _super.call(this) || this;
         _this.path_icon = "";
+        _this.soundObj = {};
         _this.skinName = "HandCardItemSkin";
-        _this.cardId = icon;
-        _this.path_icon = Config.path_card + icon + ".png";
+        _this.cardId = template.icon;
+        _this.path_icon = Config.path_card + _this.cardId + ".png";
+        RES.getResByUrl(Config.audio_path + template.manVoice + ".mp3", function (value) {
+            this.soundObj[1] = value.originAudio;
+        }, _this, RES.ResourceItem.TYPE_SOUND);
+        RES.getResByUrl(Config.audio_path + template.womenVoice + ".mp3", function (value) {
+            this.soundObj[1] = value;
+        }, _this, RES.ResourceItem.TYPE_SOUND);
         return _this;
     }
     HandCardItem.prototype.childrenCreated = function () {
         this.cardIcon.source = this.path_icon;
+    };
+    HandCardItem.prototype.playEffect = function (sex) {
+        this.sound = this.soundObj[sex];
+        if (this.sound) {
+            this.channel = this.sound.play(0, 1);
+            this.channel.volume = 0;
+        }
     };
     return HandCardItem;
 }(eui.Component));

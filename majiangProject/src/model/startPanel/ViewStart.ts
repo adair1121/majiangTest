@@ -4,6 +4,9 @@ class ViewStart extends BaseEuiView{
 	public playerId:eui.Label;
 	public createRoomBtn:eui.Button;
 	public joinRoomBtn:eui.Button;
+	public addCardBtn:eui.Image;
+	public buttonSet:eui.Image;
+	public buttonScore:eui.Image;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
 		this.skinName = "ViewStartSkin";
@@ -25,7 +28,7 @@ class ViewStart extends BaseEuiView{
 	 * 面板开启执行函数
 	 */
 	public open(param:any[]):void{
-
+		
 	}
 	/**
 	 * 面板关闭执行函数
@@ -42,6 +45,12 @@ class ViewStart extends BaseEuiView{
 				break;
 			case this.joinRoomBtn:
 				App.ViewManager.open(ViewConst.Join);
+				break;
+			case this.buttonSet:
+				App.ViewManager.open(ViewConst.SystemSet);
+				break;
+			case this.buttonScore:
+				App.ViewManager.open(ViewConst.MyScore);
 				break;
 		}
 	}

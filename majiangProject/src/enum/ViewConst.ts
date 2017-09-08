@@ -5,6 +5,8 @@ class ViewConst {
 	public static Game:number = 10003;
 	public static Join:number = 10004;
 	public static Create:number = 10005;
+	public static SystemSet:number = 10006;
+	public static MyScore:number = 10007;
 	public constructor() {
 	}
 }

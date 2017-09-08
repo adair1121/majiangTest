@@ -12,5 +12,7 @@ ViewConst.Start = 10002;
 ViewConst.Game = 10003;
 ViewConst.Join = 10004;
 ViewConst.Create = 10005;
+ViewConst.SystemSet = 10006;
+ViewConst.MyScore = 10007;
 __reflect(ViewConst.prototype, "ViewConst");
 //# sourceMappingURL=ViewConst.js.map

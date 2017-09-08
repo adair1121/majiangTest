@@ -10,11 +10,7 @@ var PopJoinRome = (function (_super) {
     __extends(PopJoinRome, _super);
     function PopJoinRome($controller, $parent) {
         var _this = _super.call(this, $controller, $parent) || this;
-        _this.accountNum = "";
-        _this.pwdNum = "";
-        _this.type = "";
-        _this.TYPE_ACC = "account";
-        _this.TYPE_PWD = "pwd";
+        _this.romeNum = "";
         _this.skinName = "PopJoinRomeSkin";
         return _this;
     }
@@ -33,45 +29,49 @@ var PopJoinRome = (function (_super) {
      * 面板开启执行函数
      */
     PopJoinRome.prototype.open = function (param) {
-        this.type = this.TYPE_ACC;
+        this.initRoomNum();
         this.collect.source = [{ num: "1" }, { num: "2" }, { num: "3" }, { num: "4" }, { num: "5" }, { num: "6" },
-            { num: "7" }, { num: "8" }, { num: "9" }, { num: "0" }];
+            { num: "7" }, { num: "8" }, { num: "9" }, { num: "r" }, { num: "0" }, { num: "d" }];
         this.x = (this.myParent.width >> 1) - (this.measuredWidth >> 1);
         this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
+    };
+    PopJoinRome.prototype.initRoomNum = function () {
+        for (var i = 1; i <= 6; i++) {
+            this["num" + i].text = "";
+        }
     };
     /**
      * 面板关闭执行函数
      */
     PopJoinRome.prototype.close = function (param) {
-        this.accountNum = "";
-        this.pwdNum = "";
-        this.account.text = this.accountNum;
-        this.pwd.text = this.pwdNum;
+        App.ViewManager.close(ViewConst.Join);
     };
     PopJoinRome.prototype.onItemTap = function (evt) {
-        if (this.type === this.TYPE_ACC) {
-            this.accountNum += evt.item.num + "";
-            this.account.text = this.accountNum;
-        }
-        else {
-            this.pwdNum += evt.item.num + "";
-            this.pwd.text = this.pwdNum;
+        switch (evt.item.num) {
+            case "d":
+                if (this.romeNum.length > 0) {
+                    var arr = this.romeNum.split("");
+                    arr.pop();
+                    this.romeNum = arr.join("");
+                }
+                break;
+            case "r":
+                this.romeNum = "";
+                this.initRoomNum();
+                break;
+            default:
+                if (this.romeNum.length < 6) {
+                    this.romeNum += evt.item.num;
+                }
+                else {
+                }
+                break;
         }
     };
     PopJoinRome.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.btnClose:
-                App.ViewManager.close(ViewConst.Join);
-                break;
-            case this.txtHome:
-                this.type = this.TYPE_ACC;
-                break;
-            case this.txtPwd:
-                this.type = this.TYPE_PWD;
-                break;
-            case this.joinBtn:
-                //加入房间
-                alert("加入房间");
+                this.close([]);
                 break;
         }
     };

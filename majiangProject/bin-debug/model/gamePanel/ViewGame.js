@@ -118,7 +118,7 @@ var ViewGame = (function (_super) {
         for (var i = 0, len = cardGroup.length; i < len; i++) {
             var cardTempleId = CardTransFormUtil.trasnFormCardIdWay2(cardGroup[i]);
             var cardTemple = temple.TempleManager.select(cardTempleId);
-            var card = new HandCardItem(cardTemple.icon);
+            var card = new HandCardItem(cardTemple);
             if (!ifAddCard) {
                 card.x = card.width * i;
             }
@@ -183,6 +183,7 @@ var ViewGame = (function (_super) {
         //打出牌添加数据源
         this.addCardItem(this.southCollect, obj);
         //移除手牌item
+        this.curTarget.playEffect(1);
         var curX = this.curTarget.x;
         this.cardSprite.removeChild(this.curTarget);
         if (this.curTarget != this.newCard) {

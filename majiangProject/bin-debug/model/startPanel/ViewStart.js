@@ -46,6 +46,12 @@ var ViewStart = (function (_super) {
             case this.joinRoomBtn:
                 App.ViewManager.open(ViewConst.Join);
                 break;
+            case this.buttonSet:
+                App.ViewManager.open(ViewConst.SystemSet);
+                break;
+            case this.buttonScore:
+                App.ViewManager.open(ViewConst.MyScore);
+                break;
         }
     };
     return ViewStart;
