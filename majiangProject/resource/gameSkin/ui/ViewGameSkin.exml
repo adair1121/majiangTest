@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="ViewGameSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="main_game_jpg" left="0" top="0" right="0" bottom="0"/>
-	<e:List id="southList" width="504" height="152" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="6" useVirtualLayout="false" top="476">
+	<e:List id="southList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" top="439">
 		<e:ArrayCollection>
 			<e:Array>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
@@ -27,14 +25,12 @@
 			</e:Array>
 		</e:ArrayCollection>
 		<e:layout>
-			<e:TileLayout/>
+			<e:TileLayout requestedColumnCount="6"/>
 		</e:layout>
 	</e:List>
-	<e:List id="northList" width="504" height="154" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="92">
+	<e:List id="northList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="92">
 		<e:ArrayCollection>
 			<e:Array>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
@@ -59,11 +55,9 @@
 		<e:TileLayout/>
 		</e:layout>
 	</e:List>
-	<e:List id="westList" width="504" height="148" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" left="226" top="111">
+	<e:List id="westList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" left="296" top="231">
 		<e:ArrayCollection>
 			<e:Array>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
@@ -88,11 +82,9 @@
 		<e:TileLayout/>
 		</e:layout>
 	</e:List>
-	<e:List id="eastList" width="504" height="152" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="206" top="100">
+	<e:List id="eastList" width="258" height="184" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="296" top="246">
 		<e:ArrayCollection>
 			<e:Array>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
@@ -114,7 +106,11 @@
 			</e:Array>
 		</e:ArrayCollection>
 		<e:layout>
-		<e:TileLayout/>
+		<e:TileLayout requestedColumnCount="6"/>
 		</e:layout>
 	</e:List>
+	<e:Image source="timeBg_png" horizontalCenter="0" verticalCenter="0"/>
+	<e:Group id="leftGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" left="115"/>
+	<e:Group id="rightGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" right="108"/>
+	<e:Group id="topGroup" width="694" height="56.06" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0" top="21"/>
 </e:Skin>

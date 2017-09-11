@@ -19,7 +19,7 @@ var HandCardItem = (function (_super) {
             this.soundObj[1] = value.originAudio;
         }, _this, RES.ResourceItem.TYPE_SOUND);
         RES.getResByUrl(Config.audio_path + template.womenVoice + ".mp3", function (value) {
-            this.soundObj[1] = value;
+            this.soundObj[2] = value;
         }, _this, RES.ResourceItem.TYPE_SOUND);
         return _this;
     }
@@ -30,7 +30,7 @@ var HandCardItem = (function (_super) {
         this.sound = this.soundObj[sex];
         if (this.sound) {
             this.channel = this.sound.play(0, 1);
-            this.channel.volume = 0;
+            this.channel.volume = Config.soundEffectPercent;
         }
     };
     return HandCardItem;

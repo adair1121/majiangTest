@@ -14,7 +14,7 @@ class HandCardItem extends eui.Component{
 			this.soundObj[1] = value.originAudio;
 		},this,RES.ResourceItem.TYPE_SOUND);
 		RES.getResByUrl(Config.audio_path + template.womenVoice+".mp3",function(value){
-			this.soundObj[1] = value;
+			this.soundObj[2] = value;
 		},this,RES.ResourceItem.TYPE_SOUND);
 		
 	}

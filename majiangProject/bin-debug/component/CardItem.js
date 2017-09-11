@@ -9,10 +9,19 @@ var __extends = (this && this.__extends) || function (d, b) {
 var CardItem = (function (_super) {
     __extends(CardItem, _super);
     function CardItem() {
-        return _super.call(this) || this;
+        var _this = _super.call(this) || this;
+        _this.defaultBg = "opposite_block_image_30_png";
+        _this.leftBg = "dachupai_left";
+        return _this;
     }
     CardItem.prototype.dataChanged = function () {
         this.cardIcon.source = this.data.icon;
+        if (this.data.cardBg) {
+            this.cardBg.source = this.leftBg;
+        }
+        else {
+            this.cardBg.source = this.defaultBg;
+        }
     };
     return CardItem;
 }(eui.ItemRenderer));
