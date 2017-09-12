@@ -52,6 +52,8 @@ declare module skins{
 }
 declare class CardItemSkin extends eui.Skin{
 }
+declare class CardMapSkin extends eui.Skin{
+}
 declare class CardReverseSkin extends eui.Skin{
 }
 declare class HandCardItemSkin extends eui.Skin{

@@ -27,7 +27,7 @@ class ViewGame extends BaseEuiView{
 	private seatObj:any = {};
 	private assetObj:any = {};
 	private dachuObj:any = {};
-	private testCardobj:number[] = [0x24,0x11,0x23,0x12,0x18,0x22,0x19,0x21,0x17,0x18,0x25,0x11,0x21,0x21];
+	private testCardobj:number[] = [0x24,0x11,0x23,0x12,0x18,0x22,0x19,0x21,0x17,0x18,0x25,0x11,0x21];
 	private testCardObj2:number[] = [];
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
@@ -44,6 +44,8 @@ class ViewGame extends BaseEuiView{
 		this.eastCollect = new eui.ArrayCollection();
 		this.cardSprite = new egret.Sprite();
 		this.addChild(this.cardSprite);
+		this.cardSprite.y = Config.w_height - Config.h_handCard;
+		this.cardSprite.x = Config.w_handCard;
 		this.northList.itemRenderer = CardItem;
 		this.northList.dataProvider = this.northCollect;
 		this.southList.itemRenderer = CardItem;
@@ -91,17 +93,32 @@ class ViewGame extends BaseEuiView{
 	 */
 	public open(param:any[]):void{
 		/**测试数据 */
+		var cardMap:CardMap = new CardMap();
+		this.addChild(cardMap);
+		cardMap.x = (Config.w_width>>1) - (cardMap.width>>1);
+		cardMap.y = (Config.w_height>>1) - (cardMap.height>>1);
+		cardMap.calculBlock(5,5,data.Seat.East,4);
 		this.testCardObj2 = this.testCardObj2.concat(this.testCardobj);
-		CardTransFormUtil.startGetCard(data.Seat.South,4,this.testCardObj2,this.cardSprite,(dataObj)=>{
+		CardTransFormUtil.startGetCard(data.Seat.East,4,this.testCardObj2,this.cardSprite,(dataObj)=>{
 			if(dataObj.final){
 				//切牌发牌完毕
 				this.cardSprite.removeChildren();
 				var arr:number[] = GlobalFunc.sortRule(GlobalFunc.NORMALIZE,"",this.testCardobj);
 				this.addCardGroup(arr);
+				// this.outCard(data.Seat.North,"0x21");
 			}else{
 				if(dataObj.handCard.length){
 					//当前为自己的手牌显示
 					this.addCardGroup(dataObj.handCard);
+					if(dataObj.handCard.length >= 4){
+						cardMap.removeBlock();
+					}
+					if(dataObj.handCard.length === 2){
+						cardMap.removeJumpItem();
+					}
+					if(dataObj.handCard.length === 1){
+						cardMap.removeItem();
+					}
 				}else{
 					//当前为别的玩家手牌显示
 					for(var i:number = 0;i<dataObj.num;i++){
@@ -114,6 +131,17 @@ class ViewGame extends BaseEuiView{
 							img.y = this.seatObj[dataObj.seat].numChildren * img.width;
 						}
 					}
+					if(dataObj.num === 4){
+						//当前单次获得卡牌数为4张
+						cardMap.removeBlock();
+					}
+					if(dataObj.num === 2){
+						//跳牌
+						cardMap.removeJumpItem();
+					}
+					if(dataObj.num === 1){
+						cardMap.removeItem();
+					}
 				}
 			}
 		},this)
@@ -123,6 +151,12 @@ class ViewGame extends BaseEuiView{
 	 */
 	public close(param:any[]):void{
 
+	}
+	/**
+	 * 码牌算法
+	 */
+	private createCardMap():void{
+		
 	}
 	/**添加打出卡牌 */
 	private addCardItem(collect:eui.ArrayCollection,item:any):void{

@@ -45,7 +45,18 @@ var CardTransFormUtil = (function () {
         var operArr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", cardArr);
         return operArr;
     };
-    /**开始发牌 */
+    /**
+     * 重新开始游戏
+     *  @param:seat {number} 当前庄家枚举位置
+     *  @param:peopleNum {number} 当前游戏人数
+     * 	@param:cardGather {number[]} 当前玩家手牌集合
+     * 	@param:cardSprite {egret.Sprite} 当前玩家手牌集合父级容器
+     *  @param:callBack {Function} 回调函数
+     * 	@param:arg {any} 作用于
+     *  -----------------desc------------------------
+     *  回调返回参数 final{当前是否已经发牌完毕};handCard{当前玩家需要添加的手牌集合 长度为0
+     *  表示添加非自己玩家手牌数};seat {当前需要添加手牌的用户，自己除外}
+     */
     CardTransFormUtil.startGetCard = function (seat, peopleNum, cardGather, cardSprite, callBack, arg) {
         var arr = [];
         CardTransFormUtil.zhuangjiaPos = seat;
@@ -121,12 +132,12 @@ var CardTransFormUtil = (function () {
                 callBackFunc.call(arg, { final: false, handCard: handCard, num: num, seat: seat });
             }
         }
-        if (final && seat === data.Seat.South) {
+        if (final) {
             var timeOut = egret.setTimeout(function () {
                 egret.clearTimeout(timeOut);
                 CardTransFormUtil.num = 0;
                 CardTransFormUtil.overTurnThis(cardSprite, cardSprite, 1, callBackFunc, arg);
-            }, this, 500);
+            }, this, 300);
         }
     };
     /**翻牌效果 */

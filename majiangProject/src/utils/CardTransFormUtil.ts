@@ -159,12 +159,12 @@ class CardTransFormUtil {
 			// }
 			
 		}
-		if(final && seat === data.Seat.South){
+		if(final){
 			var timeOut = egret.setTimeout(()=>{
 				egret.clearTimeout(timeOut);
 				CardTransFormUtil.num = 0;
 				CardTransFormUtil.overTurnThis(cardSprite,cardSprite,1,callBackFunc,arg);
-			},this,500)
+			},this,300)
 		}
 	}
 	/**翻牌效果 */

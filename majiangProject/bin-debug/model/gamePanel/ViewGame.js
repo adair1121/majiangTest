@@ -20,9 +20,9 @@ var ViewGame = (function (_super) {
         _this.moveStep = 100;
         _this.seatObj = {};
         _this.assetObj = {};
-        _this.testCardobj = [0x24, 0x11, 0x23, 0x12, 0x18, 0x22, 0x19, 0x21, 0x17, 0x18, 0x25, 0x11, 0x21, 0x21];
+        _this.dachuObj = {};
+        _this.testCardobj = [0x24, 0x11, 0x23, 0x12, 0x18, 0x22, 0x19, 0x21, 0x17, 0x18, 0x25, 0x11, 0x21];
         _this.testCardObj2 = [];
-        _this.getCardNum = 3;
         _this.skinName = "ViewGameSkin";
         return _this;
     }
@@ -35,13 +35,10 @@ var ViewGame = (function (_super) {
         this.southCollect = new eui.ArrayCollection();
         this.westCollect = new eui.ArrayCollection();
         this.eastCollect = new eui.ArrayCollection();
-        this.basicCardSprite = new egret.Sprite();
-        this.addChild(this.basicCardSprite);
-        this.basicCardSprite.touchEnabled = false;
         this.cardSprite = new egret.Sprite();
         this.addChild(this.cardSprite);
-        this.basicCardSprite.x = this.cardSprite.x = Config.w_handCard;
-        this.basicCardSprite.y = this.cardSprite.y = Config.w_height - Config.h_handCard;
+        this.cardSprite.y = Config.w_height - Config.h_handCard;
+        this.cardSprite.x = Config.w_handCard;
         this.northList.itemRenderer = CardItem;
         this.northList.dataProvider = this.northCollect;
         this.southList.itemRenderer = CardItem;
@@ -54,6 +51,9 @@ var ViewGame = (function (_super) {
         this.seatObj[data.Seat.East] = this.rightGroup;
         this.seatObj[data.Seat.South] = this.cardSprite;
         this.seatObj[data.Seat.West] = this.leftGroup;
+        this.dachuObj[data.Seat.North] = this.northCollect;
+        this.dachuObj[data.Seat.East] = this.eastCollect;
+        this.dachuObj[data.Seat.West] = this.westCollect;
         this.assetObj[data.Seat.North] = "shoupai_duijia_png";
         this.assetObj[data.Seat.East] = "shoupai_you_png";
         this.assetObj[data.Seat.West] = "shoupai_zuo_png";
@@ -76,18 +76,24 @@ var ViewGame = (function (_super) {
         this.prevTarget = null;
         this.newCard = null;
         this.clickState = false;
-        this.getCardNum = 3;
         this.cardSprite.removeChildren();
+        this.topGroup.removeChildren();
+        this.leftGroup.removeChildren();
+        this.rightGroup.removeChildren();
     };
     /**
      * 面板开启执行函数
      */
     ViewGame.prototype.open = function (param) {
-        /**测试数据 */
         var _this = this;
-        // this.startGetCard(data.Seat.North,2);
+        /**测试数据 */
+        var cardMap = new CardMap();
+        this.addChild(cardMap);
+        cardMap.x = (Config.w_width >> 1) - (cardMap.width >> 1);
+        cardMap.y = (Config.w_height >> 1) - (cardMap.height >> 1);
+        cardMap.calculBlock(5, 5, data.Seat.East, 4);
         this.testCardObj2 = this.testCardObj2.concat(this.testCardobj);
-        CardTransFormUtil.startGetCard(data.Seat.South, 4, this.testCardObj2, this.cardSprite, function (dataObj) {
+        CardTransFormUtil.startGetCard(data.Seat.East, 4, this.testCardObj2, this.cardSprite, function (dataObj) {
             if (dataObj.final) {
                 //切牌发牌完毕
                 _this.cardSprite.removeChildren();
@@ -98,6 +104,15 @@ var ViewGame = (function (_super) {
                 if (dataObj.handCard.length) {
                     //当前为自己的手牌显示
                     _this.addCardGroup(dataObj.handCard);
+                    if (dataObj.handCard.length >= 4) {
+                        cardMap.removeBlock();
+                    }
+                    if (dataObj.handCard.length === 2) {
+                        cardMap.removeJumpItem();
+                    }
+                    if (dataObj.handCard.length === 1) {
+                        cardMap.removeItem();
+                    }
                 }
                 else {
                     //当前为别的玩家手牌显示
@@ -112,6 +127,17 @@ var ViewGame = (function (_super) {
                             img.y = _this.seatObj[dataObj.seat].numChildren * img.width;
                         }
                     }
+                    if (dataObj.num === 4) {
+                        //当前单次获得卡牌数为4张
+                        cardMap.removeBlock();
+                    }
+                    if (dataObj.num === 2) {
+                        //跳牌
+                        cardMap.removeJumpItem();
+                    }
+                    if (dataObj.num === 1) {
+                        cardMap.removeItem();
+                    }
                 }
             }
         }, this);
@@ -120,6 +146,11 @@ var ViewGame = (function (_super) {
      * 面板关闭执行函数
      */
     ViewGame.prototype.close = function (param) {
+    };
+    /**
+     * 码牌算法
+     */
+    ViewGame.prototype.createCardMap = function () {
     };
     /**添加打出卡牌 */
     ViewGame.prototype.addCardItem = function (collect, item) {
@@ -190,20 +221,59 @@ var ViewGame = (function (_super) {
             if (interVal > Config.h_handCard) {
                 //==此处需要与服务器进行交互===
                 //假设出牌成功
-                this.outCard();
+                this.outCard(data.Seat.South);
             }
         }
     };
     /**出牌 */
-    ViewGame.prototype.outCard = function () {
-        var obj = { icon: this.curTarget.path_icon };
-        //打出牌添加数据源
-        this.addCardItem(this.southCollect, obj);
-        //移除手牌item
-        var curX = this.curTarget.x;
-        this.cardSprite.removeChild(this.curTarget);
-        if (this.curTarget != this.newCard) {
-            this.setCardToPosition(curX);
+    ViewGame.prototype.outCard = function (seat, iconId) {
+        if (iconId === void 0) { iconId = ""; }
+        if (seat === data.Seat.South) {
+            var obj = { icon: this.curTarget.path_icon };
+            //打出牌添加数据源
+            this.addCardItem(this.southCollect, obj);
+            //移除手牌item
+            var curX = this.curTarget.x;
+            this.cardSprite.removeChild(this.curTarget);
+            if (this.curTarget != this.newCard) {
+                this.setCardToPosition(curX);
+            }
+        }
+        else {
+            var mx = 0;
+            var my = 0;
+            var moveStepObj = {};
+            if (seat === data.Seat.East || seat === data.Seat.West) {
+                my = 1;
+                mx = 0;
+            }
+            else {
+                mx = 1;
+                my = 0;
+            }
+            //其他玩家打出手牌
+            var index = (Math.random() * 12 + 1) >> 0;
+            this.addCardItem(this.dachuObj[seat], { cardBg: 1, icon: Config.path_card + iconId + ".png" });
+            var len = this.seatObj[seat].numChildren;
+            var arr = [];
+            for (var i = 0; i < len; i++) {
+                if (i > index) {
+                    arr.push(this.seatObj[seat].getChildAt(i));
+                }
+            }
+            this.seatObj[seat].removeChildAt(index);
+            for (var j = 0; j < arr.length; j++) {
+                var item = arr[j];
+                if (mx) {
+                    moveStepObj = { x: item.x - item.width };
+                }
+                if (my) {
+                    moveStepObj = { y: item.y - item.height };
+                }
+                egret.Tween.get(item).to(moveStepObj, this.moveStep).call(function () {
+                    egret.Tween.removeTweens(item);
+                }, this);
+            }
         }
     };
     /**设置牌位置 */
