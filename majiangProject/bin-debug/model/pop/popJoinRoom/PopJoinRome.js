@@ -64,6 +64,8 @@ var PopJoinRome = (function (_super) {
                     this.romeNum += evt.item.num;
                 }
                 else {
+                    //请求加入房间
+                    this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.JOIN_ROOM_C2S, { tableId: this.romeNum });
                 }
                 break;
         }

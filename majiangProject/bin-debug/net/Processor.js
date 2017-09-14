@@ -34,6 +34,44 @@ var proto;
         Processor.prototype.do_s_LoginAccount = function (mess) {
             App.MessageCenter.dispatch(LoginConsts.LOGIN_S2C, mess);
         };
+        Processor.prototype.do_s_Kickout = function (mess) {
+            App.MessageCenter.dispatch(LoginConsts.KICK_OUT_S2C, mess);
+        };
+        Processor.prototype.do_s_CreateRoom = function (mess) {
+            App.MessageCenter.dispatch(StartConsts.CREATE_ROOM_S2C, mess);
+        };
+        Processor.prototype.do_s_EnterRoom = function (mess) {
+            App.MessageCenter.dispatch(StartConsts.JOIN_ROOM_S2C, mess);
+        };
+        Processor.prototype.do_s_AttrChange = function (mess) {
+        };
+        /**加入玩家信息 */
+        Processor.prototype.do_s_NotifyEnterTable = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.OTHER_ENTERTABEL_S2C, mess);
+        };
+        /**玩家离开座位 */
+        Processor.prototype.do_s_NotifyLeaveTable = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.LEAVETABLE_S2C, mess);
+        };
+        /**通知手牌信息 */
+        Processor.prototype.do_s_NotifyHandCards = function (mess) {
+        };
+        /**通知发牌信息 */
+        Processor.prototype.do_s_NotifyDealCard = function (mess) {
+        };
+        /**通知打牌信息 */
+        Processor.prototype.do_s_NotifyPlayCard = function (mess) {
+        };
+        /**通知打牌响应 */
+        Processor.prototype.do_s_NotifyPlayResponse = function (mess) {
+        };
+        /**通知切换操作玩家 */
+        Processor.prototype.do_s_NotifyChangeOpUser = function (mess) {
+        };
+        /**游戏结束通知所有玩家手牌信息 */
+        Processor.prototype.do_s_NotifyEndHandCards = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.CURGAME_END_S2C, mess);
+        };
         return Processor;
     }(proto.MessageHandle));
     proto.Processor = Processor;

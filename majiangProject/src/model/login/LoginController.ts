@@ -18,6 +18,8 @@ class LoginController extends BaseController{
 		this.registerFunc(LoginConsts.LOGIN_C2S,this.onLogin,this);
 		/**注册s2c */
 		this.registerFunc(LoginConsts.LOGIN_S2C,this.loginSuccess,this);
+		this.registerFunc(LoginConsts.KICK_OUT_S2C,this.onKickOut,this);
+		
 	}
 	/**
      * 请求登陆处理
@@ -47,4 +49,8 @@ class LoginController extends BaseController{
 
         // var model:BaseModel = this.getControllerModel(ControllerConst.Login);
     }
+	/**被踢出 */
+	private onKickOut(msg:proto.s_Kickout):void{
+		alert(msg.reason);
+	}
 }

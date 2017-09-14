@@ -18,11 +18,13 @@ var ViewGame = (function (_super) {
         _this.getCardGroupTime = 1000;
         /**移动步长 */
         _this.moveStep = 100;
+        _this.TYPE_WAIT = "wait";
+        _this.TYPE_GAME = "game";
+        _this.curGameState = 0;
         _this.seatObj = {};
         _this.assetObj = {};
         _this.dachuObj = {};
         _this.testCardobj = [0x24, 0x11, 0x23, 0x12, 0x18, 0x22, 0x19, 0x21, 0x17, 0x18, 0x25, 0x11, 0x21];
-        _this.testCardObj2 = [];
         _this.skinName = "ViewGameSkin";
         return _this;
     }
@@ -85,19 +87,70 @@ var ViewGame = (function (_super) {
      * 面板开启执行函数
      */
     ViewGame.prototype.open = function (param) {
-        var _this = this;
+        // if(param.oper === "createRoom"){
+        // 	this.tableId.text = param.tableId;
+        // }else{
+        // 	if(param.HandsCard.length){
+        // 		//掉线后重新进入
+        // 		//生成掉线前出牌数据
+        // 		this.skin.currentState = this.TYPE_GAME;
+        // 	}else{
+        // 		//第一次进入房间
+        // 		this.skin.currentState = this.TYPE_WAIT;
+        // 	}
+        // }
+        // this.createRoleInfo(param.userInfoList);
         /**测试数据 */
-        var cardMap = new CardMap();
-        this.addChild(cardMap);
-        cardMap.x = (Config.w_width >> 1) - (cardMap.width >> 1);
-        cardMap.y = (Config.w_height >> 1) - (cardMap.height >> 1);
-        cardMap.calculBlock(5, 5, data.Seat.East, 4);
-        this.testCardObj2 = this.testCardObj2.concat(this.testCardobj);
-        CardTransFormUtil.startGetCard(data.Seat.East, 4, this.testCardObj2, this.cardSprite, function (dataObj) {
+        this.startNewGame(5, 5, data.Seat.East, 4, this.testCardobj);
+    };
+    /**
+     * 面板关闭执行函数
+     */
+    ViewGame.prototype.close = function (param) {
+    };
+    /**
+     * 创建人物信息
+     */
+    ViewGame.prototype.createRoleInfo = function (userInfoList) {
+        for (var i = 0, len = userInfoList.length, item; i < len; i++) {
+            item = userInfoList[i];
+            this["roleInfo_" + item.seat].seat = item.seat;
+            this["roleInfo_" + item.seat].setRoleInfo(item.userInfo);
+        }
+    };
+    /**
+     * 离开房间
+     */
+    ViewGame.prototype.leaveSeat = function (seat) {
+        this["roleInfo_" + seat].showLeave();
+    };
+    /**
+     * 当前局数结束
+     */
+    ViewGame.prototype.curGameEnd = function (msg) {
+        this.curGameState = 0;
+    };
+    /**
+     * 开始新的一局
+     */
+    ViewGame.prototype.startNewGame = function (num1, num2, seat, peopleNum, cardGather) {
+        var _this = this;
+        if (this.cardMap && this.cardMap.parent && this.cardMap.parent.contains(this.cardMap)) {
+            this.cardMap.parent.removeChild(this.cardMap);
+        }
+        this.cardMap = new CardMap();
+        this.curGameState = 1;
+        this.addChild(this.cardMap);
+        this.cardMap.x = (Config.w_width >> 1) - (this.cardMap.width >> 1);
+        this.cardMap.y = (Config.w_height >> 1) - (this.cardMap.height >> 1);
+        this.cardMap.calculBlock(num1, num2, seat, peopleNum);
+        var cardArr = [];
+        cardArr = cardArr.concat(cardGather);
+        CardTransFormUtil.startGetCard(seat, peopleNum, cardArr, this.cardSprite, function (dataObj) {
             if (dataObj.final) {
                 //切牌发牌完毕
                 _this.cardSprite.removeChildren();
-                var arr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", _this.testCardobj);
+                var arr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", cardGather);
                 _this.addCardGroup(arr);
             }
             else {
@@ -105,13 +158,13 @@ var ViewGame = (function (_super) {
                     //当前为自己的手牌显示
                     _this.addCardGroup(dataObj.handCard);
                     if (dataObj.handCard.length >= 4) {
-                        cardMap.removeBlock();
+                        _this.cardMap.removeBlock();
                     }
                     if (dataObj.handCard.length === 2) {
-                        cardMap.removeJumpItem();
+                        _this.cardMap.removeJumpItem();
                     }
                     if (dataObj.handCard.length === 1) {
-                        cardMap.removeItem();
+                        _this.cardMap.removeItem();
                     }
                 }
                 else {
@@ -129,28 +182,18 @@ var ViewGame = (function (_super) {
                     }
                     if (dataObj.num === 4) {
                         //当前单次获得卡牌数为4张
-                        cardMap.removeBlock();
+                        _this.cardMap.removeBlock();
                     }
                     if (dataObj.num === 2) {
                         //跳牌
-                        cardMap.removeJumpItem();
+                        _this.cardMap.removeJumpItem();
                     }
                     if (dataObj.num === 1) {
-                        cardMap.removeItem();
+                        _this.cardMap.removeItem();
                     }
                 }
             }
         }, this);
-    };
-    /**
-     * 面板关闭执行函数
-     */
-    ViewGame.prototype.close = function (param) {
-    };
-    /**
-     * 码牌算法
-     */
-    ViewGame.prototype.createCardMap = function () {
     };
     /**添加打出卡牌 */
     ViewGame.prototype.addCardItem = function (collect, item) {
@@ -176,12 +219,6 @@ var ViewGame = (function (_super) {
             }
             this.cardSprite.addChild(card);
         }
-    };
-    ViewGame.prototype.showHandCard = function () {
-        this.cardSprite.visible = true;
-    };
-    ViewGame.prototype.hideHandCard = function () {
-        this.cardSprite.visible = false;
     };
     /**卡牌单项点击 */
     ViewGame.prototype.onCardItemTap = function (evt) {
@@ -356,6 +393,11 @@ var ViewGame = (function (_super) {
         }
     };
     ViewGame.prototype.onTouchHandler = function (evt) {
+        switch (evt.target) {
+            case this.buttonYaoQing:
+                //邀请微信好友
+                break;
+        }
     };
     return ViewGame;
 }(BaseEuiView));

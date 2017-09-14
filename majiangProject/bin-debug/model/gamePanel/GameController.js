@@ -17,8 +17,25 @@ var GameController = (function (_super) {
         App.ViewManager.register(ViewConst.Game, _this.gameView);
         //初始化proxy
         _this.gameProxy = new GameProxy(_this);
+        //注册s2c
+        _this.registerFunc(GameConsts.ENTERTABLE_S2C, _this.onEnterTable, _this);
+        _this.registerFunc(GameConsts.LEAVETABLE_S2C, _this.onLeaveTabel, _this);
+        _this.registerFunc(GameConsts.CURGAME_END_S2C, _this.curGameEnd, _this);
+        _this.registerFunc(GameConsts.OTHER_ENTERTABEL_S2C, _this.otherEnterTable, _this);
         return _this;
     }
+    GameController.prototype.onEnterTable = function (msg) {
+        this.gameView.createRoleInfo(msg.userInfoList);
+    };
+    GameController.prototype.onLeaveTabel = function (msg) {
+        this.gameView.leaveSeat(msg.seat);
+    };
+    GameController.prototype.curGameEnd = function (msg) {
+        this.gameView.curGameEnd(msg);
+    };
+    GameController.prototype.otherEnterTable = function (msg) {
+        this.gameView.createRoleInfo([msg.userInfo]);
+    };
     return GameController;
 }(BaseController));
 __reflect(GameController.prototype, "GameController");

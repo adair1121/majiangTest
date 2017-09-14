@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="ViewGameSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+<e:Skin class="ViewGameSkin" width="1280" height="720" currentState="wait" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:ns1="*" states="game,wait" >
 	<e:Image source="main_game_jpg" left="0" top="0" right="0" bottom="0"/>
-	<e:List id="southList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" top="439">
+	<ns1:PlayerRoleInfo id="roleInfo_102" width="150" height="170" includeIn="wait" skinName="PlayerRoleInfoSkin" horizontalCenter="0" bottom="60"/>
+	<ns1:PlayerRoleInfo id="roleInfo_101" width="150" height="170" includeIn="wait" skinName="PlayerRoleInfoSkin" bottom="275" right="60"/>
+	<ns1:PlayerRoleInfo id="roleInfo_104" width="150" height="170" includeIn="wait" skinName="PlayerRoleInfoSkin" horizontalCenter="0" top="60"/>
+	<ns1:PlayerRoleInfo id="roleInfo_103" width="150" height="170" includeIn="wait" skinName="PlayerRoleInfoSkin" top="275" left="60"/>
+	<e:Group includeIn="wait" horizontalCenter="0" top="15">
+		<e:Image source="role_card_bottom_png" includeIn="wait" anchorOffsetX="0" width="400" scale9Grid="14,0,121,32" x="0" y="0"/>
+		<e:Label text="房间号:" includeIn="wait" x="70.18000000000006" y="6.560000000000002" size="20" fontFamily="SimHei"/>
+		<e:Label id="tableId" text="000000" includeIn="wait" x="140.17999999999995" y="7.439999999999998" size="20" fontFamily="SimHei"/>
+		<e:Label id="gameNum" text="1/2局" includeIn="wait" x="245" y="7.519999999999996" size="20" fontFamily="SimHei"/>
+	</e:Group>
+	<e:Group includeIn="wait" left="38" top="17">
+		<e:Image source="role_card_bottom_png" includeIn="wait" x="0" y="0"/>
+		<e:Label text="点炮" includeIn="wait" x="22.67000000000001" y="6.0000000000000036" size="20" fontFamily="SimHei"/>
+		<e:Label text="带风" includeIn="wait" x="77.00000000000001" y="6.370000000000001" size="20" fontFamily="SimHei"/>
+	</e:Group>
+	<e:Image id="buttonYaoQing" source="button_wx_yaoqing_png" includeIn="wait" horizontalCenter="0" verticalCenter="0"/>
+	<e:List id="southList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" top="439" includeIn="game">
 		<e:ArrayCollection>
 			<e:Array>
 				<e:Object card="null"/>
@@ -28,7 +44,7 @@
 			<e:TileLayout requestedColumnCount="6"/>
 		</e:layout>
 	</e:List>
-	<e:List id="northList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="92">
+	<e:List id="northList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="92" includeIn="game">
 		<e:ArrayCollection>
 			<e:Array>
 				<e:Object card="null"/>
@@ -55,7 +71,7 @@
 		<e:TileLayout/>
 		</e:layout>
 	</e:List>
-	<e:List id="westList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" left="296" top="231">
+	<e:List id="westList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" left="296" top="231" includeIn="game">
 		<e:ArrayCollection>
 			<e:Array>
 				<e:Object card="null"/>
@@ -82,7 +98,7 @@
 		<e:TileLayout/>
 		</e:layout>
 	</e:List>
-	<e:List id="eastList" width="258" height="184" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="296" top="246">
+	<e:List id="eastList" width="258" height="184" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="296" top="246" includeIn="game">
 		<e:ArrayCollection>
 			<e:Array>
 				<e:Object card="null"/>
@@ -109,8 +125,8 @@
 		<e:TileLayout requestedColumnCount="6"/>
 		</e:layout>
 	</e:List>
-	<e:Image source="timeBg_png" horizontalCenter="0" verticalCenter="0"/>
-	<e:Group id="leftGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" left="115"/>
-	<e:Group id="rightGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" right="108"/>
-	<e:Group id="topGroup" width="694" height="56.06" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0" top="21"/>
+	<e:Image source="timeBg_png" horizontalCenter="0" verticalCenter="0" includeIn="game"/>
+	<e:Group id="leftGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" left="115" includeIn="game"/>
+	<e:Group id="rightGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" right="108" includeIn="game"/>
+	<e:Group id="topGroup" width="694" height="56.06" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0" top="21" includeIn="game"/>
 </e:Skin>

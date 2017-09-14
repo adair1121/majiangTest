@@ -24,6 +24,9 @@ var StartProxy = (function (_super) {
         this.sendSocketMsg(msg);
     };
     StartProxy.prototype.joinRoom = function (dataObj) {
+        var msg = new proto.c_EnterRoom();
+        msg.tableId = dataObj.tableId;
+        this.sendSocketMsg(msg);
     };
     StartProxy.prototype.createRoomRes = function (obj) {
         this.applyFunc(StartConsts.CREATE_ROOM_S2C, obj);

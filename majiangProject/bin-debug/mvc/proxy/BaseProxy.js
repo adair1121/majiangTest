@@ -11,7 +11,12 @@ var BaseProxy = (function () {
      */
     function BaseProxy($controller) {
         this._controller = $controller;
+        /**注册从服务器返回消息的监听 */
+        this.receiveServerMsg(LoginConsts.KICK_OUT_S2C, this.kickOut, this);
     }
+    BaseProxy.prototype.kickOut = function (obj) {
+        this.applyFunc(LoginConsts.KICK_OUT_S2C, obj);
+    };
     /**
      * 触发本模块消息
      * @param key 唯一标识

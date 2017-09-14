@@ -69,5 +69,12 @@ module data{
 		End=5,
 	}
 
+	export enum PlayerAttr{
+		/**
+		* 房卡数量
+		**/
+		CardCount=0,
+	}
+
 
 }

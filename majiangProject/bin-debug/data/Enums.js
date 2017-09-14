@@ -70,5 +70,12 @@ var data;
         **/
         TableState[TableState["End"] = 5] = "End";
     })(TableState = data.TableState || (data.TableState = {}));
+    var PlayerAttr;
+    (function (PlayerAttr) {
+        /**
+        * 房卡数量
+        **/
+        PlayerAttr[PlayerAttr["CardCount"] = 0] = "CardCount";
+    })(PlayerAttr = data.PlayerAttr || (data.PlayerAttr = {}));
 })(data || (data = {}));
 //# sourceMappingURL=Enums.js.map

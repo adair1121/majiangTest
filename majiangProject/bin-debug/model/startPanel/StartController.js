@@ -22,20 +22,51 @@ var StartController = (function (_super) {
         //注册创建房间s2c
         _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.creatRoomRes, _this);
         //注册加入房间c2s
-        _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.joinRoom, _this);
+        _this.registerFunc(StartConsts.JOIN_ROOM_C2S, _this.joinRoom, _this);
         //注册加入房间s2c
-        _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.joinRoomRes, _this);
+        _this.registerFunc(StartConsts.JOIN_ROOM_S2C, _this.joinRoomRes, _this);
         return _this;
     }
     StartController.prototype.creatRoom = function (dataObj) {
         this.startProxy.createRoom(dataObj);
     };
     StartController.prototype.creatRoomRes = function (msg) {
+        if (msg.isSuccess) {
+            var obj = {
+                tableId: msg.tableId,
+                seat: msg.seat,
+                userInfoList: msg.userInfoList,
+                oper: "createRoom"
+            };
+            App.ViewManager.close(ViewConst.Start);
+            App.ViewManager.open(ViewConst.Game, obj);
+        }
+        else {
+            alert(msg.errMsg);
+        }
     };
     StartController.prototype.joinRoom = function (dataObj) {
         this.startProxy.joinRoom(dataObj);
     };
     StartController.prototype.joinRoomRes = function (msg) {
+        if (msg.isSuccess) {
+            var obj = {
+                oper: "joinRoom",
+                seat: msg.seat,
+                playerCount: msg.playerCount,
+                dice1: msg.Dice1,
+                dice2: msg.Dice2,
+                drawCard: msg.drawCard,
+                handCards: msg.HandsCard,
+                seatCardsInfoList: msg.seatCardInfoList,
+                userInfoList: msg.userInfoList
+            };
+            App.ViewManager.close(ViewConst.Start);
+            App.ViewManager.open(ViewConst.Game, obj);
+        }
+        else {
+            alert(msg.errMsg);
+        }
     };
     return StartController;
 }(BaseController));

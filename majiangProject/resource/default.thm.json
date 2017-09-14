@@ -37,6 +37,7 @@
     "resource/gameSkin/components/MyProgressBarSkin.exml",
     "resource/gameSkin/components/MyHSliderSkin.exml",
     "resource/gameSkin/components/MyRadioSkin.exml",
+    "resource/gameSkin/components/PlayerRoleInfoSkin.exml",
     "resource/gameSkin/components/PopCreateRoomSkin.exml",
     "resource/gameSkin/components/PopHomeSetSkin.exml",
     "resource/gameSkin/components/PopJoinRomeSkin.exml",

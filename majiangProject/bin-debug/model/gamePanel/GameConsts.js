@@ -6,5 +6,9 @@ var GameConsts = (function () {
     }
     return GameConsts;
 }());
+GameConsts.ENTERTABLE_S2C = "10001";
+GameConsts.LEAVETABLE_S2C = "10002";
+GameConsts.CURGAME_END_S2C = "10003";
+GameConsts.OTHER_ENTERTABEL_S2C = "10005";
 __reflect(GameConsts.prototype, "GameConsts");
 //# sourceMappingURL=GameConsts.js.map

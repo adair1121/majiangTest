@@ -19,20 +19,47 @@ class StartController extends BaseController{
 		//注册创建房间s2c
 		this.registerFunc(StartConsts.CREATE_ROOM_C2S,this.creatRoomRes,this);
 		//注册加入房间c2s
-		this.registerFunc(StartConsts.CREATE_ROOM_C2S,this.joinRoom,this);
+		this.registerFunc(StartConsts.JOIN_ROOM_C2S,this.joinRoom,this);
 		//注册加入房间s2c
-		this.registerFunc(StartConsts.CREATE_ROOM_C2S,this.joinRoomRes,this);
+		this.registerFunc(StartConsts.JOIN_ROOM_S2C,this.joinRoomRes,this);
 	}
 	private creatRoom(dataObj:any):void{
 		this.startProxy.createRoom(dataObj);
 	}
 	private creatRoomRes(msg:proto.s_CreateRoom):void{
-
+		if(msg.isSuccess){
+			var obj:any = {
+				tableId:msg.tableId,
+				seat:msg.seat,
+				userInfoList:msg.userInfoList,
+				oper:"createRoom"
+			}
+			App.ViewManager.close(ViewConst.Start);
+			App.ViewManager.open(ViewConst.Game,obj);
+		}else{
+			alert(msg.errMsg);
+		}
 	}
 	private joinRoom(dataObj:any):void{
 		this.startProxy.joinRoom(dataObj);
 	}
 	private joinRoomRes(msg:proto.s_EnterRoom):void{
-
+		if(msg.isSuccess){
+			var obj:any = {
+				oper:"joinRoom",
+				seat:msg.seat,
+				playerCount:msg.playerCount,
+				dice1:msg.Dice1,
+				dice2:msg.Dice2,
+				drawCard:msg.drawCard,
+				handCards:msg.HandsCard,
+				seatCardsInfoList:msg.seatCardInfoList,
+				userInfoList:msg.userInfoList
+			}
+			App.ViewManager.close(ViewConst.Start);
+			App.ViewManager.open(ViewConst.Game,obj);
+		}else{
+			alert(msg.errMsg);
+		}
 	}
 }

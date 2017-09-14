@@ -21,6 +21,7 @@ var LoginController = (function (_super) {
         _this.registerFunc(LoginConsts.LOGIN_C2S, _this.onLogin, _this);
         /**注册s2c */
         _this.registerFunc(LoginConsts.LOGIN_S2C, _this.loginSuccess, _this);
+        _this.registerFunc(LoginConsts.KICK_OUT_S2C, _this.onKickOut, _this);
         return _this;
     }
     /**
@@ -48,6 +49,10 @@ var LoginController = (function (_super) {
             alert(msg.errMsg);
         }
         // var model:BaseModel = this.getControllerModel(ControllerConst.Login);
+    };
+    /**被踢出 */
+    LoginController.prototype.onKickOut = function (msg) {
+        alert(msg.reason);
     };
     return LoginController;
 }(BaseController));

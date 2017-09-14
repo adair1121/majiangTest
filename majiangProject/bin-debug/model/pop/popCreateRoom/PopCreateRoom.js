@@ -88,10 +88,6 @@ var PopCreateRoom = (function (_super) {
                 break;
             case this.createBtn:
                 //加入房间
-                if (!parseInt(this.pwdNum)) {
-                    alert("请设置房间面膜");
-                    return;
-                }
                 if (!parseInt(this.scoreNum)) {
                     alert("请输入底分");
                     return;

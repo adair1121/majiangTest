@@ -8,13 +8,18 @@
 		<e:Label text="玩法选择" y="278" textColor="0xED9D38" fontFamily="SimHei" horizontalCenter="-172"/>
 		<e:Label text="抓码个数" y="366" textColor="0xED9D38" fontFamily="SimHei" horizontalCenter="-172"/>
 		<e:Group id="radioGroup" x="395" y="125.77" anchorOffsetX="0" width="353.33" anchorOffsetY="0" height="102.33">
-			<e:RadioButton id="radioBtnOne" label="一人场" x="0" y="0" skinName="MyRadioSkin" anchorOffsetY="0" height="39"/>
-			<e:RadioButton id="radioBtnTwo" label="二人场" x="246" y="0" skinName="MyRadioSkin"/>
-			<e:RadioButton id="radioBtnThree" label="三人场" x="0" y="60.610000000000014" skinName="MyRadioSkin"/>
-			<e:RadioButton id="radioBtnFour" label="四人场" x="246" y="60.610000000000014" skinName="MyRadioSkin"/>
+			<e:RadioButton id="radioBtnOne" label="一人场" x="0" y="0" skinName="MyRadioSkin" anchorOffsetY="0" height="39" anchorOffsetX="0" width="106.91"/>
+			<e:RadioButton id="radioBtnTwo" label="二人场" x="246" y="0" skinName="MyRadioSkin" anchorOffsetY="0" height="35.15"/>
+			<e:RadioButton id="radioBtnThree" label="三人场" x="0" y="60.610000000000014" skinName="MyRadioSkin" anchorOffsetY="0" height="35.15"/>
+			<e:RadioButton id="radioBtnFour" label="四人场" x="246" y="60.610000000000014" skinName="MyRadioSkin" anchorOffsetY="0" height="38.18"/>
 		</e:Group>
 		<e:Image source="pop_create_room_title_png" horizontalCenter="0" top="16"/>
 		<e:Image source="button_tab_four_png" x="27.66" y="120.33"/>
 		<e:Image id="buttonSure" source="button_sure_png" x="438" y="422"/>
+		<e:RadioButton id="playWayRadioOne" label="4局x2" x="394.18" y="274.95" skinName="MyRadioSkin" anchorOffsetY="0" height="39" anchorOffsetX="0" width="106.91"/>
+		<e:RadioButton id="zhumaRadioOne" label="2个" x="394.44" y="359.66" skinName="MyRadioSkin" anchorOffsetY="0" height="39" anchorOffsetX="0" width="106.91"/>
+		<e:RadioButton id="zhumaRadioTwo" label="4个" x="502.27" y="361.5" skinName="MyRadioSkin" anchorOffsetY="0" height="39" anchorOffsetX="0" width="106.91"/>
+		<e:RadioButton id="zhumaRadioThree" label="6个" x="608.86" y="361.5" skinName="MyRadioSkin" anchorOffsetY="0" height="39" anchorOffsetX="0" width="106.91"/>
+		<e:RadioButton id="playWayRadioTwo" label="4局x2" x="641" y="278" skinName="MyRadioSkin" anchorOffsetY="0" height="39" anchorOffsetX="0" width="106.91"/>
 	</e:Group>
 </e:Skin>

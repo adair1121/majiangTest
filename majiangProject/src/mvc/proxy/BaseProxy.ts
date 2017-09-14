@@ -10,8 +10,12 @@ class BaseProxy {
      */
     public constructor($controller:BaseController) {
         this._controller = $controller;
+        /**注册从服务器返回消息的监听 */
+		this.receiveServerMsg(LoginConsts.KICK_OUT_S2C,this.kickOut,this);
     }
-
+    private kickOut(obj:any):void{
+        this.applyFunc(LoginConsts.KICK_OUT_S2C,obj);
+    }
     /**
      * 触发本模块消息
      * @param key 唯一标识

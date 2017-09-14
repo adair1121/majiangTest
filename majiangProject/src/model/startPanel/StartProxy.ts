@@ -14,7 +14,9 @@ class StartProxy extends BaseProxy{
 		this.sendSocketMsg(msg);
 	}
 	public joinRoom(dataObj:any):void{
-
+		var msg:proto.c_EnterRoom = new proto.c_EnterRoom();
+		msg.tableId = dataObj.tableId;
+		this.sendSocketMsg(msg);
 	}
 	private createRoomRes(obj:proto.s_CreateRoom):void{
 		this.applyFunc(StartConsts.CREATE_ROOM_S2C,obj);
