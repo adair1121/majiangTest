@@ -7,10 +7,10 @@ class StartProxy extends BaseProxy{
 	}
 	public createRoom(dataObj:any):void{
 		var msg:proto.c_CreateRoom = new proto.c_CreateRoom();
-		msg.playerCount = dataObj.roomNum;
-		msg.times = dataObj.counts;
-		msg.roomPassword = dataObj.roomPwd;
-		msg.basicScore = dataObj.score;
+		msg.playerCount = dataObj.playerCount;
+		msg.times = dataObj.times;
+		msg.roomPassword = "111111";
+		msg.basicScore = dataObj.basicScore;
 		this.sendSocketMsg(msg);
 	}
 	public joinRoom(dataObj:any):void{

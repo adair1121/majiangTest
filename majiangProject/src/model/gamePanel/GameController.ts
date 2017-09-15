@@ -65,7 +65,12 @@ class GameController extends BaseController{
 	}
 	/**举手返回 */
 	private onRaiseHandsRes(msg:proto.s_RaiseHands):void{
-
+		if(msg.isSuccess){
+			//举手成功
+			this.gameView.raiseHandSuccess();
+		}else{
+			alert(msg.errMsg);
+		}
 	}
 	/** 摸牌响应,摸牌时出现的胡牌杠牌等操作选项的响应 返回*/
 	private drawCardResponseRes(msg:proto.s_DrawCardResponse):void{

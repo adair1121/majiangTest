@@ -17,7 +17,7 @@ class StartController extends BaseController{
 		//注册创建房间c2s
 		this.registerFunc(StartConsts.CREATE_ROOM_C2S,this.creatRoom,this);
 		//注册创建房间s2c
-		this.registerFunc(StartConsts.CREATE_ROOM_C2S,this.creatRoomRes,this);
+		this.registerFunc(StartConsts.CREATE_ROOM_S2C,this.creatRoomRes,this);
 		//注册加入房间c2s
 		this.registerFunc(StartConsts.JOIN_ROOM_C2S,this.joinRoom,this);
 		//注册加入房间s2c

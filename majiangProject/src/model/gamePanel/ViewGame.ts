@@ -7,6 +7,11 @@ class ViewGame extends BaseEuiView{
 	public roleInfo_103:PlayerRoleInfo;
 	public roleInfo_102:PlayerRoleInfo;
 	public roleInfo_101:PlayerRoleInfo;
+	public leftHand:eui.Image;
+	public topHand:eui.Image;
+	public bottomHand:eui.Image;
+	public rightHand:eui.Image;
+	public readyBtn:eui.Image;
 	public buttonYaoQing:eui.Image;
 	public tableId:eui.Label;
 	public gameNum:eui.Label;
@@ -93,6 +98,10 @@ class ViewGame extends BaseEuiView{
 		this.prevTarget = null;
 		this.newCard = null;
 		this.clickState = false;
+		this.leftHand.visible = false;
+		this.rightHand.visible = false;
+		this.topHand.visible = false;
+		this.bottomHand.visible = false;
 		this.cardSprite.removeChildren();
 		this.topGroup.removeChildren();
 		this.leftGroup.removeChildren();
@@ -145,6 +154,11 @@ class ViewGame extends BaseEuiView{
 	 */
 	public curGameEnd(msg:proto.s_NotifyEndHandCards):void{
 		this.curGameState = 0;
+	}
+	/**举手成功 */
+	public raiseHandSuccess():void{
+		this.readyBtn.visible = false;
+		this.bottomHand.visible = true;
 	}
 	/**
 	 * 开始新的一局
@@ -396,6 +410,9 @@ class ViewGame extends BaseEuiView{
 		switch(evt.target){
 			case this.buttonYaoQing:
 				//邀请微信好友
+				break;
+			case this.readyBtn:
+				this.applyFunc(GameConsts.RAISEHANDS_C2S);
 				break;
 		}
 	}

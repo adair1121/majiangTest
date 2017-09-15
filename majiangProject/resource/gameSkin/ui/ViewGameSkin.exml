@@ -7,16 +7,19 @@
 	<ns1:PlayerRoleInfo id="roleInfo_103" width="150" height="170" includeIn="wait" skinName="PlayerRoleInfoSkin" top="275" left="60"/>
 	<e:Group includeIn="wait" horizontalCenter="0" top="15">
 		<e:Image source="role_card_bottom_png" includeIn="wait" anchorOffsetX="0" width="400" scale9Grid="14,0,121,32" x="0" y="0"/>
-		<e:Label text="房间号:" includeIn="wait" x="70.18000000000006" y="6.560000000000002" size="20" fontFamily="SimHei"/>
-		<e:Label id="tableId" text="000000" includeIn="wait" x="140.17999999999995" y="7.439999999999998" size="20" fontFamily="SimHei"/>
-		<e:Label id="gameNum" text="1/2局" includeIn="wait" x="245" y="7.519999999999996" size="20" fontFamily="SimHei"/>
-	</e:Group>
-	<e:Group includeIn="wait" left="38" top="17">
-		<e:Image source="role_card_bottom_png" includeIn="wait" x="0" y="0"/>
-		<e:Label text="点炮" includeIn="wait" x="22.67000000000001" y="6.0000000000000036" size="20" fontFamily="SimHei"/>
-		<e:Label text="带风" includeIn="wait" x="77.00000000000001" y="6.370000000000001" size="20" fontFamily="SimHei"/>
+		<e:Label text="房间号:" includeIn="wait" x="18.18" y="6.560000000000002" size="20" fontFamily="SimHei"/>
+		<e:Label id="tableId" text="000000" includeIn="wait" x="88.18" y="7.439999999999998" size="20" fontFamily="SimHei"/>
+		<e:Label id="gameNum" text="1" includeIn="wait" x="240.33" y="7.63" size="20" fontFamily="SimHei"/>
+		<e:Label text="底分:" includeIn="wait" x="185.33" y="7.04" size="20" fontFamily="SimHei"/>
+		<e:Label text="癞子" includeIn="wait" x="275" y="7.63" size="20" fontFamily="SimHei"/>
+		<e:Label text="痞子" includeIn="wait" x="332.61" y="7.48" size="20" fontFamily="SimHei"/>
 	</e:Group>
 	<e:Image id="buttonYaoQing" source="button_wx_yaoqing_png" includeIn="wait" horizontalCenter="0" verticalCenter="0"/>
+	<e:Image id="bottomHand" source="hand_ready_png" includeIn="wait" x="620" y="446"/>
+	<e:Image id="rightHand" source="hand_ready_png" includeIn="wait" x="1030" y="316"/>
+	<e:Image id="topHand" source="hand_ready_png" includeIn="wait" x="620" y="230"/>
+	<e:Image id="leftHand" source="hand_ready_png" includeIn="wait" x="210" y="316"/>
+	<e:Image id="readyBtn" source="button_sure_png" includeIn="wait" x="976" y="575"/>
 	<e:List id="southList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" top="439" includeIn="game">
 		<e:ArrayCollection>
 			<e:Array>
