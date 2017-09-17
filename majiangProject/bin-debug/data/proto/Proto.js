@@ -134,108 +134,6 @@ var proto;
     }(proto.Pro));
     proto.UserInfoWithSeat = UserInfoWithSeat;
     __reflect(UserInfoWithSeat.prototype, "proto.UserInfoWithSeat");
-    var c_CreateRoom = (function (_super) {
-        __extends(c_CreateRoom, _super);
-        function c_CreateRoom() {
-            var _this = _super.call(this) || this;
-            //required>int
-            _this.basicScore = 0; //底分
-            //required>int
-            _this.times = 0; //打几局
-            //required>int
-            _this.playerCount = 0; //几人房间
-            _this.S = proto.MessageType.c_CreateRoom;
-            return _this;
-        }
-        c_CreateRoom.prototype.init = function (_basicScore, _times, _roomPassword, _playerCount) {
-            this.basicScore = _basicScore;
-            this.times = _times;
-            this.roomPassword = _roomPassword;
-            this.playerCount = _playerCount;
-            return this;
-        };
-        c_CreateRoom.prototype.encode = function (by) {
-            by.writeInt(this.basicScore);
-            by.writeInt(this.times);
-            by.writeUTF(this.roomPassword);
-            by.writeInt(this.playerCount);
-        };
-        c_CreateRoom.prototype.decode = function (by) {
-            this.basicScore = by.readInt();
-            this.times = by.readInt();
-            this.roomPassword = by.readUTF();
-            this.playerCount = by.readInt();
-        };
-        return c_CreateRoom;
-    }(proto.Pro));
-    proto.c_CreateRoom = c_CreateRoom;
-    __reflect(c_CreateRoom.prototype, "proto.c_CreateRoom");
-    var s_CreateRoom = (function (_super) {
-        __extends(s_CreateRoom, _super);
-        function s_CreateRoom() {
-            var _this = _super.call(this) || this;
-            //optional>int
-            _this.tableId = 0; //所在牌桌ID
-            //optional>int
-            _this.seat = 0; //所在坐位
-            _this.S = proto.MessageType.s_CreateRoom;
-            return _this;
-        }
-        s_CreateRoom.prototype.init = function (_isSuccess, _errMsg, _tableId, _seat, _userInfoList) {
-            this.isSuccess = _isSuccess;
-            this.errMsg = _errMsg;
-            this.tableId = _tableId;
-            this.seat = _seat;
-            this.userInfoList = _userInfoList;
-            return this;
-        };
-        s_CreateRoom.prototype.encode = function (by) {
-            by.writeBoolean(this.isSuccess);
-            if (this.errMsg != null) {
-                by.writeByte(1);
-                by.writeUTF(this.errMsg);
-            }
-            else {
-                by.writeByte(0);
-            }
-            //基础类型不建议用optional
-            by.writeByte(1);
-            by.writeInt(this.tableId);
-            //基础类型不建议用optional
-            by.writeByte(1);
-            by.writeInt(this.seat);
-            if (this.userInfoList != null) {
-                by.writeShort(this.userInfoList.length);
-                for (var i = 0; i < this.userInfoList.length; i++) {
-                    this.userInfoList[i].encode(by);
-                }
-            }
-            else {
-                by.writeShort(0);
-            }
-        };
-        s_CreateRoom.prototype.decode = function (by) {
-            this.isSuccess = by.readBoolean();
-            if (by.readByte() > 0) {
-                this.errMsg = by.readUTF();
-            }
-            if (by.readByte() > 0) {
-                this.tableId = by.readInt();
-            }
-            if (by.readByte() > 0) {
-                this.seat = by.readInt();
-            }
-            var __count4 = by.readShort();
-            this.userInfoList = [];
-            for (var i = 0; i < __count4; i++) {
-                this.userInfoList[i] = new UserInfoWithSeat();
-                this.userInfoList[i].decode(by);
-            }
-        };
-        return s_CreateRoom;
-    }(proto.Pro));
-    proto.s_CreateRoom = s_CreateRoom;
-    __reflect(s_CreateRoom.prototype, "proto.s_CreateRoom");
     var s_Kickout = (function (_super) {
         __extends(s_Kickout, _super);
         function s_Kickout() {
@@ -344,6 +242,108 @@ var proto;
     }(proto.Pro));
     proto.SeatCardInfo = SeatCardInfo;
     __reflect(SeatCardInfo.prototype, "proto.SeatCardInfo");
+    var c_CreateRoom = (function (_super) {
+        __extends(c_CreateRoom, _super);
+        function c_CreateRoom() {
+            var _this = _super.call(this) || this;
+            //required>int
+            _this.basicScore = 0; //底分
+            //required>int
+            _this.times = 0; //打几局
+            //required>int
+            _this.playerCount = 0; //几人房间
+            _this.S = proto.MessageType.c_CreateRoom;
+            return _this;
+        }
+        c_CreateRoom.prototype.init = function (_basicScore, _times, _roomPassword, _playerCount) {
+            this.basicScore = _basicScore;
+            this.times = _times;
+            this.roomPassword = _roomPassword;
+            this.playerCount = _playerCount;
+            return this;
+        };
+        c_CreateRoom.prototype.encode = function (by) {
+            by.writeInt(this.basicScore);
+            by.writeInt(this.times);
+            by.writeUTF(this.roomPassword);
+            by.writeInt(this.playerCount);
+        };
+        c_CreateRoom.prototype.decode = function (by) {
+            this.basicScore = by.readInt();
+            this.times = by.readInt();
+            this.roomPassword = by.readUTF();
+            this.playerCount = by.readInt();
+        };
+        return c_CreateRoom;
+    }(proto.Pro));
+    proto.c_CreateRoom = c_CreateRoom;
+    __reflect(c_CreateRoom.prototype, "proto.c_CreateRoom");
+    var s_CreateRoom = (function (_super) {
+        __extends(s_CreateRoom, _super);
+        function s_CreateRoom() {
+            var _this = _super.call(this) || this;
+            //optional>int
+            _this.tableId = 0; //所在牌桌ID
+            //optional>int
+            _this.seat = 0; //所在坐位
+            _this.S = proto.MessageType.s_CreateRoom;
+            return _this;
+        }
+        s_CreateRoom.prototype.init = function (_isSuccess, _errMsg, _tableId, _seat, _userInfoList) {
+            this.isSuccess = _isSuccess;
+            this.errMsg = _errMsg;
+            this.tableId = _tableId;
+            this.seat = _seat;
+            this.userInfoList = _userInfoList;
+            return this;
+        };
+        s_CreateRoom.prototype.encode = function (by) {
+            by.writeBoolean(this.isSuccess);
+            if (this.errMsg != null) {
+                by.writeByte(1);
+                by.writeUTF(this.errMsg);
+            }
+            else {
+                by.writeByte(0);
+            }
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeInt(this.tableId);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeInt(this.seat);
+            if (this.userInfoList != null) {
+                by.writeShort(this.userInfoList.length);
+                for (var i = 0; i < this.userInfoList.length; i++) {
+                    this.userInfoList[i].encode(by);
+                }
+            }
+            else {
+                by.writeShort(0);
+            }
+        };
+        s_CreateRoom.prototype.decode = function (by) {
+            this.isSuccess = by.readBoolean();
+            if (by.readByte() > 0) {
+                this.errMsg = by.readUTF();
+            }
+            if (by.readByte() > 0) {
+                this.tableId = by.readInt();
+            }
+            if (by.readByte() > 0) {
+                this.seat = by.readInt();
+            }
+            var __count4 = by.readShort();
+            this.userInfoList = [];
+            for (var i = 0; i < __count4; i++) {
+                this.userInfoList[i] = new UserInfoWithSeat();
+                this.userInfoList[i].decode(by);
+            }
+        };
+        return s_CreateRoom;
+    }(proto.Pro));
+    proto.s_CreateRoom = s_CreateRoom;
+    __reflect(s_CreateRoom.prototype, "proto.s_CreateRoom");
     var c_EnterRoom = (function (_super) {
         __extends(c_EnterRoom, _super);
         function c_EnterRoom() {
@@ -494,6 +494,106 @@ var proto;
     }(proto.Pro));
     proto.s_EnterRoom = s_EnterRoom;
     __reflect(s_EnterRoom.prototype, "proto.s_EnterRoom");
+    var c_LeaveRoom = (function (_super) {
+        __extends(c_LeaveRoom, _super);
+        function c_LeaveRoom() {
+            var _this = _super.call(this) || this;
+            _this.S = proto.MessageType.c_LeaveRoom;
+            return _this;
+        }
+        c_LeaveRoom.prototype.init = function () {
+            return this;
+        };
+        c_LeaveRoom.prototype.encode = function (by) {
+        };
+        c_LeaveRoom.prototype.decode = function (by) {
+        };
+        return c_LeaveRoom;
+    }(proto.Pro));
+    proto.c_LeaveRoom = c_LeaveRoom;
+    __reflect(c_LeaveRoom.prototype, "proto.c_LeaveRoom");
+    var s_LeaveRoom = (function (_super) {
+        __extends(s_LeaveRoom, _super);
+        function s_LeaveRoom() {
+            var _this = _super.call(this) || this;
+            _this.S = proto.MessageType.s_LeaveRoom;
+            return _this;
+        }
+        s_LeaveRoom.prototype.init = function (_isSuccess, _errMsg) {
+            this.isSuccess = _isSuccess;
+            this.errMsg = _errMsg;
+            return this;
+        };
+        s_LeaveRoom.prototype.encode = function (by) {
+            by.writeBoolean(this.isSuccess);
+            if (this.errMsg != null) {
+                by.writeByte(1);
+                by.writeUTF(this.errMsg);
+            }
+            else {
+                by.writeByte(0);
+            }
+        };
+        s_LeaveRoom.prototype.decode = function (by) {
+            this.isSuccess = by.readBoolean();
+            if (by.readByte() > 0) {
+                this.errMsg = by.readUTF();
+            }
+        };
+        return s_LeaveRoom;
+    }(proto.Pro));
+    proto.s_LeaveRoom = s_LeaveRoom;
+    __reflect(s_LeaveRoom.prototype, "proto.s_LeaveRoom");
+    var c_RaiseHands = (function (_super) {
+        __extends(c_RaiseHands, _super);
+        function c_RaiseHands() {
+            var _this = _super.call(this) || this;
+            _this.S = proto.MessageType.c_RaiseHands;
+            return _this;
+        }
+        c_RaiseHands.prototype.init = function () {
+            return this;
+        };
+        c_RaiseHands.prototype.encode = function (by) {
+        };
+        c_RaiseHands.prototype.decode = function (by) {
+        };
+        return c_RaiseHands;
+    }(proto.Pro));
+    proto.c_RaiseHands = c_RaiseHands;
+    __reflect(c_RaiseHands.prototype, "proto.c_RaiseHands");
+    var s_RaiseHands = (function (_super) {
+        __extends(s_RaiseHands, _super);
+        function s_RaiseHands() {
+            var _this = _super.call(this) || this;
+            _this.S = proto.MessageType.s_RaiseHands;
+            return _this;
+        }
+        s_RaiseHands.prototype.init = function (_isSuccess, _errMsg) {
+            this.isSuccess = _isSuccess;
+            this.errMsg = _errMsg;
+            return this;
+        };
+        s_RaiseHands.prototype.encode = function (by) {
+            by.writeBoolean(this.isSuccess);
+            if (this.errMsg != null) {
+                by.writeByte(1);
+                by.writeUTF(this.errMsg);
+            }
+            else {
+                by.writeByte(0);
+            }
+        };
+        s_RaiseHands.prototype.decode = function (by) {
+            this.isSuccess = by.readBoolean();
+            if (by.readByte() > 0) {
+                this.errMsg = by.readUTF();
+            }
+        };
+        return s_RaiseHands;
+    }(proto.Pro));
+    proto.s_RaiseHands = s_RaiseHands;
+    __reflect(s_RaiseHands.prototype, "proto.s_RaiseHands");
     var AttrValue = (function (_super) {
         __extends(AttrValue, _super);
         function AttrValue() {
@@ -530,15 +630,80 @@ var proto;
         __extends(PointsInfo, _super);
         function PointsInfo() {
             var _this = _super.call(this) || this;
+            //optional>int
+            _this.gunnedUserSeat = 0; //被点炮的人是谁
             _this.S = proto.MessageType.PointsInfo;
             return _this;
         }
-        PointsInfo.prototype.init = function () {
+        PointsInfo.prototype.init = function (_isSeventPoint, _isDrawPoint, _isGunPoint, _gunnedUserSeat, _isDealerPoint, _isEmptyForPKC, _isSameColor, _isPongWin, _isTwoFiveEight) {
+            this.isSeventPoint = _isSeventPoint;
+            this.isDrawPoint = _isDrawPoint;
+            this.isGunPoint = _isGunPoint;
+            this.gunnedUserSeat = _gunnedUserSeat;
+            this.isDealerPoint = _isDealerPoint;
+            this.isEmptyForPKC = _isEmptyForPKC;
+            this.isSameColor = _isSameColor;
+            this.isPongWin = _isPongWin;
+            this.isTwoFiveEight = _isTwoFiveEight;
             return this;
         };
         PointsInfo.prototype.encode = function (by) {
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isSeventPoint);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isDrawPoint);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isGunPoint);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeInt(this.gunnedUserSeat);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isDealerPoint);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isEmptyForPKC);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isSameColor);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isPongWin);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeBoolean(this.isTwoFiveEight);
         };
         PointsInfo.prototype.decode = function (by) {
+            if (by.readByte() > 0) {
+                this.isSeventPoint = by.readBoolean();
+            }
+            if (by.readByte() > 0) {
+                this.isDrawPoint = by.readBoolean();
+            }
+            if (by.readByte() > 0) {
+                this.isGunPoint = by.readBoolean();
+            }
+            if (by.readByte() > 0) {
+                this.gunnedUserSeat = by.readInt();
+            }
+            if (by.readByte() > 0) {
+                this.isDealerPoint = by.readBoolean();
+            }
+            if (by.readByte() > 0) {
+                this.isEmptyForPKC = by.readBoolean();
+            }
+            if (by.readByte() > 0) {
+                this.isSameColor = by.readBoolean();
+            }
+            if (by.readByte() > 0) {
+                this.isPongWin = by.readBoolean();
+            }
+            if (by.readByte() > 0) {
+                this.isTwoFiveEight = by.readBoolean();
+            }
         };
         return PointsInfo;
     }(proto.Pro));
@@ -754,13 +919,19 @@ var proto;
             _this.dice1 = 0; //骰子1
             //optional>int
             _this.dice2 = 0; //骰子2
+            //optional>int
+            _this.laizi = 0; //癞子
+            //optional>int
+            _this.pizi = 0; //痞子
             _this.S = proto.MessageType.s_NotifyHandCards;
             return _this;
         }
-        s_NotifyHandCards.prototype.init = function (_dealer, _dice1, _dice2, _handCards) {
+        s_NotifyHandCards.prototype.init = function (_dealer, _dice1, _dice2, _laizi, _pizi, _handCards) {
             this.dealer = _dealer;
             this.dice1 = _dice1;
             this.dice2 = _dice2;
+            this.laizi = _laizi;
+            this.pizi = _pizi;
             this.handCards = _handCards;
             return this;
         };
@@ -772,6 +943,12 @@ var proto;
             //基础类型不建议用optional
             by.writeByte(1);
             by.writeInt(this.dice2);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeInt(this.laizi);
+            //基础类型不建议用optional
+            by.writeByte(1);
+            by.writeInt(this.pizi);
             if (this.handCards != null) {
                 by.writeShort(this.handCards.length);
                 for (var i = 0; i < this.handCards.length; i++) {
@@ -790,9 +967,15 @@ var proto;
             if (by.readByte() > 0) {
                 this.dice2 = by.readInt();
             }
-            var __count3 = by.readShort();
+            if (by.readByte() > 0) {
+                this.laizi = by.readInt();
+            }
+            if (by.readByte() > 0) {
+                this.pizi = by.readInt();
+            }
+            var __count5 = by.readShort();
             this.handCards = [];
-            for (var i = 0; i < __count3; i++) {
+            for (var i = 0; i < __count5; i++) {
                 this.handCards[i] = by.readInt();
             }
         };
@@ -1033,5 +1216,200 @@ var proto;
     }(proto.Pro));
     proto.s_NotifyEndHandCards = s_NotifyEndHandCards;
     __reflect(s_NotifyEndHandCards.prototype, "proto.s_NotifyEndHandCards");
+    var c_DrawCardResponse = (function (_super) {
+        __extends(c_DrawCardResponse, _super);
+        function c_DrawCardResponse() {
+            var _this = _super.call(this) || this;
+            //required>int
+            _this.option = 0; //操作选项
+            _this.S = proto.MessageType.c_DrawCardResponse;
+            return _this;
+        }
+        c_DrawCardResponse.prototype.init = function (_option, _cardList) {
+            this.option = _option;
+            this.cardList = _cardList;
+            return this;
+        };
+        c_DrawCardResponse.prototype.encode = function (by) {
+            by.writeInt(this.option);
+            if (this.cardList != null) {
+                by.writeShort(this.cardList.length);
+                for (var i = 0; i < this.cardList.length; i++) {
+                    by.writeInt(this.cardList[i]);
+                }
+            }
+            else {
+                by.writeShort(0);
+            }
+        };
+        c_DrawCardResponse.prototype.decode = function (by) {
+            this.option = by.readInt();
+            var __count1 = by.readShort();
+            this.cardList = [];
+            for (var i = 0; i < __count1; i++) {
+                this.cardList[i] = by.readInt();
+            }
+        };
+        return c_DrawCardResponse;
+    }(proto.Pro));
+    proto.c_DrawCardResponse = c_DrawCardResponse;
+    __reflect(c_DrawCardResponse.prototype, "proto.c_DrawCardResponse");
+    var s_DrawCardResponse = (function (_super) {
+        __extends(s_DrawCardResponse, _super);
+        function s_DrawCardResponse() {
+            var _this = _super.call(this) || this;
+            _this.S = proto.MessageType.s_DrawCardResponse;
+            return _this;
+        }
+        s_DrawCardResponse.prototype.init = function (_isSuccess, _errMsg) {
+            this.isSuccess = _isSuccess;
+            this.errMsg = _errMsg;
+            return this;
+        };
+        s_DrawCardResponse.prototype.encode = function (by) {
+            by.writeBoolean(this.isSuccess);
+            if (this.errMsg != null) {
+                by.writeByte(1);
+                by.writeUTF(this.errMsg);
+            }
+            else {
+                by.writeByte(0);
+            }
+        };
+        s_DrawCardResponse.prototype.decode = function (by) {
+            this.isSuccess = by.readBoolean();
+            if (by.readByte() > 0) {
+                this.errMsg = by.readUTF();
+            }
+        };
+        return s_DrawCardResponse;
+    }(proto.Pro));
+    proto.s_DrawCardResponse = s_DrawCardResponse;
+    __reflect(s_DrawCardResponse.prototype, "proto.s_DrawCardResponse");
+    var c_PlayCard = (function (_super) {
+        __extends(c_PlayCard, _super);
+        function c_PlayCard() {
+            var _this = _super.call(this) || this;
+            //required>int
+            _this.card = 0; //打的哪张牌
+            _this.S = proto.MessageType.c_PlayCard;
+            return _this;
+        }
+        c_PlayCard.prototype.init = function (_card) {
+            this.card = _card;
+            return this;
+        };
+        c_PlayCard.prototype.encode = function (by) {
+            by.writeInt(this.card);
+        };
+        c_PlayCard.prototype.decode = function (by) {
+            this.card = by.readInt();
+        };
+        return c_PlayCard;
+    }(proto.Pro));
+    proto.c_PlayCard = c_PlayCard;
+    __reflect(c_PlayCard.prototype, "proto.c_PlayCard");
+    var s_PlayCard = (function (_super) {
+        __extends(s_PlayCard, _super);
+        function s_PlayCard() {
+            var _this = _super.call(this) || this;
+            _this.S = proto.MessageType.s_PlayCard;
+            return _this;
+        }
+        s_PlayCard.prototype.init = function (_isSuccess, _errMsg) {
+            this.isSuccess = _isSuccess;
+            this.errMsg = _errMsg;
+            return this;
+        };
+        s_PlayCard.prototype.encode = function (by) {
+            by.writeBoolean(this.isSuccess);
+            if (this.errMsg != null) {
+                by.writeByte(1);
+                by.writeUTF(this.errMsg);
+            }
+            else {
+                by.writeByte(0);
+            }
+        };
+        s_PlayCard.prototype.decode = function (by) {
+            this.isSuccess = by.readBoolean();
+            if (by.readByte() > 0) {
+                this.errMsg = by.readUTF();
+            }
+        };
+        return s_PlayCard;
+    }(proto.Pro));
+    proto.s_PlayCard = s_PlayCard;
+    __reflect(s_PlayCard.prototype, "proto.s_PlayCard");
+    var c_PlayCardResponse = (function (_super) {
+        __extends(c_PlayCardResponse, _super);
+        function c_PlayCardResponse() {
+            var _this = _super.call(this) || this;
+            //required>int
+            _this.option = 0; //操作选项
+            _this.S = proto.MessageType.c_PlayCardResponse;
+            return _this;
+        }
+        c_PlayCardResponse.prototype.init = function (_option, _cardList) {
+            this.option = _option;
+            this.cardList = _cardList;
+            return this;
+        };
+        c_PlayCardResponse.prototype.encode = function (by) {
+            by.writeInt(this.option);
+            if (this.cardList != null) {
+                by.writeShort(this.cardList.length);
+                for (var i = 0; i < this.cardList.length; i++) {
+                    by.writeInt(this.cardList[i]);
+                }
+            }
+            else {
+                by.writeShort(0);
+            }
+        };
+        c_PlayCardResponse.prototype.decode = function (by) {
+            this.option = by.readInt();
+            var __count1 = by.readShort();
+            this.cardList = [];
+            for (var i = 0; i < __count1; i++) {
+                this.cardList[i] = by.readInt();
+            }
+        };
+        return c_PlayCardResponse;
+    }(proto.Pro));
+    proto.c_PlayCardResponse = c_PlayCardResponse;
+    __reflect(c_PlayCardResponse.prototype, "proto.c_PlayCardResponse");
+    var s_PlayCardResponse = (function (_super) {
+        __extends(s_PlayCardResponse, _super);
+        function s_PlayCardResponse() {
+            var _this = _super.call(this) || this;
+            _this.S = proto.MessageType.s_PlayCardResponse;
+            return _this;
+        }
+        s_PlayCardResponse.prototype.init = function (_isSuccess, _errMsg) {
+            this.isSuccess = _isSuccess;
+            this.errMsg = _errMsg;
+            return this;
+        };
+        s_PlayCardResponse.prototype.encode = function (by) {
+            by.writeBoolean(this.isSuccess);
+            if (this.errMsg != null) {
+                by.writeByte(1);
+                by.writeUTF(this.errMsg);
+            }
+            else {
+                by.writeByte(0);
+            }
+        };
+        s_PlayCardResponse.prototype.decode = function (by) {
+            this.isSuccess = by.readBoolean();
+            if (by.readByte() > 0) {
+                this.errMsg = by.readUTF();
+            }
+        };
+        return s_PlayCardResponse;
+    }(proto.Pro));
+    proto.s_PlayCardResponse = s_PlayCardResponse;
+    __reflect(s_PlayCardResponse.prototype, "proto.s_PlayCardResponse");
 })(proto || (proto = {}));
 //# sourceMappingURL=Proto.js.map

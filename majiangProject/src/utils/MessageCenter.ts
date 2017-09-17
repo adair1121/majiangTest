@@ -120,15 +120,16 @@ class MessageCenter extends BaseClass {
         var vo:MessageVo = ObjectPool.pop("MessageVo");
         vo.type = type;
         vo.param = param;
-        if (this.type == 0) {
-            this.eVec.push(vo);
-        }
-        else if (this.type == 1) {
-            this.dealMsg(vo);
-        }
-        else {
-            console.log("MessageCenter未实现的类型");
-        }
+        this.dealMsg(vo);
+        // if (this.type == 0) {
+        //     this.eVec.push(vo);
+        // }
+        // else if (this.type == 1) {
+        //     this.dealMsg(vo);
+        // }
+        // else {
+        //     console.log("MessageCenter未实现的类型");
+        // }
     }
 
     /**

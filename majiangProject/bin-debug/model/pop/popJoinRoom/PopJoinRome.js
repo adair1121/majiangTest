@@ -49,25 +49,43 @@ var PopJoinRome = (function (_super) {
     PopJoinRome.prototype.onItemTap = function (evt) {
         switch (evt.item.num) {
             case "d":
-                if (this.romeNum.length > 0) {
-                    var arr = this.romeNum.split("");
+                var arr = this.romeNum.split("");
+                if (arr.length > 0) {
                     arr.pop();
                     this.romeNum = arr.join("");
+                    this.addLabel();
                 }
                 break;
             case "r":
                 this.romeNum = "";
-                this.initRoomNum();
+                this.addLabel();
                 break;
             default:
-                if (this.romeNum.length < 6) {
+                var arr1 = this.romeNum.split("");
+                if (arr1.length <= 5) {
                     this.romeNum += evt.item.num;
-                }
-                else {
-                    //请求加入房间
-                    this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.JOIN_ROOM_C2S, { tableId: this.romeNum });
+                    this.addLabel();
+                    var arr2 = this.romeNum.split("");
+                    if (arr2.length >= 5) {
+                        //请求加入房间
+                        this.close([]);
+                        this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.JOIN_ROOM_C2S, { tableId: this.romeNum });
+                    }
                 }
                 break;
+        }
+    };
+    PopJoinRome.prototype.addLabel = function () {
+        var arr = this.romeNum.split("");
+        if (arr.length) {
+            for (var i = 1; i <= arr.length; i++) {
+                this["num" + i].text = arr[i - 1];
+            }
+        }
+        else {
+            for (var j = 1; i <= 6; j++) {
+                this["num" + j].text = "";
+            }
         }
     };
     PopJoinRome.prototype.onTouchHandler = function (evt) {

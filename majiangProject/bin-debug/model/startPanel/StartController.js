@@ -20,7 +20,7 @@ var StartController = (function (_super) {
         //注册创建房间c2s
         _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.creatRoom, _this);
         //注册创建房间s2c
-        _this.registerFunc(StartConsts.CREATE_ROOM_C2S, _this.creatRoomRes, _this);
+        _this.registerFunc(StartConsts.CREATE_ROOM_S2C, _this.creatRoomRes, _this);
         //注册加入房间c2s
         _this.registerFunc(StartConsts.JOIN_ROOM_C2S, _this.joinRoom, _this);
         //注册加入房间s2c

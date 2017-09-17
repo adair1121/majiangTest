@@ -7,6 +7,7 @@ class ViewStart extends BaseEuiView{
 	public addCardBtn:eui.Image;
 	public buttonSet:eui.Image;
 	public buttonScore:eui.Image;
+	public cardNum:eui.Label;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
 		this.skinName = "ViewStartSkin";
@@ -27,8 +28,12 @@ class ViewStart extends BaseEuiView{
 	/**
 	 * 面板开启执行函数
 	 */
-	public open(param:any[]):void{
-		
+	public open(param:any):void{
+		var userInfo:proto.UserInfo = param.userInfo;
+		this.playerName.text = userInfo.nick;
+		this.playerId.text = "ID:"+userInfo.userId+"";
+		DataCenter.playerId = userInfo.userId;
+		this.cardNum.text = userInfo.cardCount+"";
 	}
 	/**
 	 * 面板关闭执行函数

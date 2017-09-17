@@ -16,6 +16,7 @@ class StartProxy extends BaseProxy{
 	public joinRoom(dataObj:any):void{
 		var msg:proto.c_EnterRoom = new proto.c_EnterRoom();
 		msg.tableId = dataObj.tableId;
+		msg.roomPassword = "111111";
 		this.sendSocketMsg(msg);
 	}
 	private createRoomRes(obj:proto.s_CreateRoom):void{

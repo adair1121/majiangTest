@@ -39,11 +39,12 @@ var LoginController = (function (_super) {
         if (msg.isSuccess) {
             //保存数据
             this.loginModel.userInfo = msg.userInfo;
+            DataCenter.userInfo = msg.userInfo;
             //本模块UI处理
             this.loginView.loginSuccess();
             //UI跳转
             App.ViewManager.close(ViewConst.Login);
-            App.ViewManager.open(ViewConst.Start);
+            App.ViewManager.open(ViewConst.Start, { userInfo: msg.userInfo });
         }
         else {
             alert(msg.errMsg);

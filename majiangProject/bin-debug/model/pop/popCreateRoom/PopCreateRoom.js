@@ -10,13 +10,8 @@ var PopCreateRoom = (function (_super) {
     __extends(PopCreateRoom, _super);
     function PopCreateRoom($controller, $parent) {
         var _this = _super.call(this, $controller, $parent) || this;
-        _this.pwdNum = "";
-        _this.countNum = "";
-        _this.scoreNum = "";
-        _this.TYPE_PWD = 10001;
-        _this.TYPE_COUNT = 10002;
-        _this.TYPE_SCORE = 10003;
-        _this.focus = 0;
+        _this.countsAny = [8, 16];
+        _this.counts = 0;
         _this.skinName = "PopCreateRoomSkin";
         return _this;
     }
@@ -28,23 +23,15 @@ var PopCreateRoom = (function (_super) {
         var radioButtonGroup = new eui.RadioButtonGroup();
         this.radioBtnOne.group = radioButtonGroup;
         this.radioBtnTwo.group = radioButtonGroup;
-        this.radioBtnThree.group = radioButtonGroup;
-        this.radioBtnFour.group = radioButtonGroup;
         this.radioBtnOne.selected = true;
-        this.collect = new eui.ArrayCollection();
-        this.keyList.itemRenderer = MyButton;
-        this.keyList.dataProvider = this.collect;
+        this.counts = 8;
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
-        this.keyList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTap, this);
         radioButtonGroup.addEventListener(eui.UIEvent.CHANGE, this.radioChangeHandler, this);
     };
     /**
      * 面板开启执行函数
      */
     PopCreateRoom.prototype.open = function (param) {
-        this.roomNum = 1;
-        this.collect.source = [{ num: "1" }, { num: "2" }, { num: "3" }, { num: "4" }, { num: "5" }, { num: "6" },
-            { num: "7" }, { num: "8" }, { num: "9" }, { num: "0" }];
         this.x = (this.myParent.width >> 1) - (this.measuredWidth >> 1);
         this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
     };
@@ -52,61 +39,33 @@ var PopCreateRoom = (function (_super) {
      * 面板关闭执行函数
      */
     PopCreateRoom.prototype.close = function (param) {
-        this.pwdNum = "";
-        this.pwd.text = this.pwdNum;
-        this.countNum = "";
-        this.counts.text = this.countNum;
-        this.scoreNum = "";
-        this.basicScore.text = this.scoreNum;
-        this.focus = 0;
     };
     PopCreateRoom.prototype.radioChangeHandler = function (evt) {
         var radioButtonGroup = evt.target;
         var radioBtn = radioButtonGroup.selection;
-        this.roomNum = this.radioGroup.getChildIndex(radioBtn) + 1;
-    };
-    PopCreateRoom.prototype.onItemTap = function (evt) {
-        switch (this.focus) {
-            case this.TYPE_PWD:
-                this.pwdNum += evt.item.num + "";
-                this.pwd.text = this.pwdNum;
-                break;
-            case this.TYPE_COUNT:
-                this.countNum = evt.item.num + "";
-                this.counts.text = this.countNum;
-                break;
-            case this.TYPE_SCORE:
-                this.scoreNum = evt.item.num + "";
-                this.basicScore.text = this.scoreNum;
-                break;
-        }
+        var index = this.radioGroup.getChildIndex(radioBtn);
+        this.counts = this.countsAny[index];
+        alert(this.counts);
     };
     PopCreateRoom.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.btnClose:
                 App.ViewManager.close(ViewConst.Create);
                 break;
-            case this.createBtn:
+            case this.buttonSure:
                 //加入房间
-                if (!parseInt(this.scoreNum)) {
-                    alert("请输入底分");
+                if (!this.baseScore.m_count) {
+                    alert("请设置底分");
                     return;
                 }
-                if (!parseInt(this.countNum)) {
-                    alert("请设置局数");
+                if (!this.rewardTop.m_count) {
+                    alert("请设置封顶");
                     return;
                 }
-                var obj = { roomNum: this.roomNum, romePwd: this.pwdNum, score: this.scoreNum, counts: this.countNum };
+                App.ViewManager.close(ViewConst.Create);
+                DataCenter.playerCount = 2;
+                var obj = { basicScore: this.baseScore.m_count, times: this.rewardTop.m_count, playerCount: 2 };
                 this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.CREATE_ROOM_C2S, obj);
-                break;
-            case this.txtPwd:
-                this.focus = this.TYPE_PWD;
-                break;
-            case this.txtBasicScore:
-                this.focus = this.TYPE_SCORE;
-                break;
-            case this.txtCounts:
-                this.focus = this.TYPE_COUNT;
                 break;
         }
     };

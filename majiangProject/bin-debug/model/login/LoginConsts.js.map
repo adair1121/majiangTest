@@ -1,1 +1,1 @@
-{"version":3,"file":"LoginConsts.js","sourceRoot":"","sources":["../../../src/model/login/LoginConsts.ts"],"names":[],"mappings":";;;AAAA;IAAA;IAIA,CAAC;IAAD,kBAAC;AAAD,CAAC,AAJD;AACkB,qBAAS,GAAU,OAAO,CAAC;AAC3B,qBAAS,GAAU,OAAO,CAAC;AAC3B,wBAAY,GAAU,OAAO,CAAC;AAH1C,UAAA,WAAW,0BAIhB,CAAA"}
+{"version":3,"file":"LoginConsts.js","sourceRoot":"","sources":["../../../src/model/login/LoginConsts.ts"],"names":[],"mappings":";;;AAAA;IAAA;IAIA,CAAC;IAAD,kBAAC;AAAD,CAAC,AAJD;AACkB,qBAAS,GAAU,aAAa,CAAC;AACjC,qBAAS,GAAU,aAAa,CAAC;AACjC,wBAAY,GAAU,aAAa,CAAC;AAHhD,UAAA,WAAW,0BAIhB,CAAA"}

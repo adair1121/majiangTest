@@ -37,9 +37,17 @@ module data{
 		**/
 		Kong=3,
 		/**
+		* 痞
+		**/
+		Pi=4,
+		/**
+		* 癞
+		**/
+		Lai=5,
+		/**
 		* 胡
 		**/
-		Win=4,
+		Win=6,
 	}
 
 	export enum TableState{

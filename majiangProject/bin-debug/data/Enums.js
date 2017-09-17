@@ -39,9 +39,17 @@ var data;
         **/
         Option[Option["Kong"] = 3] = "Kong";
         /**
+        * 痞
+        **/
+        Option[Option["Pi"] = 4] = "Pi";
+        /**
+        * 癞
+        **/
+        Option[Option["Lai"] = 5] = "Lai";
+        /**
         * 胡
         **/
-        Option[Option["Win"] = 4] = "Win";
+        Option[Option["Win"] = 6] = "Win";
     })(Option = data.Option || (data.Option = {}));
     var TableState;
     (function (TableState) {

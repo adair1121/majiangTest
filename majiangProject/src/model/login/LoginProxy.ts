@@ -14,7 +14,7 @@ class LoginProxy extends BaseProxy{
 		this.sendSocketMsg(msg);
 	}
 	/**
-	 * 用户登录成功返回
+	 * 用户登录成功返回	
 	 */
 	public loginSuccess(obj:any):void{
 		this.applyFunc(LoginConsts.LOGIN_S2C,obj);

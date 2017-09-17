@@ -39,27 +39,23 @@ var ViewLogin = (function (_super) {
     ViewLogin.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.btnLogin:
-                App.ViewManager.close(ViewConst.Login);
-                App.ViewManager.open(ViewConst.Start);
-                // if(Config.connectState){
-                // 	var account = egret.localStorage.getItem("account");
-                // 	var pwd = egret.localStorage.getItem("pwd");
-                // 	// egret.localStorage.clear();
-                // 	if(!account){
-                // 		account = GlobalFunc.guid();
-                // 		egret.localStorage.setItem("account",account);
-                // 	}
-                // 	if(!pwd){
-                // 		pwd = "111111";
-                // 		egret.localStorage.setItem("pwd",pwd);
-                // 	}
-                // 	this.applyFunc(LoginConsts.LOGIN_C2S,{userName:account,pwd:pwd});
-                // 	//测试代码
-                // 	// App.ViewManager.close(ViewConst.Login);
-                // 	// App.ViewManager.open(ViewConst.Start);
-                // }else{
-                // 	alert("网络不好,请稍后再试");
-                // }
+                if (Config.connectState) {
+                    var account = GlobalFunc.guid();
+                    var pwd = "111111";
+                    // egret.localStorage.clear();
+                    // if(!account){
+                    // 	account = GlobalFunc.guid();
+                    // 	egret.localStorage.setItem("account",account);
+                    // }
+                    // if(!pwd){
+                    // 	pwd = "111111";
+                    // 	egret.localStorage.setItem("pwd",pwd);
+                    // }
+                    this.applyFunc(LoginConsts.LOGIN_C2S, { userName: account, pwd: pwd });
+                }
+                else {
+                    alert("网络不好,请稍后再试");
+                }
                 break;
             case this.wxLogin:
                 break;

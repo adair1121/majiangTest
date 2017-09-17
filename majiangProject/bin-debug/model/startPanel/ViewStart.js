@@ -30,6 +30,11 @@ var ViewStart = (function (_super) {
      * 面板开启执行函数
      */
     ViewStart.prototype.open = function (param) {
+        var userInfo = param.userInfo;
+        this.playerName.text = userInfo.nick;
+        this.playerId.text = "ID:" + userInfo.userId + "";
+        DataCenter.playerId = userInfo.userId;
+        this.cardNum.text = userInfo.cardCount + "";
     };
     /**
      * 面板关闭执行函数
@@ -39,9 +44,9 @@ var ViewStart = (function (_super) {
     ViewStart.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.createRoomBtn:
-                App.ViewManager.close(ViewConst.Start);
-                App.ViewManager.open(ViewConst.Game);
-                // App.ViewManager.open(ViewConst.Create);
+                // App.ViewManager.close(ViewConst.Start);
+                // App.ViewManager.open(ViewConst.Game);
+                App.ViewManager.open(ViewConst.Create);
                 break;
             case this.joinRoomBtn:
                 App.ViewManager.open(ViewConst.Join);

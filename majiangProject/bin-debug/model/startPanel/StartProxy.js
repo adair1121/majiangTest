@@ -17,15 +17,16 @@ var StartProxy = (function (_super) {
     }
     StartProxy.prototype.createRoom = function (dataObj) {
         var msg = new proto.c_CreateRoom();
-        msg.playerCount = dataObj.roomNum;
-        msg.times = dataObj.counts;
-        msg.roomPassword = dataObj.roomPwd;
-        msg.basicScore = dataObj.score;
+        msg.playerCount = dataObj.playerCount;
+        msg.times = dataObj.times;
+        msg.roomPassword = "111111";
+        msg.basicScore = dataObj.basicScore;
         this.sendSocketMsg(msg);
     };
     StartProxy.prototype.joinRoom = function (dataObj) {
         var msg = new proto.c_EnterRoom();
         msg.tableId = dataObj.tableId;
+        msg.roomPassword = "111111";
         this.sendSocketMsg(msg);
     };
     StartProxy.prototype.createRoomRes = function (obj) {

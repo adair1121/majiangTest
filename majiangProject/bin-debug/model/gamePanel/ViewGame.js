@@ -24,6 +24,8 @@ var ViewGame = (function (_super) {
         _this.seatObj = {};
         _this.assetObj = {};
         _this.dachuObj = {};
+        _this.relativeSeat = {};
+        _this.initSeat = [data.Seat.South, data.Seat.North, data.Seat.West, data.Seat.East];
         _this.testCardobj = [0x24, 0x11, 0x23, 0x12, 0x18, 0x22, 0x19, 0x21, 0x17, 0x18, 0x25, 0x11, 0x21];
         _this.skinName = "ViewGameSkin";
         return _this;
@@ -78,6 +80,10 @@ var ViewGame = (function (_super) {
         this.prevTarget = null;
         this.newCard = null;
         this.clickState = false;
+        this.leftHand.visible = false;
+        this.rightHand.visible = false;
+        this.topHand.visible = false;
+        this.bottomHand.visible = false;
         this.cardSprite.removeChildren();
         this.topGroup.removeChildren();
         this.leftGroup.removeChildren();
@@ -87,21 +93,38 @@ var ViewGame = (function (_super) {
      * 面板开启执行函数
      */
     ViewGame.prototype.open = function (param) {
-        // if(param.oper === "createRoom"){
-        // 	this.tableId.text = param.tableId;
-        // }else{
-        // 	if(param.HandsCard.length){
-        // 		//掉线后重新进入
-        // 		//生成掉线前出牌数据
-        // 		this.skin.currentState = this.TYPE_GAME;
-        // 	}else{
-        // 		//第一次进入房间
-        // 		this.skin.currentState = this.TYPE_WAIT;
-        // 	}
-        // }
+        if (param.oper === "createRoom") {
+            this.tableId.text = param.tableId;
+            this.ownerSeat = param.seat;
+            this.skin.currentState = this.TYPE_WAIT;
+            var userInfo = DataCenter.userInfo;
+            this.roleInfo_102.setRoleInfo(userInfo);
+            var index = this.initSeat.indexOf(data.Seat.South);
+            this.initSeat.splice(index, 1);
+        }
+        else {
+            if (param.handCards.length) {
+                //掉线后重新进入
+                //生成掉线前出牌数据
+                this.skin.currentState = this.TYPE_GAME;
+            }
+            else {
+                //第一次进入房间
+                this.skin.currentState = this.TYPE_WAIT;
+                this.tableId.text = param.tableId;
+                this.ownerSeat = param.seat;
+                DataCenter.playerCount = param.playerCount;
+                var userInfo = DataCenter.userInfo;
+                this.roleInfo_102.setRoleInfo(userInfo);
+                var index = this.initSeat.indexOf(data.Seat.South);
+                this.initSeat.splice(index, 1);
+                // this.relativeSeat[param.seat] = data.Seat.South;
+                this.createRoleInfo(param.userInfoList);
+            }
+        }
         // this.createRoleInfo(param.userInfoList);
         /**测试数据 */
-        this.startNewGame(5, 5, data.Seat.East, 4, this.testCardobj);
+        // this.startNewGame(5,5,data.Seat.East,4,this.testCardobj);
     };
     /**
      * 面板关闭执行函数
@@ -112,10 +135,25 @@ var ViewGame = (function (_super) {
      * 创建人物信息
      */
     ViewGame.prototype.createRoleInfo = function (userInfoList) {
-        for (var i = 0, len = userInfoList.length, item; i < len; i++) {
-            item = userInfoList[i];
-            this["roleInfo_" + item.seat].seat = item.seat;
-            this["roleInfo_" + item.seat].setRoleInfo(item.userInfo);
+        if (DataCenter.playerCount === 2) {
+            if (userInfoList.length) {
+                var userInfoWithSeat = userInfoList[0];
+                var userInfo = userInfoWithSeat.userInfo;
+                this.roleInfo_104.setRoleInfo(userInfo);
+                var index = this.initSeat.indexOf(data.Seat.North);
+                this.initSeat.splice(index, 1);
+            }
+        }
+        else {
+            if (userInfoList.length) {
+                for (var i = 0, len = userInfoList.length, item; i < len; i++) {
+                    item = userInfoList[i];
+                    var seat = this.initSeat.shift();
+                    // this["roleInfo_"+seat].seat = item.seat;
+                    // this.relativeSeat[item.seat] = seat;
+                    this["roleInfo_" + seat].setRoleInfo(item.userInfo);
+                }
+            }
         }
     };
     /**
@@ -129,6 +167,11 @@ var ViewGame = (function (_super) {
      */
     ViewGame.prototype.curGameEnd = function (msg) {
         this.curGameState = 0;
+    };
+    /**举手成功 */
+    ViewGame.prototype.raiseHandSuccess = function () {
+        this.readyBtn.visible = false;
+        this.bottomHand.visible = true;
     };
     /**
      * 开始新的一局
@@ -396,6 +439,9 @@ var ViewGame = (function (_super) {
         switch (evt.target) {
             case this.buttonYaoQing:
                 //邀请微信好友
+                break;
+            case this.readyBtn:
+                this.applyFunc(GameConsts.RAISEHANDS_C2S);
                 break;
         }
     };

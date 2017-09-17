@@ -42,7 +42,10 @@ class ViewGame extends BaseEuiView{
 	private seatObj:any = {};
 	private assetObj:any = {};
 	private dachuObj:any = {};
+	private relativeSeat:any ={};
+	private ownerSeat:number;
 	private cardMap:CardMap
+	private initSeat:number[] = [data.Seat.South,data.Seat.North,data.Seat.West,data.Seat.East];
 	private testCardobj:number[] = [0x24,0x11,0x23,0x12,0x18,0x22,0x19,0x21,0x17,0x18,0x25,0x11,0x21];
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
@@ -113,20 +116,37 @@ class ViewGame extends BaseEuiView{
 	public open(param:any):void{
 		if(param.oper === "createRoom"){
 			this.tableId.text = param.tableId;
+			this.ownerSeat = param.seat;
+			this.skin.currentState = this.TYPE_WAIT;
+			var userInfo:proto.UserInfo = DataCenter.userInfo;
+			this.roleInfo_102.setRoleInfo(userInfo);
+			var index:number = this.initSeat.indexOf(data.Seat.South);
+			this.initSeat.splice(index,1);
+			// this.relativeSeat[param.seat] = data.Seat.South;
 		}else{
-			if(param.HandsCard.length){
+			if(param.handCards.length){
 				//掉线后重新进入
 				//生成掉线前出牌数据
 				this.skin.currentState = this.TYPE_GAME;
 			}else{
 				//第一次进入房间
 				this.skin.currentState = this.TYPE_WAIT;
+				this.tableId.text = param.tableId;
+				this.ownerSeat = param.seat;
+				DataCenter.playerCount = param.playerCount;
+				var userInfo:proto.UserInfo = DataCenter.userInfo;
+				this.roleInfo_102.setRoleInfo(userInfo);
+				var index:number = this.initSeat.indexOf(data.Seat.South);
+				this.initSeat.splice(index,1);
+				// this.relativeSeat[param.seat] = data.Seat.South;
+				this.createRoleInfo(param.userInfoList);
 			}
 		}
-		this.createRoleInfo(param.userInfoList);
+		// this.createRoleInfo(param.userInfoList);
 		/**测试数据 */
-		this.startNewGame(5,5,data.Seat.East,4,this.testCardobj);
+		// this.startNewGame(5,5,data.Seat.East,4,this.testCardobj);
 	}
+	
 	/**
 	 * 面板关闭执行函数
 	 */
@@ -137,11 +157,27 @@ class ViewGame extends BaseEuiView{
 	 * 创建人物信息
 	 */
 	public createRoleInfo(userInfoList:proto.UserInfoWithSeat[]):void{
-		for(var i:number = 0,len:number = userInfoList.length,item:proto.UserInfoWithSeat;i<len;i++){
-			item = userInfoList[i];
-			this["roleInfo_"+item.seat].seat = item.seat;
-			this["roleInfo_"+item.seat].setRoleInfo(item.userInfo);
+		if(DataCenter.playerCount === 2){
+			if(userInfoList.length){
+				var userInfoWithSeat:proto.UserInfoWithSeat = userInfoList[0] as proto.UserInfoWithSeat;
+				var userInfo:proto.UserInfo = userInfoWithSeat.userInfo;
+				this.roleInfo_104.setRoleInfo(userInfo);
+				var index:number = this.initSeat.indexOf(data.Seat.North);
+				this.initSeat.splice(index,1);
+				// this.relativeSeat[param.seat] = data.Seat.North;
+			}
+		}else{
+			if(userInfoList.length){
+				for(var i:number = 0,len:number = userInfoList.length,item:proto.UserInfoWithSeat;i<len;i++){
+					item = userInfoList[i];
+					var seat:number = this.initSeat.shift();
+					// this["roleInfo_"+seat].seat = item.seat;
+					// this.relativeSeat[item.seat] = seat;
+					this["roleInfo_"+seat].setRoleInfo(item.userInfo);
+				}
+			}
 		}
+		
 	}
 	/**
 	 * 离开房间

@@ -55,22 +55,43 @@ var proto;
         };
         /**通知手牌信息 */
         Processor.prototype.do_s_NotifyHandCards = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.NOTIFY_HANDCARDS_S2C, mess);
         };
         /**通知发牌信息 */
         Processor.prototype.do_s_NotifyDealCard = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.NOTIFY_HANDCARDS_S2C, mess);
         };
         /**通知打牌信息 */
         Processor.prototype.do_s_NotifyPlayCard = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.NOTIFY_PLAYCARDS_S2C, mess);
         };
         /**通知打牌响应 */
         Processor.prototype.do_s_NotifyPlayResponse = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.NOTIFY_PLAYRESPONSE_S2C, mess);
         };
         /**通知切换操作玩家 */
         Processor.prototype.do_s_NotifyChangeOpUser = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.NOTIFY_CHANGEOPUSER_S2C, mess);
         };
         /**游戏结束通知所有玩家手牌信息 */
         Processor.prototype.do_s_NotifyEndHandCards = function (mess) {
             App.MessageCenter.dispatch(GameConsts.CURGAME_END_S2C, mess);
+        };
+        /**通知举手信息 */
+        Processor.prototype.do_s_RaiseHands = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.RAISEHANDS_S2C, mess);
+        };
+        /**摸牌响应,摸牌时出现的胡牌杠牌等操作选项的响应 */
+        Processor.prototype.do_s_DrawCardResponse = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.DRAWCARDRESPONSE_S2C, mess);
+        };
+        /**打牌 */
+        Processor.prototype.do_s_PlayCard = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.PLAYCARD_S2C, mess);
+        };
+        /**打牌响应,别人打出牌吃碰杠等操作 */
+        Processor.prototype.do_s_PlayCardResponse = function (mess) {
+            App.MessageCenter.dispatch(GameConsts.PLAYCARDRESPONSE_S2C, mess);
         };
         return Processor;
     }(proto.MessageHandle));
