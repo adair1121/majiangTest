@@ -14,14 +14,14 @@ var HandCardItem = (function (_super) {
         _this.soundObj = {};
         _this.skinName = "HandCardItemSkin";
         _this.cardId = template.icon;
-        _this.path_icon = Config.path_card + _this.cardId + ".png";
-        RES.getResByUrl(Config.audio_path + template.manVoice + ".mp3", function (value) {
-            this.soundObj[1] = value.originAudio;
-        }, _this, RES.ResourceItem.TYPE_SOUND);
-        RES.getResByUrl(Config.audio_path + template.womenVoice + ".mp3", function (value) {
-            this.soundObj[2] = value;
-        }, _this, RES.ResourceItem.TYPE_SOUND);
+        _this.path_icon = _this.cardId + "_png";
         return _this;
+        // RES.getResByUrl(Config.audio_path + template.manVoice+".mp3",function(value){
+        // 	this.soundObj[1] = value.originAudio;
+        // },this,RES.ResourceItem.TYPE_SOUND);
+        // RES.getResByUrl(Config.audio_path + template.womenVoice+".mp3",function(value){
+        // 	this.soundObj[2] = value;
+        // },this,RES.ResourceItem.TYPE_SOUND);
     }
     HandCardItem.prototype.childrenCreated = function () {
         this.cardIcon.source = this.path_icon;

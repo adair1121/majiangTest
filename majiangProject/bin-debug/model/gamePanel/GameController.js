@@ -88,9 +88,11 @@ var GameController = (function (_super) {
     };
     /**通知手牌信息 */
     GameController.prototype.notifyHandCards = function (msg) {
+        this.gameView.showGameState(msg);
     };
     /**通知发牌信息 */
     GameController.prototype.notifyDealCards = function (msg) {
+        this.gameView.notifyDealCards(msg);
     };
     /**通知打牌信息 */
     GameController.prototype.notifyPlayCards = function (msg) {

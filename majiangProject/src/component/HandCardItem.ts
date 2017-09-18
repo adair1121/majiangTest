@@ -9,13 +9,13 @@ class HandCardItem extends eui.Component{
 		super();
 		this.skinName = "HandCardItemSkin";
 		this.cardId = template.icon;
-		this.path_icon = Config.path_card + this.cardId + ".png";
-		RES.getResByUrl(Config.audio_path + template.manVoice+".mp3",function(value){
-			this.soundObj[1] = value.originAudio;
-		},this,RES.ResourceItem.TYPE_SOUND);
-		RES.getResByUrl(Config.audio_path + template.womenVoice+".mp3",function(value){
-			this.soundObj[2] = value;
-		},this,RES.ResourceItem.TYPE_SOUND);
+		this.path_icon = this.cardId + "_png";
+		// RES.getResByUrl(Config.audio_path + template.manVoice+".mp3",function(value){
+		// 	this.soundObj[1] = value.originAudio;
+		// },this,RES.ResourceItem.TYPE_SOUND);
+		// RES.getResByUrl(Config.audio_path + template.womenVoice+".mp3",function(value){
+		// 	this.soundObj[2] = value;
+		// },this,RES.ResourceItem.TYPE_SOUND);
 		
 	}
 	protected childrenCreated():void{

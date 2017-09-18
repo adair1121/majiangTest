@@ -86,11 +86,11 @@ class GameController extends BaseController{
 	}
 	/**通知手牌信息 */
 	private notifyHandCards(msg:proto.s_NotifyHandCards):void{
-
+		this.gameView.showGameState(msg);
 	}
 	/**通知发牌信息 */
 	private notifyDealCards(msg:proto.s_NotifyDealCard):void{
-
+		this.gameView.notifyDealCards(msg);
 	}
 	/**通知打牌信息 */
 	private notifyPlayCards(msg:proto.s_NotifyPlayCard):void{

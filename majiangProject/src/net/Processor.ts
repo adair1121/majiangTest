@@ -51,7 +51,7 @@ module proto {
 		}
 		/**通知发牌信息 */
 		public do_s_NotifyDealCard(mess:Pro):void{
-			App.MessageCenter.dispatch(GameConsts.NOTIFY_HANDCARDS_S2C,mess);
+			App.MessageCenter.dispatch(GameConsts.NOTIFY_DEALCARDS_S2C,mess);
 		}
 		/**通知打牌信息 */
 		public do_s_NotifyPlayCard(mess:Pro):void{

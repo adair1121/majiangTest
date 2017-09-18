@@ -22,25 +22,23 @@ var CardMap = (function (_super) {
         this.seatObj[data.Seat.South] = this.southGroup;
         this.seatObj[data.Seat.West] = this.westGroup;
     };
-    CardMap.prototype.calculBlock = function (num1, num2, seat, peopleNum) {
-        if (peopleNum === void 0) { peopleNum = 4; }
+    CardMap.prototype.calculBlock = function (num1, num2, seat) {
         var minNum;
         var maxNum;
         num1 >= num2 ? (minNum = num2, maxNum = num1) : (minNum = num1, maxNum = num2);
         var totleNum = minNum + maxNum;
         var curPos;
         var loopDir;
-        if (totleNum <= peopleNum) {
-            curPos = totleNum;
+        // if(totleNum <= peopleNum){
+        // 	curPos = totleNum;
+        // }else{
+        curPos = totleNum % DataCenter.playerCount;
+        if (curPos === 0) {
+            curPos = 4;
         }
-        else {
-            curPos = totleNum % peopleNum;
-            if (curPos === 0) {
-                curPos = 4;
-            }
-        }
-        loopDir = this.createDicArr(peopleNum, seat, false);
-        this.reCardDic = this.createDicArr(peopleNum, loopDir[curPos - 1], true);
+        // }
+        loopDir = this.createDicArr(seat, false);
+        this.reCardDic = this.createDicArr(loopDir[curPos - 1], true);
         this.firstSeat = this.curSeat = this.reCardDic.shift();
         this.curGroup = this.seatObj[this.curSeat];
         for (var i = 0; i < minNum; i++) {
@@ -163,52 +161,50 @@ var CardMap = (function (_super) {
             }
         }
     };
-    CardMap.prototype.createDicArr = function (peopleNum, campareValue, ifClockWise) {
+    CardMap.prototype.createDicArr = function (campareValue, ifClockWise) {
         var arr = [];
-        if (peopleNum === 2) {
-            if (campareValue === data.Seat.North) {
-                arr = [data.Seat.North, data.Seat.South];
-            }
-            else {
-                arr = [data.Seat.South, data.Seat.North];
-            }
+        // if(peopleNum === 2){
+        // 	if(campareValue === data.Seat.North){
+        // 		arr = [data.Seat.North,data.Seat.South];
+        // 	}else{
+        // 		arr = [data.Seat.South,data.Seat.North];
+        // 	}
+        // }else{
+        switch (campareValue) {
+            case data.Seat.North:
+                if (!ifClockWise) {
+                    arr = [data.Seat.North, data.Seat.West, data.Seat.South, data.Seat.East];
+                }
+                else {
+                    arr = [data.Seat.North, data.Seat.East, data.Seat.South, data.Seat.West];
+                }
+                break;
+            case data.Seat.East:
+                if (!ifClockWise) {
+                    arr = [data.Seat.East, data.Seat.North, data.Seat.West, data.Seat.South];
+                }
+                else {
+                    arr = [data.Seat.East, data.Seat.South, data.Seat.West, data.Seat.North];
+                }
+                break;
+            case data.Seat.South:
+                if (!ifClockWise) {
+                    arr = [data.Seat.South, data.Seat.East, data.Seat.North, data.Seat.West];
+                }
+                else {
+                    arr = [data.Seat.South, data.Seat.West, data.Seat.North, data.Seat.East];
+                }
+                break;
+            case data.Seat.West:
+                if (!ifClockWise) {
+                    arr = [data.Seat.West, data.Seat.South, data.Seat.East, data.Seat.North];
+                }
+                else {
+                    arr = [data.Seat.West, data.Seat.North, data.Seat.East, data.Seat.South];
+                }
+                break;
         }
-        else {
-            switch (campareValue) {
-                case data.Seat.North:
-                    if (!ifClockWise) {
-                        arr = [data.Seat.North, data.Seat.West, data.Seat.South, data.Seat.East];
-                    }
-                    else {
-                        arr = [data.Seat.North, data.Seat.East, data.Seat.South, data.Seat.West];
-                    }
-                    break;
-                case data.Seat.East:
-                    if (!ifClockWise) {
-                        arr = [data.Seat.East, data.Seat.North, data.Seat.West, data.Seat.South];
-                    }
-                    else {
-                        arr = [data.Seat.East, data.Seat.South, data.Seat.West, data.Seat.North];
-                    }
-                    break;
-                case data.Seat.South:
-                    if (!ifClockWise) {
-                        arr = [data.Seat.South, data.Seat.East, data.Seat.North, data.Seat.West];
-                    }
-                    else {
-                        arr = [data.Seat.South, data.Seat.West, data.Seat.North, data.Seat.East];
-                    }
-                    break;
-                case data.Seat.West:
-                    if (!ifClockWise) {
-                        arr = [data.Seat.West, data.Seat.South, data.Seat.East, data.Seat.North];
-                    }
-                    else {
-                        arr = [data.Seat.West, data.Seat.North, data.Seat.East, data.Seat.South];
-                    }
-                    break;
-            }
-        }
+        // }
         return arr;
     };
     return CardMap;

@@ -20,13 +20,21 @@ var ViewGame = (function (_super) {
         _this.moveStep = 100;
         _this.TYPE_WAIT = "wait";
         _this.TYPE_GAME = "game";
+        //当前游戏状态 0为当局结束 1为开始
         _this.curGameState = 0;
         _this.seatObj = {};
+        //资源集合
         _this.assetObj = {};
+        //打出牌集合
         _this.dachuObj = {};
+        //记录相对位置
         _this.relativeSeat = {};
+        //初始化方位--玩家进入房间的方位顺序
         _this.initSeat = [data.Seat.South, data.Seat.North, data.Seat.West, data.Seat.East];
-        _this.testCardobj = [0x24, 0x11, 0x23, 0x12, 0x18, 0x22, 0x19, 0x21, 0x17, 0x18, 0x25, 0x11, 0x21];
+        //初始化牌集合
+        _this.cardobj = [];
+        //初始化牌集合副本
+        _this.copyCardGather = [];
         _this.skinName = "ViewGameSkin";
         return _this;
     }
@@ -101,6 +109,7 @@ var ViewGame = (function (_super) {
             this.roleInfo_102.setRoleInfo(userInfo);
             var index = this.initSeat.indexOf(data.Seat.South);
             this.initSeat.splice(index, 1);
+            this.relativeSeat[param.seat] = data.Seat.South;
         }
         else {
             if (param.handCards.length) {
@@ -118,7 +127,7 @@ var ViewGame = (function (_super) {
                 this.roleInfo_102.setRoleInfo(userInfo);
                 var index = this.initSeat.indexOf(data.Seat.South);
                 this.initSeat.splice(index, 1);
-                // this.relativeSeat[param.seat] = data.Seat.South;
+                this.relativeSeat[param.seat] = data.Seat.South;
                 this.createRoleInfo(param.userInfoList);
             }
         }
@@ -142,6 +151,7 @@ var ViewGame = (function (_super) {
                 this.roleInfo_104.setRoleInfo(userInfo);
                 var index = this.initSeat.indexOf(data.Seat.North);
                 this.initSeat.splice(index, 1);
+                this.relativeSeat[userInfoWithSeat.seat] = data.Seat.North;
             }
         }
         else {
@@ -150,17 +160,39 @@ var ViewGame = (function (_super) {
                     item = userInfoList[i];
                     var seat = this.initSeat.shift();
                     // this["roleInfo_"+seat].seat = item.seat;
-                    // this.relativeSeat[item.seat] = seat;
+                    this.relativeSeat[item.seat] = seat;
                     this["roleInfo_" + seat].setRoleInfo(item.userInfo);
                 }
             }
+        }
+    };
+    ViewGame.prototype.showGameState = function (msg) {
+        this.skin.currentState = this.TYPE_GAME;
+        this.cardobj = msg.handCards;
+        this.copyCardGather = this.copyCardGather.concat(msg.handCards);
+        this.startNewGame(msg.dice1, msg.dice2, this.relativeSeat[msg.dealer]);
+    };
+    /**处理摸牌 */
+    ViewGame.prototype.notifyDealCards = function (msg) {
+        if (this.relativeSeat[msg.seat] === data.Seat.South) {
+            //如果相对座位为南是 添加手牌到显示组
+            // this.addCardGroup([msg.drawCard],true);
+            this.cardobj.push(msg.drawCard);
+            this.copyCardGather.push(msg.drawCard);
+        }
+        if (msg.isWin) {
         }
     };
     /**
      * 离开房间
      */
     ViewGame.prototype.leaveSeat = function (seat) {
-        this["roleInfo_" + seat].showLeave();
+        if (DataCenter.playerCount === 2) {
+            this.roleInfo_104.showLeave();
+        }
+        else {
+            this["roleInfo_" + this.relativeSeat[seat]].showLeave();
+        }
     };
     /**
      * 当前局数结束
@@ -176,7 +208,7 @@ var ViewGame = (function (_super) {
     /**
      * 开始新的一局
      */
-    ViewGame.prototype.startNewGame = function (num1, num2, seat, peopleNum, cardGather) {
+    ViewGame.prototype.startNewGame = function (num1, num2, seat) {
         var _this = this;
         if (this.cardMap && this.cardMap.parent && this.cardMap.parent.contains(this.cardMap)) {
             this.cardMap.parent.removeChild(this.cardMap);
@@ -184,16 +216,15 @@ var ViewGame = (function (_super) {
         this.cardMap = new CardMap();
         this.curGameState = 1;
         this.addChild(this.cardMap);
+        this.setChildIndex(this.cardMap, 1);
         this.cardMap.x = (Config.w_width >> 1) - (this.cardMap.width >> 1);
         this.cardMap.y = (Config.w_height >> 1) - (this.cardMap.height >> 1);
-        this.cardMap.calculBlock(num1, num2, seat, peopleNum);
-        var cardArr = [];
-        cardArr = cardArr.concat(cardGather);
-        CardTransFormUtil.startGetCard(seat, peopleNum, cardArr, this.cardSprite, function (dataObj) {
+        this.cardMap.calculBlock(num1, num2, seat);
+        CardTransFormUtil.startGetCard(seat, this.cardobj, this.cardSprite, function (dataObj) {
             if (dataObj.final) {
                 //切牌发牌完毕
                 _this.cardSprite.removeChildren();
-                var arr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", cardGather);
+                var arr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", _this.copyCardGather);
                 _this.addCardGroup(arr);
             }
             else {
@@ -250,8 +281,8 @@ var ViewGame = (function (_super) {
     ViewGame.prototype.addCardGroup = function (cardGroup, ifAddCard) {
         if (ifAddCard === void 0) { ifAddCard = false; }
         for (var i = 0, len = cardGroup.length; i < len; i++) {
-            var cardTempleId = CardTransFormUtil.trasnFormCardIdWay2(cardGroup[i]);
-            var cardTemple = temple.TempleManager.select(cardTempleId);
+            // var cardTempleId:number = CardTransFormUtil.trasnFormCardIdWay2(cardGroup[i]);
+            var cardTemple = temple.TempleManager.select(cardGroup[i]);
             var card = new HandCardItem(cardTemple);
             if (!ifAddCard) {
                 card.x = card.width * this.cardSprite.numChildren;

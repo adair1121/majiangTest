@@ -76,20 +76,20 @@ class CardTransFormUtil {
 	 *  回调返回参数 final{当前是否已经发牌完毕};handCard{当前玩家需要添加的手牌集合 长度为0
 	 *  表示添加非自己玩家手牌数};seat {当前需要添加手牌的用户，自己除外}
 	 */
-	public static startGetCard(seat:number,peopleNum:number,cardGather:number[],cardSprite:egret.Sprite,callBack,arg):void{
+	public static startGetCard(seat:number,cardGather:number[],cardSprite:egret.Sprite,callBack,arg):void{
 		var arr:number[] = [];
 		CardTransFormUtil.zhuangjiaPos = seat;
 		CardTransFormUtil.num +=1;
-		if(peopleNum === 2){
-			switch(seat){
-				case data.Seat.South:
-					arr = [data.Seat.South,data.Seat.North];
-					break;
-				case data.Seat.North:
-					arr = [data.Seat.North,data.Seat.South];
-					break;
-			}
-		}else{
+		// if(peopleNum === 2){
+		// 	switch(seat){
+		// 		case data.Seat.South:
+		// 			arr = [data.Seat.South,data.Seat.North];
+		// 			break;
+		// 		case data.Seat.North:
+		// 			arr = [data.Seat.North,data.Seat.South];
+		// 			break;
+		// 	}
+		// }else{
 			switch(seat){
 				case data.Seat.North:
 					arr = [data.Seat.North,data.Seat.East,data.Seat.South,data.Seat.West];
@@ -104,7 +104,7 @@ class CardTransFormUtil {
 					arr = [data.Seat.West,data.Seat.North,data.Seat.East,data.Seat.South];
 					break;
 			}
-		}
+		// }
 		var len:number = arr.length + 1;
 		var final:boolean = false;
 		for(var j:number = 1;j<len;j++){
@@ -120,7 +120,7 @@ class CardTransFormUtil {
 					CardTransFormUtil.divideCard(pos,[],final,cardSprite,callBack,arg);
 				}
 				if(!arr.length && CardTransFormUtil.num <=CardTransFormUtil.getCardNum && param===len-1){
-					CardTransFormUtil.startGetCard(seat,peopleNum,cardGather,cardSprite,callBack,arg);
+					CardTransFormUtil.startGetCard(seat,cardGather,cardSprite,callBack,arg);
 				}
 				
 			},this,500*j,j,timeOut);

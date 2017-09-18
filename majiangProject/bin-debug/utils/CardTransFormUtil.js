@@ -57,36 +57,35 @@ var CardTransFormUtil = (function () {
      *  回调返回参数 final{当前是否已经发牌完毕};handCard{当前玩家需要添加的手牌集合 长度为0
      *  表示添加非自己玩家手牌数};seat {当前需要添加手牌的用户，自己除外}
      */
-    CardTransFormUtil.startGetCard = function (seat, peopleNum, cardGather, cardSprite, callBack, arg) {
+    CardTransFormUtil.startGetCard = function (seat, cardGather, cardSprite, callBack, arg) {
         var arr = [];
         CardTransFormUtil.zhuangjiaPos = seat;
         CardTransFormUtil.num += 1;
-        if (peopleNum === 2) {
-            switch (seat) {
-                case data.Seat.South:
-                    arr = [data.Seat.South, data.Seat.North];
-                    break;
-                case data.Seat.North:
-                    arr = [data.Seat.North, data.Seat.South];
-                    break;
-            }
+        // if(peopleNum === 2){
+        // 	switch(seat){
+        // 		case data.Seat.South:
+        // 			arr = [data.Seat.South,data.Seat.North];
+        // 			break;
+        // 		case data.Seat.North:
+        // 			arr = [data.Seat.North,data.Seat.South];
+        // 			break;
+        // 	}
+        // }else{
+        switch (seat) {
+            case data.Seat.North:
+                arr = [data.Seat.North, data.Seat.East, data.Seat.South, data.Seat.West];
+                break;
+            case data.Seat.East:
+                arr = [data.Seat.East, data.Seat.South, data.Seat.West, data.Seat.North];
+                break;
+            case data.Seat.South:
+                arr = [data.Seat.South, data.Seat.West, data.Seat.North, data.Seat.East];
+                break;
+            case data.Seat.West:
+                arr = [data.Seat.West, data.Seat.North, data.Seat.East, data.Seat.South];
+                break;
         }
-        else {
-            switch (seat) {
-                case data.Seat.North:
-                    arr = [data.Seat.North, data.Seat.East, data.Seat.South, data.Seat.West];
-                    break;
-                case data.Seat.East:
-                    arr = [data.Seat.East, data.Seat.South, data.Seat.West, data.Seat.North];
-                    break;
-                case data.Seat.South:
-                    arr = [data.Seat.South, data.Seat.West, data.Seat.North, data.Seat.East];
-                    break;
-                case data.Seat.West:
-                    arr = [data.Seat.West, data.Seat.North, data.Seat.East, data.Seat.South];
-                    break;
-            }
-        }
+        // }
         var len = arr.length + 1;
         var final = false;
         for (var j = 1; j < len; j++) {
@@ -103,7 +102,7 @@ var CardTransFormUtil = (function () {
                     CardTransFormUtil.divideCard(pos, [], final, cardSprite, callBack, arg);
                 }
                 if (!arr.length && CardTransFormUtil.num <= CardTransFormUtil.getCardNum && param === len - 1) {
-                    CardTransFormUtil.startGetCard(seat, peopleNum, cardGather, cardSprite, callBack, arg);
+                    CardTransFormUtil.startGetCard(seat, cardGather, cardSprite, callBack, arg);
                 }
             }, this, 500 * j, j, timeOut);
         }

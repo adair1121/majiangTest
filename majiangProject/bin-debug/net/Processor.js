@@ -59,7 +59,7 @@ var proto;
         };
         /**通知发牌信息 */
         Processor.prototype.do_s_NotifyDealCard = function (mess) {
-            App.MessageCenter.dispatch(GameConsts.NOTIFY_HANDCARDS_S2C, mess);
+            App.MessageCenter.dispatch(GameConsts.NOTIFY_DEALCARDS_S2C, mess);
         };
         /**通知打牌信息 */
         Processor.prototype.do_s_NotifyPlayCard = function (mess) {

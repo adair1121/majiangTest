@@ -23,23 +23,23 @@ class CardMap extends eui.Component{
 		this.seatObj[data.Seat.South] = this.southGroup;
 		this.seatObj[data.Seat.West] = this.westGroup;
 	}
-	public calculBlock(num1:number,num2:number,seat:number,peopleNum:number = 4):void{
+	public calculBlock(num1:number,num2:number,seat:number):void{
 		var minNum:number;
 		var maxNum:number;
 		num1 >= num2?(minNum = num2,maxNum = num1):(minNum = num1,maxNum = num2);
 		var totleNum:number = minNum + maxNum;
 		var curPos:number;
 		var loopDir:number[];
-		if(totleNum <= peopleNum){
-			curPos = totleNum;
-		}else{
-			curPos = totleNum%peopleNum;
+		// if(totleNum <= peopleNum){
+		// 	curPos = totleNum;
+		// }else{
+			curPos = totleNum%DataCenter.playerCount;
 			if(curPos === 0){
 				curPos = 4;
 			}
-		}
-		loopDir = this.createDicArr(peopleNum,seat,false);
-		this.reCardDic = this.createDicArr(peopleNum,loopDir[curPos-1],true);
+		// }
+		loopDir = this.createDicArr(seat,false);
+		this.reCardDic = this.createDicArr(loopDir[curPos-1],true);
 		this.firstSeat = this.curSeat = this.reCardDic.shift();
 		this.curGroup = this.seatObj[this.curSeat];
 		for(var i:number = 0;i<minNum;i++){
@@ -148,15 +148,15 @@ class CardMap extends eui.Component{
 		}
 		
 	}
-	private createDicArr(peopleNum:number,campareValue:number,ifClockWise:boolean):number[]{
+	private createDicArr(campareValue:number,ifClockWise:boolean):number[]{
 		var arr:number[] = [];
-		if(peopleNum === 2){
-			if(campareValue === data.Seat.North){
-				arr = [data.Seat.North,data.Seat.South];
-			}else{
-				arr = [data.Seat.South,data.Seat.North];
-			}
-		}else{
+		// if(peopleNum === 2){
+		// 	if(campareValue === data.Seat.North){
+		// 		arr = [data.Seat.North,data.Seat.South];
+		// 	}else{
+		// 		arr = [data.Seat.South,data.Seat.North];
+		// 	}
+		// }else{
 			switch(campareValue){
 				case data.Seat.North:
 					if(!ifClockWise){
@@ -187,7 +187,7 @@ class CardMap extends eui.Component{
 					}
 					break;
 			}
-		}
+		// }
 		return arr;
 	}
 }
