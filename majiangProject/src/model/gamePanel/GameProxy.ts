@@ -27,9 +27,9 @@ class GameProxy extends BaseProxy{
 		msg.option = dataObj.option;
 		this.sendSocketMsg(msg);
 	}
-	public playCard(dataObj:any):void{
+	public playCard(card:number):void{
 		var msg:proto.c_PlayCard = new proto.c_PlayCard();
-		msg.card = dataObj.card;
+		msg.card = card;
 		this.sendSocketMsg(msg);
 	}
 	//打牌响应,别人打出牌吃碰杠等操作 发送请求

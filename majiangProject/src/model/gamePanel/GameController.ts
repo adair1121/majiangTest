@@ -43,8 +43,8 @@ class GameController extends BaseController{
 		this.gameProxy.drawCardResponse(dataObj);
 	}
 	/**打出牌 */
-	private playCard(dataObj:any):void{
-		this.gameProxy.playCard(dataObj);
+	private playCard(card:number):void{
+		this.gameProxy.playCard(card);
 	}
 	/** 打牌响应,别人打出牌吃碰杠等操作 -- 发送请求*/
 	private playCardResponse(dataObj:any):void{
@@ -78,7 +78,11 @@ class GameController extends BaseController{
 	}
 	/**打出牌返回 */
 	private playCardRes(msg:proto.s_PlayCard):void{
-
+		if(msg.isSuccess){
+			this.gameView.playCardSuccess();
+		}else{
+			alert(msg.errMsg)
+		}
 	}
 	/**打牌响应,别人打出牌吃碰杠等操作 */
 	private playCardResponseRes(msg:proto.s_PlayCardResponse):void{

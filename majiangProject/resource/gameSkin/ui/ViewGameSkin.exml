@@ -20,11 +20,57 @@
 	<e:Image id="topHand" source="hand_ready_png" includeIn="wait" x="620" y="230"/>
 	<e:Image id="leftHand" source="hand_ready_png" includeIn="wait" x="210" y="316"/>
 	<e:Image id="readyBtn" source="button_sure_png" includeIn="wait" x="976" y="575"/>
-	<e:List id="southList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" top="439" includeIn="game">
+	<e:List id="southList" width="596.48" height="53.7" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" top="436" includeIn="game">
 		<e:ArrayCollection>
 			<e:Array>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+			</e:Array>
+		</e:ArrayCollection>
+		<e:layout>
+			<e:HorizontalLayout gap="2"/>
+		</e:layout>
+	</e:List>
+	<e:List id="northList" width="604.06" height="59.76" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="2" useVirtualLayout="false" rotation="180" top="223" includeIn="game">
+		<e:ArrayCollection>
+			<e:Array>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+				<e:Object card="null"/>
+			</e:Array>
+		</e:ArrayCollection>
+		<e:layout>
+			<e:HorizontalLayout gap="2"/>
+		</e:layout>
+	</e:List>
+	<e:List id="westList" width="326.91" height="117.33" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" left="221" top="191" includeIn="game">
+		<e:ArrayCollection>
+			<e:Array>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
@@ -44,14 +90,12 @@
 			</e:Array>
 		</e:ArrayCollection>
 		<e:layout>
-			<e:TileLayout requestedColumnCount="6"/>
+		<e:TileLayout requestedColumnCount="8" horizontalGap="2" verticalGap="2"/>
 		</e:layout>
 	</e:List>
-	<e:List id="northList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="92" includeIn="game">
+	<e:List id="eastList" width="322.91" height="116.36" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="214" top="191" includeIn="game" anchorOffsetX="0">
 		<e:ArrayCollection>
 			<e:Array>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
 				<e:Object card="null"/>
@@ -71,65 +115,12 @@
 			</e:Array>
 		</e:ArrayCollection>
 		<e:layout>
-		<e:TileLayout/>
+		<e:TileLayout requestedColumnCount="8" horizontalGap="2" verticalGap="2"/>
 		</e:layout>
 	</e:List>
-	<e:List id="westList" width="258" height="184" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" useVirtualLayout="false" rotation="90" left="296" top="231" includeIn="game">
-		<e:ArrayCollection>
-			<e:Array>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-			</e:Array>
-		</e:ArrayCollection>
-		<e:layout>
-		<e:TileLayout/>
-		</e:layout>
-	</e:List>
-	<e:List id="eastList" width="258" height="184" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="296" top="246" includeIn="game">
-		<e:ArrayCollection>
-			<e:Array>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-				<e:Object card="null"/>
-			</e:Array>
-		</e:ArrayCollection>
-		<e:layout>
-		<e:TileLayout requestedColumnCount="6"/>
-		</e:layout>
-	</e:List>
-	<e:Image source="timeBg_png" horizontalCenter="0" verticalCenter="0" includeIn="game"/>
-	<e:Group id="leftGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" left="115" includeIn="game"/>
-	<e:Group id="rightGroup" width="48.48" height="498" anchorOffsetX="0" anchorOffsetY="0" verticalCenter="0" right="108" includeIn="game"/>
-	<e:Group id="topGroup" width="694" height="56.06" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0" top="21" includeIn="game"/>
+	<e:Group id="leftGroup" width="48.48" height="388" anchorOffsetX="0" anchorOffsetY="0" left="120" includeIn="game" top="164"/>
+	<e:Group id="rightGroup" width="48.48" height="388" anchorOffsetX="0" anchorOffsetY="0" includeIn="game" top="164" right="120"/>
+	<e:Group id="topGroup" width="694" height="56.06" anchorOffsetY="0" anchorOffsetX="0" top="77" includeIn="game" horizontalCenter="0"/>
+	<ns1:TimeComponent id="timeCom" width="130" height="130" includeIn="game" horizontalCenter="0" verticalCenter="0" skinName="TimeComponentSkin"/>
+	<e:Group id="bottomGroup" width="1063.7" height="122.67" includeIn="game" top="576" anchorOffsetY="0" anchorOffsetX="0" horizontalCenter="0"/>
 </e:Skin>

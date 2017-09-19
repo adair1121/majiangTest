@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="CardMapSkin" width="901" height="624" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Group id="southGroup" y="472" horizontalCenter="0.5">
+<e:Skin class="CardMapSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group id="southGroup" horizontalCenter="0" bottom="156">
 		<e:Group left="432" top="0">
 			<e:Image source="opposite_block_back_29_png" x="0" y="9.049999999999955"/>
 			<e:Image source="opposite_block_back_29_png" x="0" y="1.34"/>
@@ -54,7 +54,7 @@
 			<e:Image source="opposite_block_back_29_png" left="0" top="1"/>
 		</e:Group>
 	</e:Group>
-	<e:Group id="eastGroup" right="10" y="83">
+	<e:Group id="eastGroup" top="123" right="190" width="44">
 		<e:Group x="0" y="0">
 			<e:Image source="right_block_back_29_png" x="0" y="10"/>
 			<e:Image source="right_block_back_29_png" x="0" y="0"/>
@@ -112,7 +112,7 @@
 			<e:Image source="right_block_back_29_png" x="0" y="0"/>
 		</e:Group>
 	</e:Group>
-	<e:Group id="westGroup" left="10" y="83">
+	<e:Group id="westGroup" left="189" top="123">
 		<e:Group x="0" y="0">
 		<e:Image source="right_block_back_29_png" x="0" y="10"/>
 		<e:Image source="right_block_back_29_png" x="0" y="0"/>
@@ -170,7 +170,7 @@
 		<e:Image source="right_block_back_29_png" x="0" y="0"/>
 		</e:Group>
 	</e:Group>
-	<e:Group id="northGroup" top="120" horizontalCenter="0.5">
+	<e:Group id="northGroup" top="154" horizontalCenter="0">
 		<e:Group left="0" top="0">
 		<e:Image source="opposite_block_back_29_png" x="0" y="9.049999999999955"/>
 		<e:Image source="opposite_block_back_29_png" x="0" y="1.34"/>

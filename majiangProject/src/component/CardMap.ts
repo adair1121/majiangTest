@@ -73,7 +73,7 @@ class CardMap extends eui.Component{
 		if(!this.curGroup.numChildren){
 			this.curSeat = this.reCardDic.shift();
 			this.curGroup = this.seatObj[this.curSeat];
-			if(this.curSeat != data.Seat.East){
+			if(this.curSeat != data.Seat.West){
 				var firstGroup:eui.Group = this.curGroup.getChildAt(0) as eui.Group;
 				var thirdGroup:eui.Group = this.curGroup.getChildAt(2) as eui.Group;
 			}else{
@@ -89,13 +89,13 @@ class CardMap extends eui.Component{
 			var nextGroupSeat = this.reCardDic[0];
 			var nextGroup:eui.Group = this.seatObj[nextGroupSeat];
 			if(this.curGroup.numChildren<=1){
-				if(nextGroupSeat != data.Seat.East){
+				if(nextGroupSeat != data.Seat.West){
 					var thirdGroup:eui.Group = nextGroup.getChildAt(1) as eui.Group;
 				}else{
 					var thirdGroup:eui.Group = nextGroup.getChildAt(nextGroup.numChildren - 2) as eui.Group;
 				}
 			}else if(this.curGroup.numChildren <= 2){
-				if(nextGroupSeat != data.Seat.East){
+				if(nextGroupSeat != data.Seat.West){
 					var thirdGroup:eui.Group = nextGroup.getChildAt(0) as eui.Group;
 				}else{
 					var thirdGroup:eui.Group = nextGroup.getChildAt(nextGroup.numChildren - 1) as eui.Group;

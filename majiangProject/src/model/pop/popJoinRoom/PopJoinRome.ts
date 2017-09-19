@@ -35,6 +35,7 @@ class PopJoinRome extends BaseEuiView{
 		this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
 	}
 	private initRoomNum():void{
+		this.romeNum = "";
 		for(var i:number = 1;i<=6;i++){
 			this["num"+i].text = "";
 		}

@@ -75,7 +75,7 @@ var CardMap = (function (_super) {
         if (!this.curGroup.numChildren) {
             this.curSeat = this.reCardDic.shift();
             this.curGroup = this.seatObj[this.curSeat];
-            if (this.curSeat != data.Seat.East) {
+            if (this.curSeat != data.Seat.West) {
                 var firstGroup = this.curGroup.getChildAt(0);
                 var thirdGroup = this.curGroup.getChildAt(2);
             }
@@ -93,7 +93,7 @@ var CardMap = (function (_super) {
             var nextGroupSeat = this.reCardDic[0];
             var nextGroup = this.seatObj[nextGroupSeat];
             if (this.curGroup.numChildren <= 1) {
-                if (nextGroupSeat != data.Seat.East) {
+                if (nextGroupSeat != data.Seat.West) {
                     var thirdGroup = nextGroup.getChildAt(1);
                 }
                 else {
@@ -101,7 +101,7 @@ var CardMap = (function (_super) {
                 }
             }
             else if (this.curGroup.numChildren <= 2) {
-                if (nextGroupSeat != data.Seat.East) {
+                if (nextGroupSeat != data.Seat.West) {
                     var thirdGroup = nextGroup.getChildAt(0);
                 }
                 else {

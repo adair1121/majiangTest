@@ -48,9 +48,8 @@ var ViewGame = (function (_super) {
         this.westCollect = new eui.ArrayCollection();
         this.eastCollect = new eui.ArrayCollection();
         this.cardSprite = new egret.Sprite();
-        this.addChild(this.cardSprite);
-        this.cardSprite.y = Config.w_height - Config.h_handCard;
-        this.cardSprite.x = Config.w_handCard;
+        this.bottomGroup.addChild(this.cardSprite);
+        // this.cardSprite.y = Config.w_height - Config.h_handCard - 10;
         this.northList.itemRenderer = CardItem;
         this.northList.dataProvider = this.northCollect;
         this.southList.itemRenderer = CardItem;
@@ -110,6 +109,7 @@ var ViewGame = (function (_super) {
             var index = this.initSeat.indexOf(data.Seat.South);
             this.initSeat.splice(index, 1);
             this.relativeSeat[param.seat] = data.Seat.South;
+            this.curFocusSeat = data.Seat.South;
         }
         else {
             if (param.handCards.length) {
@@ -194,6 +194,10 @@ var ViewGame = (function (_super) {
             this["roleInfo_" + this.relativeSeat[seat]].showLeave();
         }
     };
+    /**出牌成功 */
+    ViewGame.prototype.playCardSuccess = function () {
+        this.outCard(data.Seat.South);
+    };
     /**
      * 当前局数结束
      */
@@ -213,12 +217,13 @@ var ViewGame = (function (_super) {
         if (this.cardMap && this.cardMap.parent && this.cardMap.parent.contains(this.cardMap)) {
             this.cardMap.parent.removeChild(this.cardMap);
         }
+        this.curFocusSeat = seat;
         this.cardMap = new CardMap();
         this.curGameState = 1;
         this.addChild(this.cardMap);
         this.setChildIndex(this.cardMap, 1);
-        this.cardMap.x = (Config.w_width >> 1) - (this.cardMap.width >> 1);
-        this.cardMap.y = (Config.w_height >> 1) - (this.cardMap.height >> 1);
+        // this.cardMap.x = (Config.w_width>>1) - (this.cardMap.width>>1);
+        // this.cardMap.y = (Config.w_height>>1) - (this.cardMap.height>>1);
         this.cardMap.calculBlock(num1, num2, seat);
         CardTransFormUtil.startGetCard(seat, this.cardobj, this.cardSprite, function (dataObj) {
             if (dataObj.final) {
@@ -226,6 +231,8 @@ var ViewGame = (function (_super) {
                 _this.cardSprite.removeChildren();
                 var arr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", _this.copyCardGather);
                 _this.addCardGroup(arr);
+                _this.timeCom.initialize();
+                _this.timeCom.setFocus(_this.curFocusSeat, 10, _this.timeEnd, _this);
             }
             else {
                 if (dataObj.handCard.length) {
@@ -268,6 +275,17 @@ var ViewGame = (function (_super) {
                 }
             }
         }, this);
+    };
+    /**
+     * 当前出牌时间结束
+     */
+    ViewGame.prototype.timeEnd = function () {
+        if (this.curFocusSeat === data.Seat.South) {
+            var lastCard = this.cardSprite.getChildAt(this.cardSprite.numChildren - 1);
+            this.newCard = this.curTarget = lastCard;
+            var card = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
+            this.applyFunc(GameConsts.PLAYCARD_C2S, card);
+        }
     };
     /**添加打出卡牌 */
     ViewGame.prototype.addCardItem = function (collect, item) {
@@ -331,8 +349,8 @@ var ViewGame = (function (_super) {
             var interVal = this.curStageY - evt.stageY;
             if (interVal > Config.h_handCard) {
                 //==此处需要与服务器进行交互===
-                //假设出牌成功
-                this.outCard(data.Seat.South);
+                var card = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
+                this.applyFunc(GameConsts.PLAYCARD_C2S, card);
             }
         }
     };
@@ -364,7 +382,7 @@ var ViewGame = (function (_super) {
             }
             //其他玩家打出手牌
             var index = (Math.random() * 12 + 1) >> 0;
-            this.addCardItem(this.dachuObj[seat], { cardBg: 1, icon: Config.path_card + iconId + ".png" });
+            this.addCardItem(this.dachuObj[seat], { cardBg: 1, icon: iconId + "_png" });
             var len = this.seatObj[seat].numChildren;
             var arr = [];
             for (var i = 0; i < len; i++) {

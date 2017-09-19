@@ -36,6 +36,7 @@ var PopJoinRome = (function (_super) {
         this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
     };
     PopJoinRome.prototype.initRoomNum = function () {
+        this.romeNum = "";
         for (var i = 1; i <= 6; i++) {
             this["num" + i].text = "";
         }

@@ -78,6 +78,8 @@ declare class PopJoinRomeSkin extends eui.Skin{
 }
 declare class PopMyScore extends eui.Skin{
 }
+declare class TimeComponentSkin extends eui.Skin{
+}
 declare class LoadingUISkin extends eui.Skin{
 }
 declare class ViewGameSkin extends eui.Skin{

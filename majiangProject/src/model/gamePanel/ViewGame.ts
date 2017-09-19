@@ -15,6 +15,7 @@ class ViewGame extends BaseEuiView{
 	public buttonYaoQing:eui.Image;
 	public tableId:eui.Label;
 	public gameNum:eui.Label;
+	public timeCom:TimeComponent;
 	private northCollect:eui.ArrayCollection;
 	private southCollect:eui.ArrayCollection;
 	private eastCollect:eui.ArrayCollection;
@@ -36,6 +37,7 @@ class ViewGame extends BaseEuiView{
 	public leftGroup:eui.Group;
 	public rightGroup:eui.Group;
 	public topGroup:eui.Group;
+	public bottomGroup:eui.Group;
 	private TYPE_WAIT:string = "wait";
 	private TYPE_GAME:string = "game";
 	//当前游戏状态 0为当局结束 1为开始
@@ -57,6 +59,8 @@ class ViewGame extends BaseEuiView{
 	private cardobj:number[] = [];
 	//初始化牌集合副本
 	private copyCardGather:number[] = [];
+	//当前出牌位置
+	private curFocusSeat:number;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
 		this.skinName = "ViewGameSkin";
@@ -71,9 +75,8 @@ class ViewGame extends BaseEuiView{
 		this.westCollect = new eui.ArrayCollection();
 		this.eastCollect = new eui.ArrayCollection();
 		this.cardSprite = new egret.Sprite();
-		this.addChild(this.cardSprite);
-		this.cardSprite.y = Config.w_height - Config.h_handCard;
-		this.cardSprite.x = Config.w_handCard;
+		this.bottomGroup.addChild(this.cardSprite);
+		// this.cardSprite.y = Config.w_height - Config.h_handCard - 10;
 		this.northList.itemRenderer = CardItem;
 		this.northList.dataProvider = this.northCollect;
 		this.southList.itemRenderer = CardItem;
@@ -133,6 +136,7 @@ class ViewGame extends BaseEuiView{
 			var index:number = this.initSeat.indexOf(data.Seat.South);
 			this.initSeat.splice(index,1);
 			this.relativeSeat[param.seat] = data.Seat.South;
+			this.curFocusSeat = data.Seat.South;
 		}else{
 			if(param.handCards.length){
 				//掉线后重新进入
@@ -217,6 +221,10 @@ class ViewGame extends BaseEuiView{
 			this["roleInfo_"+this.relativeSeat[seat]].showLeave();
 		}
 	}
+	/**出牌成功 */
+	public playCardSuccess():void{
+		this.outCard(data.Seat.South);
+	}
 	/**
 	 * 当前局数结束
 	 */
@@ -235,12 +243,13 @@ class ViewGame extends BaseEuiView{
 		if(this.cardMap && this.cardMap.parent && this.cardMap.parent.contains(this.cardMap)){
 			this.cardMap.parent.removeChild(this.cardMap);
 		}
+		this.curFocusSeat = seat;
 		this.cardMap = new CardMap();
 		this.curGameState = 1;
 		this.addChild(this.cardMap);
 		this.setChildIndex(this.cardMap,1);
-		this.cardMap.x = (Config.w_width>>1) - (this.cardMap.width>>1);
-		this.cardMap.y = (Config.w_height>>1) - (this.cardMap.height>>1);
+		// this.cardMap.x = (Config.w_width>>1) - (this.cardMap.width>>1);
+		// this.cardMap.y = (Config.w_height>>1) - (this.cardMap.height>>1);
 		this.cardMap.calculBlock(num1,num2,seat);
 		CardTransFormUtil.startGetCard(seat,this.cardobj,this.cardSprite,(dataObj)=>{
 			if(dataObj.final){
@@ -248,7 +257,8 @@ class ViewGame extends BaseEuiView{
 				this.cardSprite.removeChildren();
 				var arr:number[] = GlobalFunc.sortRule(GlobalFunc.NORMALIZE,"",this.copyCardGather);
 				this.addCardGroup(arr);
-				// this.outCard(data.Seat.North,"0x21");
+				this.timeCom.initialize();
+				this.timeCom.setFocus(this.curFocusSeat,10,this.timeEnd,this);
 			}else{
 				if(dataObj.handCard.length){
 					//当前为自己的手牌显示
@@ -288,6 +298,17 @@ class ViewGame extends BaseEuiView{
 				}
 			}
 		},this)
+	}
+	/**
+	 * 当前出牌时间结束
+	 */
+	private timeEnd():void{
+		if(this.curFocusSeat === data.Seat.South){
+			var lastCard:HandCardItem = this.cardSprite.getChildAt(this.cardSprite.numChildren - 1) as HandCardItem;
+			this.newCard = this.curTarget = lastCard;
+			var card:number = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
+			this.applyFunc(GameConsts.PLAYCARD_C2S,card);
+		}
 	}
 	/**添加打出卡牌 */
 	private addCardItem(collect:eui.ArrayCollection,item:any):void{
@@ -347,8 +368,8 @@ class ViewGame extends BaseEuiView{
 			var interVal:number = this.curStageY - evt.stageY;
 			if(interVal > Config.h_handCard){
 				//==此处需要与服务器进行交互===
-				//假设出牌成功
-				this.outCard(data.Seat.South);
+				var card:number = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId))
+				this.applyFunc(GameConsts.PLAYCARD_C2S,card);
 			}
 		}
 	}
@@ -375,7 +396,7 @@ class ViewGame extends BaseEuiView{
 			}
 			//其他玩家打出手牌
 			var index:number = (Math.random()*12+1)>>0;
-			this.addCardItem(this.dachuObj[seat],{cardBg:1,icon:Config.path_card + iconId + ".png"});
+			this.addCardItem(this.dachuObj[seat],{cardBg:1,icon:iconId + "_png"});
 			var len:number = this.seatObj[seat].numChildren;
 			var arr:any[] = [];
 			for(var i:number = 0;i<len;i++){

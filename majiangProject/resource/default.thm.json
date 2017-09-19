@@ -43,6 +43,7 @@
     "resource/gameSkin/components/PopHomeSetSkin.exml",
     "resource/gameSkin/components/PopJoinRomeSkin.exml",
     "resource/gameSkin/components/PopMyScore.exml",
+    "resource/gameSkin/components/TimeComponentSkin.exml",
     "resource/gameSkin/ui/LoadingUISkin.exml",
     "resource/gameSkin/ui/ViewGameSkin.exml",
     "resource/gameSkin/ui/ViewLoginSkin.exml",

@@ -47,8 +47,8 @@ var GameController = (function (_super) {
         this.gameProxy.drawCardResponse(dataObj);
     };
     /**打出牌 */
-    GameController.prototype.playCard = function (dataObj) {
-        this.gameProxy.playCard(dataObj);
+    GameController.prototype.playCard = function (card) {
+        this.gameProxy.playCard(card);
     };
     /** 打牌响应,别人打出牌吃碰杠等操作 -- 发送请求*/
     GameController.prototype.playCardResponse = function (dataObj) {
@@ -82,6 +82,12 @@ var GameController = (function (_super) {
     };
     /**打出牌返回 */
     GameController.prototype.playCardRes = function (msg) {
+        if (msg.isSuccess) {
+            this.gameView.playCardSuccess();
+        }
+        else {
+            alert(msg.errMsg);
+        }
     };
     /**打牌响应,别人打出牌吃碰杠等操作 */
     GameController.prototype.playCardResponseRes = function (msg) {
