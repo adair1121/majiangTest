@@ -91,6 +91,12 @@ var GameController = (function (_super) {
     };
     /**打牌响应,别人打出牌吃碰杠等操作 */
     GameController.prototype.playCardResponseRes = function (msg) {
+        if (msg.isSuccess) {
+            this.gameView.playCardResponse();
+        }
+        else {
+            alert(msg.errMsg);
+        }
     };
     /**通知手牌信息 */
     GameController.prototype.notifyHandCards = function (msg) {
@@ -102,12 +108,15 @@ var GameController = (function (_super) {
     };
     /**通知打牌信息 */
     GameController.prototype.notifyPlayCards = function (msg) {
+        this.gameView.notifyPlayCard(msg);
     };
     /** 通知打牌响应 玩家打牌后等待其它三个玩家响应*/
     GameController.prototype.notifyPlayResponse = function (msg) {
+        this.gameView.notifyPlayResponse(msg);
     };
     /**通知切换操作玩家 */
     GameController.prototype.notifyChangeUser = function (msg) {
+        this.gameView.notifyChangeUser(msg.seat);
     };
     return GameController;
 }(BaseController));

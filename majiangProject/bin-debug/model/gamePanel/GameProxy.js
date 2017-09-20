@@ -45,7 +45,9 @@ var GameProxy = (function (_super) {
     //打牌响应,别人打出牌吃碰杠等操作 发送请求
     GameProxy.prototype.playCardResponse = function (dataObj) {
         var msg = new proto.c_PlayCardResponse();
-        msg.cardList = dataObj.cardList;
+        if (!!dataObj.cardList) {
+            msg.cardList = dataObj.cardList;
+        }
         msg.option = dataObj.option;
         this.sendSocketMsg(msg);
     };

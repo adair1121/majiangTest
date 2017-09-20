@@ -61,6 +61,7 @@ class ViewGame extends BaseEuiView{
 	private copyCardGather:number[] = [];
 	//当前出牌位置
 	private curFocusSeat:number;
+	private initialized:boolean = true;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
 		super($controller,$parent);
 		this.skinName = "ViewGameSkin";
@@ -122,6 +123,7 @@ class ViewGame extends BaseEuiView{
 		this.topGroup.removeChildren();
 		this.leftGroup.removeChildren();
 		this.rightGroup.removeChildren();
+		this.initialized = true;
 	}
 	/**
 	 * 面板开启执行函数
@@ -195,21 +197,99 @@ class ViewGame extends BaseEuiView{
 	}
 	public showGameState(msg:proto.s_NotifyHandCards):void{
 		this.skin.currentState = this.TYPE_GAME;
-		this.cardobj = msg.handCards;
+		this.cardobj = this.cardobj.concat(msg.handCards);
 		this.copyCardGather = this.copyCardGather.concat(msg.handCards);
 		this.startNewGame(msg.dice1,msg.dice2,this.relativeSeat[msg.dealer]);
 	}
 	/**处理摸牌 */
 	public notifyDealCards(msg:proto.s_NotifyDealCard):void{
 		if(this.relativeSeat[msg.seat] === data.Seat.South){
-			//如果相对座位为南是 添加手牌到显示组
+			//如果相对座位为南是 添加手牌到显示组 -- 当前玩家摸牌
 			// this.addCardGroup([msg.drawCard],true);
-			this.cardobj.push(msg.drawCard);
-			this.copyCardGather.push(msg.drawCard);
+			if(this.initialized){
+				this.initialized = false;
+				this.cardobj.push(msg.drawCard);
+				this.copyCardGather.push(msg.drawCard);
+			}else{
+				this.cardMap.removeItem();
+				this.addCardGroup([msg.drawCard],true);
+			}
+		}else{
+			//其他玩家摸牌显示
+			var seat:number = this.relativeSeat[msg.seat];
+			var curGroup:eui.Group = this.seatObj[seat];
+			var img:eui.Image = new eui.Image();
+			img.source = this.assetObj[seat];
+			curGroup.addChild(img);
+			if(seat === data.Seat.North){
+				img.x = curGroup.numChildren * img.width;
+				curGroup.x -= img.width;
+			}else{
+				img.y = curGroup.numChildren * img.width;
+				curGroup.y -= img.width;
+			}
 		}
 		if(msg.isWin){
 
 		}
+	}
+	/**通知其他人打牌信息 */
+	public notifyPlayCard(msg:proto.s_NotifyPlayCard):void{
+		if(this.relativeSeat[msg.seat] === data.Seat.South){
+			return;
+		}
+		var cardTemple:data.CardConfigTemple = temple.TempleManager.select(msg.playCard) as data.CardConfigTemple;
+		var item:any = {cardBg:1,icon:cardTemple.icon + "_png"}
+		this.addCardItem(this.dachuObj[this.relativeSeat[msg.seat]],item);
+		var seat:number = this.relativeSeat[msg.seat];
+		var curGroup:eui.Group = this.seatObj[seat];
+		curGroup.removeChildAt(curGroup.numChildren-1);
+		if(seat === data.Seat.North){
+			curGroup.x -= Config.w_tieldCard;
+		}else{
+			curGroup.y -= Config.w_tieldCard;
+		}
+		if(msg.isWin){
+			//胡牌
+		}else{
+
+		}
+	}
+	private curOption:number;
+	private curCardList:number[];
+	/**
+	 * 打牌响应 等待其他玩家响应
+	 */
+	public notifyPlayResponse(msg:proto.s_NotifyPlayResponse):void{
+		if(this.relativeSeat[msg.seat] === data.Seat.South){
+			//如果收到的是当前打牌用户 返回
+			return;
+		}
+		if(!msg.pongKongChow.length){
+			//过
+			this.curOption = data.Option.Pass;
+			this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S,{option:data.Option.Pass});
+		}else{
+			//提示对应操作
+		}
+
+	}
+	/**
+	 * 切换用户
+	 */
+	public notifyChangeUser(seat:number):void{
+		if(!this.initialized){
+			this.timeCom.initialize();
+			this.curFocusSeat = this.relativeSeat[seat];
+			this.timeCom.setFocus(this.curFocusSeat,10,this.timeEnd,this);
+		}
+		
+	}
+	/**
+	 * 响应别人打出牌
+	 */
+	public playCardResponse():void{
+		//如果别人都过 则切换用户
 	}
 	/**
 	 * 离开房间
@@ -248,8 +328,9 @@ class ViewGame extends BaseEuiView{
 		this.curGameState = 1;
 		this.addChild(this.cardMap);
 		this.setChildIndex(this.cardMap,1);
-		// this.cardMap.x = (Config.w_width>>1) - (this.cardMap.width>>1);
-		// this.cardMap.y = (Config.w_height>>1) - (this.cardMap.height>>1);
+		this.cardMap.width = Config.w_width;
+		this.cardMap.height = Config.w_height;
+		this.cardMap.x = this.cardMap.y = 0;
 		this.cardMap.calculBlock(num1,num2,seat);
 		CardTransFormUtil.startGetCard(seat,this.cardobj,this.cardSprite,(dataObj)=>{
 			if(dataObj.final){

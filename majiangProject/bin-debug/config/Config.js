@@ -30,7 +30,7 @@ Config.password = "greentea";
 Config.w_width = 1280;
 Config.w_height = 720;
 /**平铺卡牌出牌尺寸 */
-Config.w_tieldCard = 47;
+Config.w_tieldCard = 38;
 Config.h_tieldCard = 56;
 /** 平铺卡牌组合尺寸*/
 Config.w_tieldGroup = 98;

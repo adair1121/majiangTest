@@ -35,7 +35,9 @@ class GameProxy extends BaseProxy{
 	//打牌响应,别人打出牌吃碰杠等操作 发送请求
 	public playCardResponse(dataObj:any):void{
 		var msg:proto.c_PlayCardResponse = new proto.c_PlayCardResponse();
-		msg.cardList = dataObj.cardList;
+		if(!!dataObj.cardList){
+			msg.cardList = dataObj.cardList;
+		}
 		msg.option = dataObj.option;
 		this.sendSocketMsg(msg);
 	}

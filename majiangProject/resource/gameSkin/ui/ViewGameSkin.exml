@@ -44,7 +44,7 @@
 			<e:HorizontalLayout gap="2"/>
 		</e:layout>
 	</e:List>
-	<e:List id="northList" width="604.06" height="59.76" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="2" useVirtualLayout="false" rotation="180" top="223" includeIn="game">
+	<e:List id="northList" width="604.06" height="59.76" itemRendererSkinName="CardItemSkin" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0" useVirtualLayout="false" rotation="180" top="223" includeIn="game">
 		<e:ArrayCollection>
 			<e:Array>
 				<e:Object card="null"/>
@@ -93,7 +93,7 @@
 		<e:TileLayout requestedColumnCount="8" horizontalGap="2" verticalGap="2"/>
 		</e:layout>
 	</e:List>
-	<e:List id="eastList" width="322.91" height="116.36" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" right="214" top="191" includeIn="game" anchorOffsetX="0">
+	<e:List id="eastList" width="322.91" height="116.36" itemRendererSkinName="CardItemSkin" useVirtualLayout="false" rotation="-90" anchorOffsetY="0" top="191" includeIn="game" anchorOffsetX="0" right="214">
 		<e:ArrayCollection>
 			<e:Array>
 				<e:Object card="null"/>

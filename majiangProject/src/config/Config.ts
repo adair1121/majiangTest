@@ -20,7 +20,7 @@ class Config {
 	public static w_height:number=720;
 
 	/**平铺卡牌出牌尺寸 */
-	public static w_tieldCard:number = 47;
+	public static w_tieldCard:number = 38;
 	public static h_tieldCard:number = 56;
 
 	/** 平铺卡牌组合尺寸*/

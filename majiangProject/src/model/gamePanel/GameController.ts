@@ -86,7 +86,11 @@ class GameController extends BaseController{
 	}
 	/**打牌响应,别人打出牌吃碰杠等操作 */
 	private playCardResponseRes(msg:proto.s_PlayCardResponse):void{
-
+		if(msg.isSuccess){
+			this.gameView.playCardResponse();
+		}else{
+			alert(msg.errMsg);
+		}
 	}
 	/**通知手牌信息 */
 	private notifyHandCards(msg:proto.s_NotifyHandCards):void{
@@ -98,14 +102,14 @@ class GameController extends BaseController{
 	}
 	/**通知打牌信息 */
 	private notifyPlayCards(msg:proto.s_NotifyPlayCard):void{
-
+		this.gameView.notifyPlayCard(msg);
 	}
 	/** 通知打牌响应 玩家打牌后等待其它三个玩家响应*/
 	private notifyPlayResponse(msg:proto.s_NotifyPlayResponse):void{
-
+		this.gameView.notifyPlayResponse(msg);
 	}
 	/**通知切换操作玩家 */
 	private notifyChangeUser(msg:proto.s_NotifyChangeOpUser):void{
-
+		this.gameView.notifyChangeUser(msg.seat);
 	}
 }
