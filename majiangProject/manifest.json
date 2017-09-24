@@ -11,7 +11,6 @@
 	],
 	"game": [
 		"bin-debug/data/proto/MessageHandle.js",
-		"bin-debug/mvc/view/BaseEuiView.js",
 		"bin-debug/base/BaseEuiLayer.js",
 		"bin-debug/base/BaseSence.js",
 		"bin-debug/base/BaseSpriteLayer.js",
@@ -20,6 +19,7 @@
 		"bin-debug/mvc/controller/BaseController.js",
 		"bin-debug/mvc/model/BaseModel.js",
 		"bin-debug/mvc/proxy/BaseProxy.js",
+		"bin-debug/mvc/view/BaseEuiView.js",
 		"bin-debug/model/pop/popCreateRoom/PopCreateRoom.js",
 		"bin-debug/component/MyButton.js",
 		"bin-debug/component/MyHSlider.js",
@@ -54,7 +54,7 @@
 		"bin-debug/model/login/LoginModel.js",
 		"bin-debug/model/login/LoginProxy.js",
 		"bin-debug/model/login/ViewLogin.js",
-		"bin-debug/AssetAdapter.js",
+		"bin-debug/utils/StageUtils.js",
 		"bin-debug/model/pop/popCreateRoom/PopCreateRoomController.js",
 		"bin-debug/model/pop/popCreateRoom/PopCreateRoomModel.js",
 		"bin-debug/model/pop/popCreateRoom/PopCreateRoomProxy.js",
@@ -98,6 +98,6 @@
 		"bin-debug/utils/ObjectPool.js",
 		"bin-debug/utils/ResourceUtils.js",
 		"bin-debug/utils/SoundUtils.js",
-		"bin-debug/utils/StageUtils.js"
+		"bin-debug/AssetAdapter.js"
 	]
 }

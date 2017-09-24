@@ -27,4 +27,8 @@ class AddComponent extends eui.Component{
 	public get m_count():number{
 		return this.count;
 	}
+	public set m_count(value:number){
+		this.count = value;
+		this.num.text = this.count+"";
+	}
 }

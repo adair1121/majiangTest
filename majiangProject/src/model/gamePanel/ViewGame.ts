@@ -16,6 +16,8 @@ class ViewGame extends BaseEuiView{
 	public tableId:eui.Label;
 	public gameNum:eui.Label;
 	public timeCom:TimeComponent;
+	public rightOper:eui.Group;
+	public leftOper:eui.Group;
 	private northCollect:eui.ArrayCollection;
 	private southCollect:eui.ArrayCollection;
 	private eastCollect:eui.ArrayCollection;
@@ -271,6 +273,7 @@ class ViewGame extends BaseEuiView{
 			this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S,{option:data.Option.Pass});
 		}else{
 			//提示对应操作
+			this.createOper([msg.option]);
 		}
 
 	}
@@ -289,7 +292,8 @@ class ViewGame extends BaseEuiView{
 	 * 响应别人打出牌
 	 */
 	public playCardResponse():void{
-		//如果别人都过 则切换用户
+		this.leftGroup.removeChildren();
+		this.rightGroup.removeChildren();
 	}
 	/**
 	 * 离开房间
@@ -444,7 +448,7 @@ class ViewGame extends BaseEuiView{
 		this.curTarget = evt.target.parent as HandCardItem;
 	}
 	private onCardTouchEnd(evt:egret.TouchEvent):void{
-		if(this.clickState){
+		if(this.clickState && this.curFocusSeat === data.Seat.South){
 			this.clickState = false;
 			var interVal:number = this.curStageY - evt.stageY;
 			if(interVal > Config.h_handCard){
@@ -575,7 +579,39 @@ class ViewGame extends BaseEuiView{
 			},this);
 		}
 	}
+	/**生成对应操作 */
+	private createOper(option:number[]):void{
+		this.leftOper.removeChildren();
+		this.rightOper.removeChildren();
+		var passImg:eui.Image = new eui.Image();
+		passImg.source = "room_oper_"+data.Option.Pass+"_png";
+		this.rightGroup.addChild(passImg);
+		passImg.name = data.Option.Pass+"";
+		passImg.width = 63,passImg.height = 78;
+		passImg.x = this.rightOper.width - passImg.width;
+		for(var i:number = 0,len:number = option.length;i<len;i++){
+			var img:eui.Image = new eui.Image();
+			img.source = "room_oper_"+option[i]+"_png";
+			img.name = option[i]+"";
+			if(option[i] === data.Option.Lai || option[i] === data.Option.Pi){
+				this.leftOper.addChild(img);
+				img.x = i*img.width+10;
+			}else{
+				this.rightOper.addChild(img);
+				img.width = 63;
+				img.height = 78;
+				img.x = this.rightOper.width - this.rightGroup.numChildren*(img.width+10);
+			}
+		}
+	}
+
 	private onTouchHandler(evt:egret.TouchEvent):void{
+		if(evt.target.parent === this.leftGroup || evt.target.parent ===this.rightGroup){
+			var name:string = evt.target.name;
+			//次粗需要处理cardList
+			this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S,{option:parseInt(name)});
+			return;
+		}
 		switch(evt.target){
 			case this.buttonYaoQing:
 				//邀请微信好友

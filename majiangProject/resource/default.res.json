@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,loading_png,timeBg_png,pop_content_png,defaultRoomIcon_png,role_1_1_png,role_1_2_png,role_2_1_png,role_2_2_png,role_2_3_png,button_key_png,normalFnt_fnt,normalFnt_png,0x01_png,0x02_png,0x03_png,0x04_png,0x05_png,0x06_png,0x07_png,0x08_png,0x09_png,0x11_png,0x12_png,0x13_png,0x14_png,0x15_png,0x16_png,0x17_png,0x18_png,0x19_png,0x21_png,0x22_png,0x23_png,0x24_png,0x25_png,0x26_png,0x27_png,0x28_png,0x29_png,opposite_block_image_30_png,front_inhand_image_30_png,main_start_jpg,main_home_jpg,main_game_jpg,role_card_png,role_card_box_png,role_head_icon_png,button_enjoy_png,button_share_png,button_record_png,button_setting_png,button_sys_set_png,button_playeway_png,button_score_png,main_notify_png,input_png,pop_create_room_title_png,pop_join_room_title_png,room_input_bg_png,button_tab_four_png,pop_content_bg_png,button_sure_png,progress_thumb_png,progress_drag_btn_png,progress_bg_png,progress_title_music_png,progress_title_effect_png,pop_title_set_png,button_exit_png,pop_mune_score_png,pop_title_score_png,dachupai_left_png,shoupai_duijia_png,shoupai_you_png,shoupai_zuo_png,right_block_back_29_png,opposite_block_back_29_png,role_card_bottom_png,button_wx_yaoqing_png,button_add_png,button_checkbox_down_png,button_checkbox_up_png,button_close_png,button_create_png,button_join_png,button_quick_png,button_radio_down_png,button_radio_up_png,button_reduce_png,button_snd_close_png,button_snd_open_png,button_wx_png,hand_ready_png,txt_input_png,room_gang_png,room_pass_png,room_hu_png,room_peng_png,room_lai_png,room_pi_png,time_102_png,time_101_png,time_104_png,time_103_png,timeFnt_fnt,timeFnt_png",
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,loading_png,timeBg_png,pop_content_png,defaultRoomIcon_png,role_1_1_png,role_1_2_png,role_2_1_png,role_2_2_png,role_2_3_png,button_key_png,normalFnt_fnt,normalFnt_png,0x01_png,0x02_png,0x03_png,0x04_png,0x05_png,0x06_png,0x07_png,0x08_png,0x09_png,0x11_png,0x12_png,0x13_png,0x14_png,0x15_png,0x16_png,0x17_png,0x18_png,0x19_png,0x21_png,0x22_png,0x23_png,0x24_png,0x25_png,0x26_png,0x27_png,0x28_png,0x29_png,opposite_block_image_30_png,front_inhand_image_30_png,main_start_jpg,main_home_jpg,main_game_jpg,role_card_png,role_card_box_png,role_head_icon_png,button_enjoy_png,button_share_png,button_record_png,button_setting_png,button_sys_set_png,button_playeway_png,button_score_png,main_notify_png,input_png,pop_create_room_title_png,pop_join_room_title_png,room_input_bg_png,button_tab_four_png,pop_content_bg_png,button_sure_png,progress_thumb_png,progress_drag_btn_png,progress_bg_png,progress_title_music_png,progress_title_effect_png,pop_title_set_png,button_exit_png,pop_mune_score_png,pop_title_score_png,dachupai_left_png,shoupai_duijia_png,shoupai_you_png,shoupai_zuo_png,right_block_back_29_png,opposite_block_back_29_png,role_card_bottom_png,button_wx_yaoqing_png,button_add_png,button_checkbox_down_png,button_checkbox_up_png,button_close_png,button_create_png,button_join_png,button_quick_png,button_radio_down_png,button_radio_up_png,button_reduce_png,button_snd_close_png,button_snd_open_png,button_wx_png,hand_ready_png,txt_input_png,time_102_png,time_101_png,time_104_png,time_103_png,timeFnt_fnt,timeFnt_png,room_oper_0_png,room_oper_1_png,room_oper_2_png,room_oper_3_png,room_oper_4_png,room_oper_5_png,room_oper_6_png",
 			"name": "preload"
 		}
 	],
@@ -607,36 +607,6 @@
 			"name": "txt_input_png"
 		},
 		{
-			"url": "assets/ui/oper/room_gang.png",
-			"type": "image",
-			"name": "room_gang_png"
-		},
-		{
-			"url": "assets/ui/oper/room_pass.png",
-			"type": "image",
-			"name": "room_pass_png"
-		},
-		{
-			"url": "assets/ui/oper/room_hu.png",
-			"type": "image",
-			"name": "room_hu_png"
-		},
-		{
-			"url": "assets/ui/oper/room_peng.png",
-			"type": "image",
-			"name": "room_peng_png"
-		},
-		{
-			"url": "assets/ui/oper/room_lai.png",
-			"type": "image",
-			"name": "room_lai_png"
-		},
-		{
-			"url": "assets/ui/oper/room_pi.png",
-			"type": "image",
-			"name": "room_pi_png"
-		},
-		{
 			"url": "assets/ui/components/time_102.png",
 			"type": "image",
 			"name": "time_102_png"
@@ -665,6 +635,41 @@
 			"url": "assets/ui/font/timeFnt.png",
 			"type": "image",
 			"name": "timeFnt_png"
+		},
+		{
+			"name": "room_oper_0_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_0.png"
+		},
+		{
+			"name": "room_oper_1_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_1.png"
+		},
+		{
+			"name": "room_oper_2_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_2.png"
+		},
+		{
+			"name": "room_oper_3_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_3.png"
+		},
+		{
+			"name": "room_oper_4_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_4.png"
+		},
+		{
+			"name": "room_oper_5_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_5.png"
+		},
+		{
+			"name": "room_oper_6_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_6.png"
 		}
 	]
 }

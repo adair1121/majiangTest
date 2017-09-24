@@ -16,6 +16,8 @@ class PopSystemSet extends BaseEuiView{
 		this.sndSlider.minimum = 0;
 		this.sndEffectSlider.maximum = 100;
 		this.sndSlider.maximum = 100;
+		this.sndEffectSlider.progressBar.maximum = 100;
+		this.sndSlider.progressBar.maximum = 100;
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchHandler,this);
 		this.sndEffectSlider.addEventListener(eui.UIEvent.CHANGE, this.effectSndChangeHandler, this);
 		this.sndSlider.addEventListener(eui.UIEvent.CHANGE, this.bgSndChangeHandler, this);
