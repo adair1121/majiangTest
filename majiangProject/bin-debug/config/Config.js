@@ -23,6 +23,8 @@ Config.gamePort = 5005;
 /**版本号 */
 Config.THMVERSION = "0.0.1";
 Config.RESVERSION = "0.0.1";
+/**等待时间 */
+Config.waitTime = 60;
 /**测试用户 */
 Config.username = "g42";
 Config.password = "greentea";

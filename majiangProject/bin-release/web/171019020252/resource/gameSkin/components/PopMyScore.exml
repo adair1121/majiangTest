@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PopMyScore" width="958" height="556" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group x="0" y="0">
+		<e:Image source="pop_content_png" anchorOffsetX="0" x="0" y="0"/>
+		<e:Image id="btnClose" source="button_close_png" width="60" height="60" x="881" y="9.999999999999991"/>
+		<e:Image source="pop_title_score_png" x="403" y="16.000000000000004"/>
+		<e:Image source="pop_content_bg_png" y="88.00000000000001" anchorOffsetY="0" height="438" x="44.00000000000003"/>
+		<e:Image source="pop_mune_score_png" y="90.00000000000001" x="44.00000000000003"/>
+		<e:Scroller id="scroller" width="870" height="370" y="153.99999999999997" anchorOffsetX="0" anchorOffsetY="0" x="44.00000000000003">
+			<e:List id="list"/>
+		</e:Scroller>
+	</e:Group>
+</e:Skin>

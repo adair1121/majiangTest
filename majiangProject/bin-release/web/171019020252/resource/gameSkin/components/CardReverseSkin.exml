@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CardReverseSkin" width="88" height="128" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="front_block_back_30_png" left="0" top="0"/>
+</e:Skin>

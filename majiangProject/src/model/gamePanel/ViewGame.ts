@@ -197,9 +197,13 @@ class ViewGame extends BaseEuiView{
 		}
 		
 	}
+	private curCardPi:number;
+	private curCardLai:number;
 	public showGameState(msg:proto.s_NotifyHandCards):void{
 		this.skin.currentState = this.TYPE_GAME;
 		this.cardobj = this.cardobj.concat(msg.handCards);
+		this.curCardPi = msg.pizi;
+		this.curCardLai = msg.laizi;
 		this.copyCardGather = this.copyCardGather.concat(msg.handCards);
 		this.startNewGame(msg.dice1,msg.dice2,this.relativeSeat[msg.dealer]);
 	}
@@ -234,6 +238,23 @@ class ViewGame extends BaseEuiView{
 		if(msg.isWin){
 
 		}
+		var operGather:number[] = [];
+		msg.KongCards.forEach((elem:proto.IntList)=>{
+			if(elem.list.length >= 4){
+				operGather.push(data.Option.Kong);
+			}
+			elem.list.forEach((value:number)=>{
+				if(value === this.curCardPi){
+					operGather.push(data.Option.Pi);
+				}else if(value === this.curCardLai){
+					operGather.push(data.Option.Lai);
+				}
+			},this);
+		},this)
+		if(operGather.length){
+			this.createOper(operGather)
+		}
+		
 	}
 	/**通知其他人打牌信息 */
 	public notifyPlayCard(msg:proto.s_NotifyPlayCard):void{
@@ -284,12 +305,12 @@ class ViewGame extends BaseEuiView{
 		if(!this.initialized){
 			this.timeCom.initialize();
 			this.curFocusSeat = this.relativeSeat[seat];
-			this.timeCom.setFocus(this.curFocusSeat,10,this.timeEnd,this);
+			this.timeCom.setFocus(this.curFocusSeat,Config.waitTime,this.timeEnd,this);
 		}
 		
 	}
 	/**
-	 * 响应别人打出牌
+	 * 响应别人打出牌吃碰杠等操作完成后
 	 */
 	public playCardResponse():void{
 		this.leftGroup.removeChildren();
@@ -343,7 +364,7 @@ class ViewGame extends BaseEuiView{
 				var arr:number[] = GlobalFunc.sortRule(GlobalFunc.NORMALIZE,"",this.copyCardGather);
 				this.addCardGroup(arr);
 				this.timeCom.initialize();
-				this.timeCom.setFocus(this.curFocusSeat,10,this.timeEnd,this);
+				this.timeCom.setFocus(this.curFocusSeat,Config.waitTime,this.timeEnd,this);
 			}else{
 				if(dataObj.handCard.length){
 					//当前为自己的手牌显示
@@ -388,12 +409,12 @@ class ViewGame extends BaseEuiView{
 	 * 当前出牌时间结束
 	 */
 	private timeEnd():void{
-		if(this.curFocusSeat === data.Seat.South){
-			var lastCard:HandCardItem = this.cardSprite.getChildAt(this.cardSprite.numChildren - 1) as HandCardItem;
-			this.newCard = this.curTarget = lastCard;
-			var card:number = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
-			this.applyFunc(GameConsts.PLAYCARD_C2S,card);
-		}
+		// if(this.curFocusSeat === data.Seat.South){
+		// 	var lastCard:HandCardItem = this.cardSprite.getChildAt(this.cardSprite.numChildren - 1) as HandCardItem;
+		// 	this.newCard = this.curTarget = lastCard;
+		// 	var card:number = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
+		// 	this.applyFunc(GameConsts.PLAYCARD_C2S,card);
+		// }
 	}
 	/**添加打出卡牌 */
 	private addCardItem(collect:eui.ArrayCollection,item:any):void{
@@ -448,7 +469,7 @@ class ViewGame extends BaseEuiView{
 		this.curTarget = evt.target.parent as HandCardItem;
 	}
 	private onCardTouchEnd(evt:egret.TouchEvent):void{
-		if(this.clickState && this.curFocusSeat === data.Seat.South){
+		if(this.clickState && this.curFocusSeat === data.Seat.South && this.skin.currentState === this.TYPE_GAME){
 			this.clickState = false;
 			var interVal:number = this.curStageY - evt.stageY;
 			if(interVal > Config.h_handCard){
@@ -604,7 +625,7 @@ class ViewGame extends BaseEuiView{
 			}
 		}
 	}
-
+	private readyState:boolean = false;
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		if(evt.target.parent === this.leftGroup || evt.target.parent ===this.rightGroup){
 			var name:string = evt.target.name;
@@ -617,6 +638,10 @@ class ViewGame extends BaseEuiView{
 				//邀请微信好友
 				break;
 			case this.readyBtn:
+				if(this.readyState){
+					return;
+				}
+				this.readyState = true;
 				this.applyFunc(GameConsts.RAISEHANDS_C2S);
 				break;
 		}

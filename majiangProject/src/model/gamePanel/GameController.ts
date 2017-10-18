@@ -74,7 +74,7 @@ class GameController extends BaseController{
 	}
 	/** 摸牌响应,摸牌时出现的胡牌杠牌等操作选项的响应 返回*/
 	private drawCardResponseRes(msg:proto.s_DrawCardResponse):void{
-
+		
 	}
 	/**打出牌返回 */
 	private playCardRes(msg:proto.s_PlayCard):void{

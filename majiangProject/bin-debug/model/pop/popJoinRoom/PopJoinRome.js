@@ -78,14 +78,12 @@ var PopJoinRome = (function (_super) {
     };
     PopJoinRome.prototype.addLabel = function () {
         var arr = this.romeNum.split("");
+        for (var j = 1; j <= 6; j++) {
+            this["num" + j].text = "";
+        }
         if (arr.length) {
             for (var i = 1; i <= arr.length; i++) {
                 this["num" + i].text = arr[i - 1];
-            }
-        }
-        else {
-            for (var j = 1; i <= 6; j++) {
-                this["num" + j].text = "";
             }
         }
     };

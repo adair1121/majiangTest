@@ -1,0 +1,675 @@
+{
+	"groups": [
+		{
+			"keys": "checkbox_select_disabled_png,checkbox_select_down_png,checkbox_select_up_png,checkbox_unselect_png,selected_png,border_png,header_png,radiobutton_select_disabled_png,radiobutton_select_down_png,radiobutton_select_up_png,radiobutton_unselect_png,roundthumb_png,thumb_png,track_png,tracklight_png,handle_png,off_png,on_png,button_down_png,button_up_png,thumb_pb_png,track_pb_png,track_sb_png,bg_jpg,egret_icon_png,description_json,loading_png,timeBg_png,pop_content_png,defaultRoomIcon_png,role_1_1_png,role_1_2_png,role_2_1_png,role_2_2_png,role_2_3_png,button_key_png,normalFnt_fnt,normalFnt_png,0x01_png,0x02_png,0x03_png,0x04_png,0x05_png,0x06_png,0x07_png,0x08_png,0x09_png,0x11_png,0x12_png,0x13_png,0x14_png,0x15_png,0x16_png,0x17_png,0x18_png,0x19_png,0x21_png,0x22_png,0x23_png,0x24_png,0x25_png,0x26_png,0x27_png,0x28_png,0x29_png,opposite_block_image_30_png,front_inhand_image_30_png,main_start_jpg,main_home_jpg,main_game_jpg,role_card_png,role_card_box_png,role_head_icon_png,button_enjoy_png,button_share_png,button_record_png,button_setting_png,button_sys_set_png,button_playeway_png,button_score_png,main_notify_png,input_png,pop_create_room_title_png,pop_join_room_title_png,room_input_bg_png,button_tab_four_png,pop_content_bg_png,button_sure_png,progress_thumb_png,progress_drag_btn_png,progress_bg_png,progress_title_music_png,progress_title_effect_png,pop_title_set_png,button_exit_png,pop_mune_score_png,pop_title_score_png,dachupai_left_png,shoupai_duijia_png,shoupai_you_png,shoupai_zuo_png,right_block_back_29_png,opposite_block_back_29_png,role_card_bottom_png,button_wx_yaoqing_png,button_add_png,button_checkbox_down_png,button_checkbox_up_png,button_close_png,button_create_png,button_join_png,button_quick_png,button_radio_down_png,button_radio_up_png,button_reduce_png,button_snd_close_png,button_snd_open_png,button_wx_png,hand_ready_png,txt_input_png,time_102_png,time_101_png,time_104_png,time_103_png,timeFnt_fnt,timeFnt_png,room_oper_0_png,room_oper_1_png,room_oper_2_png,room_oper_3_png,room_oper_4_png,room_oper_5_png,room_oper_6_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/CheckBox/checkbox_select_disabled.png",
+			"type": "image",
+			"name": "checkbox_select_disabled_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_down.png",
+			"type": "image",
+			"name": "checkbox_select_down_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_select_up.png",
+			"type": "image",
+			"name": "checkbox_select_up_png"
+		},
+		{
+			"url": "assets/CheckBox/checkbox_unselect.png",
+			"type": "image",
+			"name": "checkbox_unselect_png"
+		},
+		{
+			"url": "assets/ItemRenderer/selected.png",
+			"type": "image",
+			"name": "selected_png"
+		},
+		{
+			"url": "assets/Panel/border.png",
+			"type": "image",
+			"name": "border_png"
+		},
+		{
+			"url": "assets/Panel/header.png",
+			"type": "image",
+			"name": "header_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_disabled.png",
+			"type": "image",
+			"name": "radiobutton_select_disabled_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_down.png",
+			"type": "image",
+			"name": "radiobutton_select_down_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_select_up.png",
+			"type": "image",
+			"name": "radiobutton_select_up_png"
+		},
+		{
+			"url": "assets/RadioButton/radiobutton_unselect.png",
+			"type": "image",
+			"name": "radiobutton_unselect_png"
+		},
+		{
+			"url": "assets/ScrollBar/roundthumb.png",
+			"type": "image",
+			"name": "roundthumb_png"
+		},
+		{
+			"url": "assets/Slider/thumb.png",
+			"type": "image",
+			"name": "thumb_png"
+		},
+		{
+			"url": "assets/Slider/track.png",
+			"type": "image",
+			"name": "track_png"
+		},
+		{
+			"url": "assets/Slider/tracklight.png",
+			"type": "image",
+			"name": "tracklight_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/handle.png",
+			"type": "image",
+			"name": "handle_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/off.png",
+			"type": "image",
+			"name": "off_png"
+		},
+		{
+			"url": "assets/ToggleSwitch/on.png",
+			"type": "image",
+			"name": "on_png"
+		},
+		{
+			"url": "assets/Button/button_down.png",
+			"type": "image",
+			"name": "button_down_png"
+		},
+		{
+			"url": "assets/Button/button_up.png",
+			"type": "image",
+			"name": "button_up_png"
+		},
+		{
+			"url": "assets/ProgressBar/thumb_pb.png",
+			"type": "image",
+			"name": "thumb_pb_png"
+		},
+		{
+			"url": "assets/ProgressBar/track_pb.png",
+			"type": "image",
+			"name": "track_pb_png"
+		},
+		{
+			"url": "assets/ScrollBar/track_sb.png",
+			"type": "image",
+			"name": "track_sb_png"
+		},
+		{
+			"url": "assets/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		},
+		{
+			"url": "config/description.json",
+			"type": "json",
+			"name": "description_json"
+		},
+		{
+			"url": "assets/ui/button/button_add.png",
+			"type": "image",
+			"name": "button_add_png"
+		},
+		{
+			"url": "assets/ui/button/button_checkbox_down.png",
+			"type": "image",
+			"name": "button_checkbox_down_png"
+		},
+		{
+			"url": "assets/ui/button/button_checkbox_up.png",
+			"type": "image",
+			"name": "button_checkbox_up_png"
+		},
+		{
+			"url": "assets/ui/button/button_close.png",
+			"type": "image",
+			"name": "button_close_png"
+		},
+		{
+			"url": "assets/ui/button/button_create.png",
+			"type": "image",
+			"name": "button_create_png"
+		},
+		{
+			"url": "assets/ui/button/button_join.png",
+			"type": "image",
+			"name": "button_join_png"
+		},
+		{
+			"url": "assets/ui/button/button_quick.png",
+			"type": "image",
+			"name": "button_quick_png"
+		},
+		{
+			"url": "assets/ui/button/button_radio_down.png",
+			"type": "image",
+			"name": "button_radio_down_png"
+		},
+		{
+			"url": "assets/ui/button/button_radio_up.png",
+			"type": "image",
+			"name": "button_radio_up_png"
+		},
+		{
+			"url": "assets/ui/button/button_snd_close.png",
+			"type": "image",
+			"name": "button_snd_close_png"
+		},
+		{
+			"url": "assets/ui/button/button_snd_open.png",
+			"type": "image",
+			"name": "button_snd_open_png"
+		},
+		{
+			"url": "assets/ui/button/button_wx.png",
+			"type": "image",
+			"name": "button_wx_png"
+		},
+		{
+			"url": "assets/ui/components/loading.png",
+			"type": "image",
+			"name": "loading_png"
+		},
+		{
+			"url": "assets/ui/components/timeBg.png",
+			"type": "image",
+			"name": "timeBg_png"
+		},
+		{
+			"url": "assets/ui/components/pop_content.png",
+			"type": "image",
+			"name": "pop_content_png"
+		},
+		{
+			"url": "assets/ui/components/defaultRoomIcon.png",
+			"type": "image",
+			"name": "defaultRoomIcon_png"
+		},
+		{
+			"url": "assets/ui/default/role_1_1.png",
+			"type": "image",
+			"name": "role_1_1_png"
+		},
+		{
+			"url": "assets/ui/default/role_1_2.png",
+			"type": "image",
+			"name": "role_1_2_png"
+		},
+		{
+			"url": "assets/ui/default/role_2_1.png",
+			"type": "image",
+			"name": "role_2_1_png"
+		},
+		{
+			"url": "assets/ui/default/role_2_2.png",
+			"type": "image",
+			"name": "role_2_2_png"
+		},
+		{
+			"url": "assets/ui/default/role_2_3.png",
+			"type": "image",
+			"name": "role_2_3_png"
+		},
+		{
+			"url": "assets/ui/button/button_key.png",
+			"type": "image",
+			"name": "button_key_png"
+		},
+		{
+			"url": "assets/ui/font/normalFnt.fnt",
+			"type": "font",
+			"name": "normalFnt_fnt"
+		},
+		{
+			"url": "assets/ui/font/normalFnt.png",
+			"type": "image",
+			"name": "normalFnt_png"
+		},
+		{
+			"url": "assets/ui/card/0x01.png",
+			"type": "image",
+			"name": "0x01_png"
+		},
+		{
+			"url": "assets/ui/card/0x02.png",
+			"type": "image",
+			"name": "0x02_png"
+		},
+		{
+			"url": "assets/ui/card/0x03.png",
+			"type": "image",
+			"name": "0x03_png"
+		},
+		{
+			"url": "assets/ui/card/0x04.png",
+			"type": "image",
+			"name": "0x04_png"
+		},
+		{
+			"url": "assets/ui/card/0x05.png",
+			"type": "image",
+			"name": "0x05_png"
+		},
+		{
+			"url": "assets/ui/card/0x06.png",
+			"type": "image",
+			"name": "0x06_png"
+		},
+		{
+			"url": "assets/ui/card/0x07.png",
+			"type": "image",
+			"name": "0x07_png"
+		},
+		{
+			"url": "assets/ui/card/0x08.png",
+			"type": "image",
+			"name": "0x08_png"
+		},
+		{
+			"url": "assets/ui/card/0x09.png",
+			"type": "image",
+			"name": "0x09_png"
+		},
+		{
+			"url": "assets/ui/card/0x11.png",
+			"type": "image",
+			"name": "0x11_png"
+		},
+		{
+			"url": "assets/ui/card/0x12.png",
+			"type": "image",
+			"name": "0x12_png"
+		},
+		{
+			"url": "assets/ui/card/0x13.png",
+			"type": "image",
+			"name": "0x13_png"
+		},
+		{
+			"url": "assets/ui/card/0x14.png",
+			"type": "image",
+			"name": "0x14_png"
+		},
+		{
+			"url": "assets/ui/card/0x15.png",
+			"type": "image",
+			"name": "0x15_png"
+		},
+		{
+			"url": "assets/ui/card/0x16.png",
+			"type": "image",
+			"name": "0x16_png"
+		},
+		{
+			"url": "assets/ui/card/0x17.png",
+			"type": "image",
+			"name": "0x17_png"
+		},
+		{
+			"url": "assets/ui/card/0x18.png",
+			"type": "image",
+			"name": "0x18_png"
+		},
+		{
+			"url": "assets/ui/card/0x19.png",
+			"type": "image",
+			"name": "0x19_png"
+		},
+		{
+			"url": "assets/ui/card/0x21.png",
+			"type": "image",
+			"name": "0x21_png"
+		},
+		{
+			"url": "assets/ui/card/0x22.png",
+			"type": "image",
+			"name": "0x22_png"
+		},
+		{
+			"url": "assets/ui/card/0x23.png",
+			"type": "image",
+			"name": "0x23_png"
+		},
+		{
+			"url": "assets/ui/card/0x24.png",
+			"type": "image",
+			"name": "0x24_png"
+		},
+		{
+			"url": "assets/ui/card/0x25.png",
+			"type": "image",
+			"name": "0x25_png"
+		},
+		{
+			"url": "assets/ui/card/0x26.png",
+			"type": "image",
+			"name": "0x26_png"
+		},
+		{
+			"url": "assets/ui/card/0x27.png",
+			"type": "image",
+			"name": "0x27_png"
+		},
+		{
+			"url": "assets/ui/card/0x28.png",
+			"type": "image",
+			"name": "0x28_png"
+		},
+		{
+			"url": "assets/ui/card/0x29.png",
+			"type": "image",
+			"name": "0x29_png"
+		},
+		{
+			"url": "assets/ui/card/opposite_block_image_30.png",
+			"type": "image",
+			"name": "opposite_block_image_30_png"
+		},
+		{
+			"url": "assets/ui/card/front_inhand_image_30.png",
+			"type": "image",
+			"name": "front_inhand_image_30_png"
+		},
+		{
+			"url": "assets/ui/mainUI/main_start.jpg",
+			"type": "image",
+			"name": "main_start_jpg"
+		},
+		{
+			"url": "assets/ui/mainUI/main_home.jpg",
+			"type": "image",
+			"name": "main_home_jpg"
+		},
+		{
+			"url": "assets/ui/mainUI/main_game.jpg",
+			"type": "image",
+			"name": "main_game_jpg"
+		},
+		{
+			"url": "assets/ui/default/role_card.png",
+			"type": "image",
+			"name": "role_card_png"
+		},
+		{
+			"url": "assets/ui/default/role_card_box.png",
+			"type": "image",
+			"name": "role_card_box_png"
+		},
+		{
+			"url": "assets/ui/default/role_head_icon.png",
+			"type": "image",
+			"name": "role_head_icon_png"
+		},
+		{
+			"url": "assets/ui/button/button_enjoy.png",
+			"type": "image",
+			"name": "button_enjoy_png"
+		},
+		{
+			"url": "assets/ui/button/button_share.png",
+			"type": "image",
+			"name": "button_share_png"
+		},
+		{
+			"url": "assets/ui/button/button_record.png",
+			"type": "image",
+			"name": "button_record_png"
+		},
+		{
+			"url": "assets/ui/button/button_setting.png",
+			"type": "image",
+			"name": "button_setting_png"
+		},
+		{
+			"url": "assets/ui/button/button_sys_set.png",
+			"type": "image",
+			"name": "button_sys_set_png"
+		},
+		{
+			"url": "assets/ui/button/button_playeway.png",
+			"type": "image",
+			"name": "button_playeway_png"
+		},
+		{
+			"url": "assets/ui/button/button_score.png",
+			"type": "image",
+			"name": "button_score_png"
+		},
+		{
+			"url": "assets/ui/mainUI/main_notify.png",
+			"type": "image",
+			"name": "main_notify_png"
+		},
+		{
+			"url": "assets/ui/components/input.png",
+			"type": "image",
+			"name": "input_png"
+		},
+		{
+			"url": "assets/ui/components/pop_create_room_title.png",
+			"type": "image",
+			"name": "pop_create_room_title_png"
+		},
+		{
+			"url": "assets/ui/components/pop_join_room_title.png",
+			"type": "image",
+			"name": "pop_join_room_title_png"
+		},
+		{
+			"url": "assets/ui/components/room_input_bg.png",
+			"type": "image",
+			"name": "room_input_bg_png"
+		},
+		{
+			"url": "assets/ui/button/button_tab_four.png",
+			"type": "image",
+			"name": "button_tab_four_png"
+		},
+		{
+			"url": "assets/ui/components/pop_content_bg.png",
+			"type": "image",
+			"name": "pop_content_bg_png"
+		},
+		{
+			"url": "assets/ui/button/button_sure.png",
+			"type": "image",
+			"name": "button_sure_png"
+		},
+		{
+			"url": "assets/ui/components/progress/progress_thumb.png",
+			"type": "image",
+			"name": "progress_thumb_png"
+		},
+		{
+			"url": "assets/ui/components/progress/progress_drag_btn.png",
+			"type": "image",
+			"name": "progress_drag_btn_png"
+		},
+		{
+			"url": "assets/ui/components/progress/progress_bg.png",
+			"type": "image",
+			"name": "progress_bg_png"
+		},
+		{
+			"url": "assets/ui/components/progress/progress_title_music.png",
+			"type": "image",
+			"name": "progress_title_music_png"
+		},
+		{
+			"url": "assets/ui/components/progress/progress_title_effect.png",
+			"type": "image",
+			"name": "progress_title_effect_png"
+		},
+		{
+			"url": "assets/ui/components/pop_title_set.png",
+			"type": "image",
+			"name": "pop_title_set_png"
+		},
+		{
+			"url": "assets/ui/button/button_exit.png",
+			"type": "image",
+			"name": "button_exit_png"
+		},
+		{
+			"url": "assets/ui/components/pop_mune_score.png",
+			"type": "image",
+			"name": "pop_mune_score_png"
+		},
+		{
+			"url": "assets/ui/components/pop_title_score.png",
+			"type": "image",
+			"name": "pop_title_score_png"
+		},
+		{
+			"url": "assets/ui/card/dachupai_left.png",
+			"type": "image",
+			"name": "dachupai_left_png"
+		},
+		{
+			"url": "assets/ui/card/shoupai_duijia.png",
+			"type": "image",
+			"name": "shoupai_duijia_png"
+		},
+		{
+			"url": "assets/ui/card/shoupai_you.png",
+			"type": "image",
+			"name": "shoupai_you_png"
+		},
+		{
+			"url": "assets/ui/card/shoupai_zuo.png",
+			"type": "image",
+			"name": "shoupai_zuo_png"
+		},
+		{
+			"url": "assets/ui/card/right_block_back_29.png",
+			"type": "image",
+			"name": "right_block_back_29_png"
+		},
+		{
+			"url": "assets/ui/card/opposite_block_back_29.png",
+			"type": "image",
+			"name": "opposite_block_back_29_png"
+		},
+		{
+			"url": "assets/ui/default/role_card_bottom.png",
+			"type": "image",
+			"name": "role_card_bottom_png"
+		},
+		{
+			"url": "assets/ui/button/button_wx_yaoqing.png",
+			"type": "image",
+			"name": "button_wx_yaoqing_png"
+		},
+		{
+			"url": "assets/ui/button/button_reduce.png",
+			"type": "image",
+			"name": "button_reduce_png"
+		},
+		{
+			"url": "assets/ui/components/hand_ready.png",
+			"type": "image",
+			"name": "hand_ready_png"
+		},
+		{
+			"url": "assets/ui/components/txt_input.png",
+			"type": "image",
+			"name": "txt_input_png"
+		},
+		{
+			"url": "assets/ui/components/time_102.png",
+			"type": "image",
+			"name": "time_102_png"
+		},
+		{
+			"url": "assets/ui/components/time_101.png",
+			"type": "image",
+			"name": "time_101_png"
+		},
+		{
+			"url": "assets/ui/components/time_104.png",
+			"type": "image",
+			"name": "time_104_png"
+		},
+		{
+			"url": "assets/ui/components/time_103.png",
+			"type": "image",
+			"name": "time_103_png"
+		},
+		{
+			"url": "assets/ui/font/timeFnt.fnt",
+			"type": "font",
+			"name": "timeFnt_fnt"
+		},
+		{
+			"url": "assets/ui/font/timeFnt.png",
+			"type": "image",
+			"name": "timeFnt_png"
+		},
+		{
+			"name": "room_oper_0_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_0.png"
+		},
+		{
+			"name": "room_oper_1_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_1.png"
+		},
+		{
+			"name": "room_oper_2_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_2.png"
+		},
+		{
+			"name": "room_oper_3_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_3.png"
+		},
+		{
+			"name": "room_oper_4_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_4.png"
+		},
+		{
+			"name": "room_oper_5_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_5.png"
+		},
+		{
+			"name": "room_oper_6_png",
+			"type": "image",
+			"url": "assets/ui/oper/room_oper_6.png"
+		}
+	]
+}

@@ -77,13 +77,12 @@ class PopJoinRome extends BaseEuiView{
 	}
 	private addLabel():void{
 		var arr:string[] = this.romeNum.split("");
+		for(var j:number = 1;j<=6;j++){
+			this["num"+j].text = "";
+		}
 		if(arr.length){
 			for(var i:number = 1;i<=arr.length;i++){
 				this["num"+i].text = arr[i-1];
-			}
-		}else{
-			for(var j:number = 1;i<=6;j++){
-				this["num"+j].text = "";
 			}
 		}
 		

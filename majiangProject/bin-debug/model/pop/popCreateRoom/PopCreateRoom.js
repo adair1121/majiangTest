@@ -34,6 +34,8 @@ var PopCreateRoom = (function (_super) {
     PopCreateRoom.prototype.open = function (param) {
         this.x = (this.myParent.width >> 1) - (this.measuredWidth >> 1);
         this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
+        this.baseScore.m_count = 0;
+        this.rewardTop.m_count = 0;
     };
     /**
      * 面板关闭执行函数

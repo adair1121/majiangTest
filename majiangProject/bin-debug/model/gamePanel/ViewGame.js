@@ -36,6 +36,7 @@ var ViewGame = (function (_super) {
         //初始化牌集合副本
         _this.copyCardGather = [];
         _this.initialized = true;
+        _this.readyState = false;
         _this.skinName = "ViewGameSkin";
         return _this;
     }
@@ -171,11 +172,14 @@ var ViewGame = (function (_super) {
     ViewGame.prototype.showGameState = function (msg) {
         this.skin.currentState = this.TYPE_GAME;
         this.cardobj = this.cardobj.concat(msg.handCards);
+        this.curCardPi = msg.pizi;
+        this.curCardLai = msg.laizi;
         this.copyCardGather = this.copyCardGather.concat(msg.handCards);
         this.startNewGame(msg.dice1, msg.dice2, this.relativeSeat[msg.dealer]);
     };
     /**处理摸牌 */
     ViewGame.prototype.notifyDealCards = function (msg) {
+        var _this = this;
         if (this.relativeSeat[msg.seat] === data.Seat.South) {
             //如果相对座位为南是 添加手牌到显示组 -- 当前玩家摸牌
             // this.addCardGroup([msg.drawCard],true);
@@ -206,6 +210,23 @@ var ViewGame = (function (_super) {
             }
         }
         if (msg.isWin) {
+        }
+        var operGather = [];
+        msg.KongCards.forEach(function (elem) {
+            if (elem.list.length >= 4) {
+                operGather.push(data.Option.Kong);
+            }
+            elem.list.forEach(function (value) {
+                if (value === _this.curCardPi) {
+                    operGather.push(data.Option.Pi);
+                }
+                else if (value === _this.curCardLai) {
+                    operGather.push(data.Option.Lai);
+                }
+            }, _this);
+        }, this);
+        if (operGather.length) {
+            this.createOper(operGather);
         }
     };
     /**通知其他人打牌信息 */
@@ -244,6 +265,8 @@ var ViewGame = (function (_super) {
             this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S, { option: data.Option.Pass });
         }
         else {
+            //提示对应操作
+            this.createOper([msg.option]);
         }
     };
     /**
@@ -253,14 +276,15 @@ var ViewGame = (function (_super) {
         if (!this.initialized) {
             this.timeCom.initialize();
             this.curFocusSeat = this.relativeSeat[seat];
-            this.timeCom.setFocus(this.curFocusSeat, 10, this.timeEnd, this);
+            this.timeCom.setFocus(this.curFocusSeat, Config.waitTime, this.timeEnd, this);
         }
     };
     /**
-     * 响应别人打出牌
+     * 响应别人打出牌吃碰杠等操作完成后
      */
     ViewGame.prototype.playCardResponse = function () {
-        //如果别人都过 则切换用户
+        this.leftGroup.removeChildren();
+        this.rightGroup.removeChildren();
     };
     /**
      * 离开房间
@@ -312,7 +336,7 @@ var ViewGame = (function (_super) {
                 var arr = GlobalFunc.sortRule(GlobalFunc.NORMALIZE, "", _this.copyCardGather);
                 _this.addCardGroup(arr);
                 _this.timeCom.initialize();
-                _this.timeCom.setFocus(_this.curFocusSeat, 10, _this.timeEnd, _this);
+                _this.timeCom.setFocus(_this.curFocusSeat, Config.waitTime, _this.timeEnd, _this);
             }
             else {
                 if (dataObj.handCard.length) {
@@ -360,12 +384,12 @@ var ViewGame = (function (_super) {
      * 当前出牌时间结束
      */
     ViewGame.prototype.timeEnd = function () {
-        if (this.curFocusSeat === data.Seat.South) {
-            var lastCard = this.cardSprite.getChildAt(this.cardSprite.numChildren - 1);
-            this.newCard = this.curTarget = lastCard;
-            var card = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
-            this.applyFunc(GameConsts.PLAYCARD_C2S, card);
-        }
+        // if(this.curFocusSeat === data.Seat.South){
+        // 	var lastCard:HandCardItem = this.cardSprite.getChildAt(this.cardSprite.numChildren - 1) as HandCardItem;
+        // 	this.newCard = this.curTarget = lastCard;
+        // 	var card:number = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
+        // 	this.applyFunc(GameConsts.PLAYCARD_C2S,card);
+        // }
     };
     /**添加打出卡牌 */
     ViewGame.prototype.addCardItem = function (collect, item) {
@@ -424,7 +448,7 @@ var ViewGame = (function (_super) {
         this.curTarget = evt.target.parent;
     };
     ViewGame.prototype.onCardTouchEnd = function (evt) {
-        if (this.clickState) {
+        if (this.clickState && this.curFocusSeat === data.Seat.South && this.skin.currentState === this.TYPE_GAME) {
             this.clickState = false;
             var interVal = this.curStageY - evt.stageY;
             if (interVal > Config.h_handCard) {
@@ -564,12 +588,48 @@ var ViewGame = (function (_super) {
             }, this);
         }
     };
+    /**生成对应操作 */
+    ViewGame.prototype.createOper = function (option) {
+        this.leftOper.removeChildren();
+        this.rightOper.removeChildren();
+        var passImg = new eui.Image();
+        passImg.source = "room_oper_" + data.Option.Pass + "_png";
+        this.rightGroup.addChild(passImg);
+        passImg.name = data.Option.Pass + "";
+        passImg.width = 63, passImg.height = 78;
+        passImg.x = this.rightOper.width - passImg.width;
+        for (var i = 0, len = option.length; i < len; i++) {
+            var img = new eui.Image();
+            img.source = "room_oper_" + option[i] + "_png";
+            img.name = option[i] + "";
+            if (option[i] === data.Option.Lai || option[i] === data.Option.Pi) {
+                this.leftOper.addChild(img);
+                img.x = i * img.width + 10;
+            }
+            else {
+                this.rightOper.addChild(img);
+                img.width = 63;
+                img.height = 78;
+                img.x = this.rightOper.width - this.rightGroup.numChildren * (img.width + 10);
+            }
+        }
+    };
     ViewGame.prototype.onTouchHandler = function (evt) {
+        if (evt.target.parent === this.leftGroup || evt.target.parent === this.rightGroup) {
+            var name = evt.target.name;
+            //次粗需要处理cardList
+            this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S, { option: parseInt(name) });
+            return;
+        }
         switch (evt.target) {
             case this.buttonYaoQing:
                 //邀请微信好友
                 break;
             case this.readyBtn:
+                if (this.readyState) {
+                    return;
+                }
+                this.readyState = true;
                 this.applyFunc(GameConsts.RAISEHANDS_C2S);
                 break;
         }

@@ -10,6 +10,8 @@ class Config {
 	public static THMVERSION:string = "0.0.1";
 	public static RESVERSION:string = "0.0.1";
 
+	/**等待时间 */
+	public static waitTime:number = 60;
 	/**测试用户 */
 	public static username:string="g42";
 	public static password:string="greentea";

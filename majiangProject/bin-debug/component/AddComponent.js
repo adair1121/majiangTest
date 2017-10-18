@@ -35,6 +35,10 @@ var AddComponent = (function (_super) {
         get: function () {
             return this.count;
         },
+        set: function (value) {
+            this.count = value;
+            this.num.text = this.count + "";
+        },
         enumerable: true,
         configurable: true
     });
