@@ -1,0 +1,40 @@
+var proto;
+(function (proto) {
+    var MessageType;
+    (function (MessageType) {
+        MessageType[MessageType["c_LoginAccount"] = 100] = "c_LoginAccount";
+        MessageType[MessageType["s_LoginAccount"] = 101] = "s_LoginAccount";
+        MessageType[MessageType["UserInfo"] = 102] = "UserInfo";
+        MessageType[MessageType["UserInfoWithSeat"] = 103] = "UserInfoWithSeat";
+        MessageType[MessageType["s_Kickout"] = 104] = "s_Kickout";
+        MessageType[MessageType["IntList"] = 105] = "IntList";
+        MessageType[MessageType["SeatCardInfo"] = 106] = "SeatCardInfo";
+        MessageType[MessageType["c_CreateRoom"] = 107] = "c_CreateRoom";
+        MessageType[MessageType["s_CreateRoom"] = 108] = "s_CreateRoom";
+        MessageType[MessageType["c_EnterRoom"] = 109] = "c_EnterRoom";
+        MessageType[MessageType["s_EnterRoom"] = 110] = "s_EnterRoom";
+        MessageType[MessageType["c_LeaveRoom"] = 111] = "c_LeaveRoom";
+        MessageType[MessageType["s_LeaveRoom"] = 112] = "s_LeaveRoom";
+        MessageType[MessageType["c_RaiseHands"] = 113] = "c_RaiseHands";
+        MessageType[MessageType["s_RaiseHands"] = 114] = "s_RaiseHands";
+        MessageType[MessageType["AttrValue"] = 115] = "AttrValue";
+        MessageType[MessageType["PointsInfo"] = 116] = "PointsInfo";
+        MessageType[MessageType["SeatHandCards"] = 117] = "SeatHandCards";
+        MessageType[MessageType["s_AttrChange"] = 118] = "s_AttrChange";
+        MessageType[MessageType["s_NotifyEnterTable"] = 119] = "s_NotifyEnterTable";
+        MessageType[MessageType["s_NotifyLeaveTable"] = 120] = "s_NotifyLeaveTable";
+        MessageType[MessageType["s_NotifyHandCards"] = 121] = "s_NotifyHandCards";
+        MessageType[MessageType["s_NotifyDealCard"] = 122] = "s_NotifyDealCard";
+        MessageType[MessageType["s_NotifyPlayCard"] = 123] = "s_NotifyPlayCard";
+        MessageType[MessageType["s_NotifyPlayResponse"] = 124] = "s_NotifyPlayResponse";
+        MessageType[MessageType["s_NotifyChangeOpUser"] = 125] = "s_NotifyChangeOpUser";
+        MessageType[MessageType["s_NotifyEndHandCards"] = 126] = "s_NotifyEndHandCards";
+        MessageType[MessageType["c_DrawCardResponse"] = 127] = "c_DrawCardResponse";
+        MessageType[MessageType["s_DrawCardResponse"] = 128] = "s_DrawCardResponse";
+        MessageType[MessageType["c_PlayCard"] = 129] = "c_PlayCard";
+        MessageType[MessageType["s_PlayCard"] = 130] = "s_PlayCard";
+        MessageType[MessageType["c_PlayCardResponse"] = 131] = "c_PlayCardResponse";
+        MessageType[MessageType["s_PlayCardResponse"] = 132] = "s_PlayCardResponse";
+    })(MessageType = proto.MessageType || (proto.MessageType = {}));
+})(proto || (proto = {}));
+//# sourceMappingURL=MessageType.js.map

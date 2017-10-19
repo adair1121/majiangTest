@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="PopJoinRomeSkin" width="958" height="556" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group width="958" height="556" y="0" x="0">
+		<e:Image source="pop_content_png" right="0" left="0" top="0" bottom="0" anchorOffsetX="0"/>
+		<e:List id="keyList" width="518" height="295.99" anchorOffsetX="0" anchorOffsetY="0" itemRendererSkinName="MyButtonSkin" useVirtualLayout="false" horizontalCenter="0" bottom="28">
+			<e:ArrayCollection>
+				<e:Array>
+					<e:Object label="1"/>
+					<e:Object label="2"/>
+					<e:Object label="3"/>
+					<e:Object label="4"/>
+					<e:Object label="5"/>
+					<e:Object label="6"/>
+					<e:Object label="7"/>
+					<e:Object label="8"/>
+					<e:Object label="9"/>
+					<e:Object label="null"/>
+					<e:Object label="null"/>
+					<e:Object label="null"/>
+				</e:Array>
+			</e:ArrayCollection>
+			<e:layout>
+			<e:TileLayout requestedRowCount="3" requestedColumnCount="4" rowAlign="top" columnAlign="left" horizontalAlign="left" verticalAlign="top" orientation="rows" verticalGap="4" horizontalGap="4"/>
+			</e:layout>
+		</e:List>
+		<e:Image id="btnClose" source="button_close_png" width="60" height="60" right="17" top="10"/>
+		<e:Image source="pop_join_room_title_png" horizontalCenter="0" top="16"/>
+		<e:Label text="请输入房间号" y="99.19" textColor="0xed9d38" fontFamily="SimHei" horizontalCenter="0"/>
+		<e:Group horizontalCenter="0" top="148">
+			<e:Image source="room_input_bg_png" x="0" y="0"/>
+			<e:Image source="room_input_bg_png" x="71" y="0"/>
+			<e:Image source="room_input_bg_png" x="143.5" y="0"/>
+			<e:Image source="room_input_bg_png" x="221.00000000000006" y="0"/>
+			<e:Image source="room_input_bg_png" x="298.5" y="0"/>
+			<e:Image source="room_input_bg_png" x="375" y="0"/>
+			<e:Label id="num1" text="0" x="1.329999999999984" y="1.990000000000009" anchorOffsetX="0" width="58.67" anchorOffsetY="0" height="56.67" textAlign="center" verticalAlign="middle"/>
+			<e:Label id="num2" text="0" x="72.32999999999998" y="0" anchorOffsetX="0" width="58.67" anchorOffsetY="0" height="56.67" textAlign="center" verticalAlign="middle"/>
+			<e:Label id="num3" text="0" x="143.5" y="0" anchorOffsetX="0" width="58.67" anchorOffsetY="0" height="56.67" textAlign="center" verticalAlign="middle"/>
+			<e:Label id="num4" text="0" x="221.66000000000008" y="3.330000000000041" anchorOffsetX="0" width="58.67" anchorOffsetY="0" height="56.67" textAlign="center" verticalAlign="middle"/>
+			<e:Label id="num5" text="0" x="299.83000000000004" y="3.330000000000041" anchorOffsetX="0" width="58.67" anchorOffsetY="0" height="56.67" textAlign="center" verticalAlign="middle"/>
+			<e:Label id="num6" text="0" x="375" y="2.660000000000025" anchorOffsetX="0" width="58.67" anchorOffsetY="0" height="56.67" textAlign="center" verticalAlign="middle"/>
+		</e:Group>
+	</e:Group>
+</e:Skin>
