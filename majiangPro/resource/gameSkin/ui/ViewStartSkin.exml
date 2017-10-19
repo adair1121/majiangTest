@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="ViewStartSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image source="main_home_jpg" left="0" top="0" right="0" bottom="0"/>
+	<e:Group left="0" top="0">
+		<e:Label id="playerName" text="share one of" x="138.5" y="18" size="18" fontFamily="SimHei"/>
+		<e:Label id="playerId" text="ID:00000000" x="138.5" y="47" size="18" fontFamily="SimHei"/>
+		<e:Image id="playerIcon" source="role_head_icon_png" x="21.77" y="17.5"/>
+		<e:Image source="role_card_box_png" x="18.77" y="14.5"/>
+		<e:Image source="role_card_png" x="128" y="67"/>
+		<e:Label id="cardNum" text="0" x="187.83" y="74.84" size="18" fontFamily="SimHei" scaleX="1" scaleY="1" anchorOffsetX="0" width="98.34" anchorOffsetY="0" height="36" verticalAlign="middle" textAlign="center"/>
+		<e:Image id="addCardBtn" source="button_add_png" x="291" y="74.5" scaleX="1" scaleY="1" width="33.33" height="33.33" anchorOffsetX="0" anchorOffsetY="0" alpha="0"/>
+	</e:Group>
+	<e:Image id="createRoomBtn" source="button_create_png" left="406" top="193"/>
+	<e:Image id="joinRoomBtn" source="button_join_png" right="83" top="193"/>
+	<e:Image id="buttonIntro" source="button_playeway_png" top="36" right="227"/>
+	<e:Image id="buttonScore" source="button_score_png" right="132" top="36"/>
+	<e:Image id="buttonShare" source="button_share_png" right="328" top="36"/>
+	<e:Image id="buttonSet" source="button_sys_set_png" right="39" top="36"/>
+	<e:Group id="notifyGroup" horizontalCenter="42.5" top="133" visible="false">
+		<e:Image source="main_notify_png" x="0" y="0" scale9Grid="64,0,590,59" anchorOffsetX="0" width="1000"/>
+		<e:Label id="notifyLabel" text="label" x="1006" y="15" fontFamily="SimHei"/>
+		<e:Image id="notifyMask" source="input_png" x="64" y="0" anchorOffsetX="0" width="928" scale9Grid="24,0,353,57"/>
+	</e:Group>
+</e:Skin>

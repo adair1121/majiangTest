@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="AddComponentSkin" width="263" height="42" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Group left="0" top="0">
+		<e:Image source="txt_input_png" x="33" y="2" anchorOffsetY="0" height="37.5"/>
+		<e:Image id="addBtn" source="button_add_png" x="0" y="1"/>
+		<e:Image id="reduceBtn" source="button_reduce_png" x="223" y="1"/>
+		<e:Label id="num" text="0" x="42" y="3.5" anchorOffsetX="0" width="181" anchorOffsetY="0" height="35" verticalAlign="middle" textAlign="center" fontFamily="SimHei"/>
+	</e:Group>
+</e:Skin>
