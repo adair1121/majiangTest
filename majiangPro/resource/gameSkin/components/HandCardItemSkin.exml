@@ -2,4 +2,5 @@
 <e:Skin class="HandCardItemSkin" width="77" height="111" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
 	<e:Image source="front_inhand_image_30_png" left="0" top="0"/>
 	<e:Image id="cardIcon" width="64.22" height="77" horizontalCenter="0.5" verticalCenter="0.5"/>
+	<e:Label id="laiOrPi" text="Label" y="40" anchorOffsetX="0" width="62" size="20" fontFamily="SimHei" textColor="0x9b1515" horizontalCenter="0"/>
 </e:Skin>

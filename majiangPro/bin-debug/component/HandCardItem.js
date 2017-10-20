@@ -21,6 +21,7 @@ var HandCardItem = (function (_super) {
         RES.getResByUrl(Config.audio_path + template.womenVoice + ".mp3", function (value) {
             this.soundObj[2] = value;
         }, _this, RES.ResourceItem.TYPE_SOUND);
+        _this.laiOrPi.visible = false;
         return _this;
     }
     HandCardItem.prototype.childrenCreated = function () {
@@ -31,6 +32,21 @@ var HandCardItem = (function (_super) {
         if (this.sound) {
             this.channel = this.sound.play(0, 1);
             this.channel.volume = Config.soundEffectPercent;
+        }
+    };
+    /**
+     * 设置痞子或癞子的显示
+     */
+    HandCardItem.prototype.setOperLabel = function (oper) {
+        this.laiOrPi.visible = true;
+        if (oper === data.Option.Lai) {
+            this.laiOrPi.text = "癞";
+        }
+        else if (oper === data.Option.Pi) {
+            this.laiOrPi.text = "痞";
+        }
+        else {
+            this.laiOrPi.visible = false;
         }
     };
     return HandCardItem;

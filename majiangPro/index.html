@@ -22,112 +22,109 @@
 
     <!--这个标签为通过egret提供的第三方库的方式生成的 javascript 文件。删除 modules_files 标签后，库文件加载列表将不会变化，请谨慎操作！-->
     <!--modules_files_start-->
-	<script egret="lib" src="libs/modules/egret/egret.js" src-release="libs/modules/egret/egret.min.js"></script>
-	<script egret="lib" src="libs/modules/egret/egret.web.js" src-release="libs/modules/egret/egret.web.min.js"></script>
-	<script egret="lib" src="libs/modules/game/game.js" src-release="libs/modules/game/game.min.js"></script>
-	<script egret="lib" src="libs/modules/res/res.js" src-release="libs/modules/res/res.min.js"></script>
-	<script egret="lib" src="libs/modules/eui/eui.js" src-release="libs/modules/eui/eui.min.js"></script>
-	<script egret="lib" src="libs/modules/experimental/experimental.js" src-release="libs/modules/experimental/experimental.min.js"></script>
-	<script egret="lib" src="libs/modules/tween/tween.js" src-release="libs/modules/tween/tween.min.js"></script>
-	<script egret="lib" src="libs/modules/socket/socket.js" src-release="libs/modules/socket/socket.min.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.js"></script>
+	<script egret="lib" src="libs/modules/egret/egret.web.js"></script>
+	<script egret="lib" src="libs/modules/game/game.js"></script>
+	<script egret="lib" src="libs/modules/res/res.js"></script>
+	<script egret="lib" src="libs/modules/eui/eui.js"></script>
+	<script egret="lib" src="libs/modules/experimental/experimental.js"></script>
+	<script egret="lib" src="libs/modules/tween/tween.js"></script>
+	<script egret="lib" src="libs/modules/socket/socket.js"></script>
 	<!--modules_files_end-->
 
     <!--这个标签为不通过egret提供的第三方库的方式使用的 javascript 文件，请将这些文件放在libs下，但不要放在modules下面。-->
-    <!--other_libs_files_start-->
-    <script egret="lib" src="polyfill/promise.js" src-release="polyfill/promise.min.js"></script>
-    <!--other_libs_files_end-->
+    
 
     <!--这个标签会被替换为项目中所有的 javascript 文件。删除 game_files 标签后，项目文件加载列表将不会变化，请谨慎操作！-->
     <!--game_files_start-->
-	<script egret="game" src="bin-debug/data/proto/MessageHandle.js"></script>
-	<script egret="game" src="bin-debug/base/BaseEuiLayer.js"></script>
-	<script egret="game" src="bin-debug/base/BaseSence.js"></script>
-	<script egret="game" src="bin-debug/base/BaseSpriteLayer.js"></script>
-	<script egret="game" src="bin-debug/base/BaseClass.js"></script>
-	<script egret="game" src="bin-debug/data/proto/Pro.js"></script>
-	<script egret="game" src="bin-debug/mvc/controller/BaseController.js"></script>
-	<script egret="game" src="bin-debug/mvc/model/BaseModel.js"></script>
-	<script egret="game" src="bin-debug/mvc/proxy/BaseProxy.js"></script>
-	<script egret="game" src="bin-debug/mvc/view/BaseEuiView.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popCreateRoom/PopCreateRoom.js"></script>
-	<script egret="game" src="bin-debug/component/MyButton.js"></script>
-	<script egret="game" src="bin-debug/component/MyHSlider.js"></script>
-	<script egret="game" src="bin-debug/component/PlayerRoleInfo.js"></script>
-	<script egret="game" src="bin-debug/component/TimeComponent.js"></script>
-	<script egret="game" src="bin-debug/config/Config.js"></script>
-	<script egret="game" src="bin-debug/data/DataCenter.js"></script>
-	<script egret="game" src="bin-debug/data/Enums.js"></script>
-	<script egret="game" src="bin-debug/app/App.js"></script>
-	<script egret="game" src="bin-debug/data/proto/MessageType.js"></script>
-	<script egret="game" src="bin-debug/data/proto/messType.js"></script>
-	<script egret="game" src="bin-debug/component/AddComponent.js"></script>
-	<script egret="game" src="bin-debug/data/proto/Proto.js"></script>
-	<script egret="game" src="bin-debug/data/temple/CardConfigTemple.js"></script>
-	<script egret="game" src="bin-debug/data/TempleManager.js"></script>
-	<script egret="game" src="bin-debug/enum/ControllerConst.js"></script>
-	<script egret="game" src="bin-debug/enum/SceneConsts.js"></script>
-	<script egret="game" src="bin-debug/enum/ViewConst.js"></script>
-	<script egret="game" src="bin-debug/event/ChangeEvent.js"></script>
-	<script egret="game" src="bin-debug/LoadingUI.js"></script>
-	<script egret="game" src="bin-debug/Main.js"></script>
-	<script egret="game" src="bin-debug/model/gamePanel/GameConsts.js"></script>
-	<script egret="game" src="bin-debug/model/gamePanel/GameController.js"></script>
-	<script egret="game" src="bin-debug/model/gamePanel/GameModel.js"></script>
-	<script egret="game" src="bin-debug/model/gamePanel/GameProxy.js"></script>
-	<script egret="game" src="bin-debug/model/gamePanel/ViewGame.js"></script>
-	<script egret="game" src="bin-debug/model/loading/LoadingConsts.js"></script>
-	<script egret="game" src="bin-debug/model/loading/LoadingController.js"></script>
-	<script egret="game" src="bin-debug/model/loading/loadingView.js"></script>
-	<script egret="game" src="bin-debug/model/login/LoginConsts.js"></script>
-	<script egret="game" src="bin-debug/model/login/LoginController.js"></script>
-	<script egret="game" src="bin-debug/model/login/LoginModel.js"></script>
-	<script egret="game" src="bin-debug/model/login/LoginProxy.js"></script>
-	<script egret="game" src="bin-debug/model/login/ViewLogin.js"></script>
-	<script egret="game" src="bin-debug/utils/StageUtils.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popCreateRoom/PopCreateRoomController.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popCreateRoom/PopCreateRoomModel.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popCreateRoom/PopCreateRoomProxy.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popJoinRoom/PopJoinRome.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popJoinRoom/PopJoinRoomController.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popJoinRoom/PopJoinRoomModel.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popJoinRoom/PopJoinRoomProxy.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popScore/PopMyScoreController.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popScore/PopScore.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popSystemSet/PopSystemSet.js"></script>
-	<script egret="game" src="bin-debug/model/pop/popSystemSet/PopSystemSetController.js"></script>
-	<script egret="game" src="bin-debug/model/startPanel/StartConsts.js"></script>
-	<script egret="game" src="bin-debug/model/startPanel/StartController.js"></script>
-	<script egret="game" src="bin-debug/model/startPanel/StartModel.js"></script>
-	<script egret="game" src="bin-debug/model/startPanel/StartProxy.js"></script>
-	<script egret="game" src="bin-debug/model/startPanel/ViewStart.js"></script>
-	<script egret="game" src="bin-debug/component/CardItem.js"></script>
-	<script egret="game" src="bin-debug/mvc/ControllerManager.js"></script>
-	<script egret="game" src="bin-debug/component/CardMap.js"></script>
-	<script egret="game" src="bin-debug/component/CardReverse.js"></script>
-	<script egret="game" src="bin-debug/component/HandCardItem.js"></script>
-	<script egret="game" src="bin-debug/mvc/view/BaseSpriteView.js"></script>
-	<script egret="game" src="bin-debug/mvc/view/IBaseView.js"></script>
-	<script egret="game" src="bin-debug/mvc/ViewManager.js"></script>
-	<script egret="game" src="bin-debug/net/Processor.js"></script>
-	<script egret="game" src="bin-debug/net/SocketManager.js"></script>
-	<script egret="game" src="bin-debug/sence/GameSence.js"></script>
-	<script egret="game" src="bin-debug/sence/LayerManager.js"></script>
-	<script egret="game" src="bin-debug/sence/SenceLoadIng.js"></script>
-	<script egret="game" src="bin-debug/sence/SenceManager.js"></script>
-	<script egret="game" src="bin-debug/sence/UISence.js"></script>
-	<script egret="game" src="bin-debug/ThemeAdapter.js"></script>
-	<script egret="game" src="bin-debug/utils/CardTransFormUtil.js"></script>
-	<script egret="game" src="bin-debug/utils/Dictionary.js"></script>
-	<script egret="game" src="bin-debug/utils/DisplayUtils.js"></script>
-	<script egret="game" src="bin-debug/utils/Global.js"></script>
-	<script egret="game" src="bin-debug/utils/GlobalFunc.js"></script>
-	<script egret="game" src="bin-debug/utils/LListener.js"></script>
-	<script egret="game" src="bin-debug/utils/MessageCenter.js"></script>
-	<script egret="game" src="bin-debug/utils/MoviePool.js"></script>
-	<script egret="game" src="bin-debug/utils/ObjectPool.js"></script>
-	<script egret="game" src="bin-debug/utils/ResourceUtils.js"></script>
-	<script egret="game" src="bin-debug/utils/SoundUtils.js"></script>
-	<script egret="game" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="lib" src="bin-debug/data/proto/MessageHandle.js"></script>
+	<script egret="lib" src="bin-debug/mvc/view/BaseEuiView.js"></script>
+	<script egret="lib" src="bin-debug/base/BaseEuiLayer.js"></script>
+	<script egret="lib" src="bin-debug/base/BaseSence.js"></script>
+	<script egret="lib" src="bin-debug/base/BaseSpriteLayer.js"></script>
+	<script egret="lib" src="bin-debug/base/BaseClass.js"></script>
+	<script egret="lib" src="bin-debug/data/proto/Pro.js"></script>
+	<script egret="lib" src="bin-debug/mvc/controller/BaseController.js"></script>
+	<script egret="lib" src="bin-debug/mvc/model/BaseModel.js"></script>
+	<script egret="lib" src="bin-debug/mvc/proxy/BaseProxy.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popCreateRoom/PopCreateRoomController.js"></script>
+	<script egret="lib" src="bin-debug/component/MyHSlider.js"></script>
+	<script egret="lib" src="bin-debug/component/PlayerRoleInfo.js"></script>
+	<script egret="lib" src="bin-debug/component/TimeComponent.js"></script>
+	<script egret="lib" src="bin-debug/config/Config.js"></script>
+	<script egret="lib" src="bin-debug/data/DataCenter.js"></script>
+	<script egret="lib" src="bin-debug/data/Enums.js"></script>
+	<script egret="lib" src="bin-debug/app/App.js"></script>
+	<script egret="lib" src="bin-debug/data/proto/MessageType.js"></script>
+	<script egret="lib" src="bin-debug/data/proto/messType.js"></script>
+	<script egret="lib" src="bin-debug/component/AddComponent.js"></script>
+	<script egret="lib" src="bin-debug/data/proto/Proto.js"></script>
+	<script egret="lib" src="bin-debug/data/temple/CardConfigTemple.js"></script>
+	<script egret="lib" src="bin-debug/data/TempleManager.js"></script>
+	<script egret="lib" src="bin-debug/enum/ControllerConst.js"></script>
+	<script egret="lib" src="bin-debug/enum/SceneConsts.js"></script>
+	<script egret="lib" src="bin-debug/enum/ViewConst.js"></script>
+	<script egret="lib" src="bin-debug/event/ChangeEvent.js"></script>
+	<script egret="lib" src="bin-debug/LoadingUI.js"></script>
+	<script egret="lib" src="bin-debug/Main.js"></script>
+	<script egret="lib" src="bin-debug/model/gamePanel/GameConsts.js"></script>
+	<script egret="lib" src="bin-debug/model/gamePanel/GameController.js"></script>
+	<script egret="lib" src="bin-debug/model/gamePanel/GameModel.js"></script>
+	<script egret="lib" src="bin-debug/model/gamePanel/GameProxy.js"></script>
+	<script egret="lib" src="bin-debug/model/gamePanel/ViewGame.js"></script>
+	<script egret="lib" src="bin-debug/model/loading/LoadingConsts.js"></script>
+	<script egret="lib" src="bin-debug/model/loading/LoadingController.js"></script>
+	<script egret="lib" src="bin-debug/model/loading/loadingView.js"></script>
+	<script egret="lib" src="bin-debug/model/login/LoginConsts.js"></script>
+	<script egret="lib" src="bin-debug/model/login/LoginController.js"></script>
+	<script egret="lib" src="bin-debug/model/login/LoginModel.js"></script>
+	<script egret="lib" src="bin-debug/model/login/LoginProxy.js"></script>
+	<script egret="lib" src="bin-debug/model/login/ViewLogin.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popCreateRoom/PopCreateRoom.js"></script>
+	<script egret="lib" src="bin-debug/AssetAdapter.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popCreateRoom/PopCreateRoomModel.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popCreateRoom/PopCreateRoomProxy.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popJoinRoom/PopJoinRome.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popJoinRoom/PopJoinRoomController.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popJoinRoom/PopJoinRoomModel.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popJoinRoom/PopJoinRoomProxy.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popScore/PopMyScoreController.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popScore/PopScore.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popSystemSet/PopSystemSet.js"></script>
+	<script egret="lib" src="bin-debug/model/pop/popSystemSet/PopSystemSetController.js"></script>
+	<script egret="lib" src="bin-debug/model/startPanel/StartConsts.js"></script>
+	<script egret="lib" src="bin-debug/model/startPanel/StartController.js"></script>
+	<script egret="lib" src="bin-debug/model/startPanel/StartModel.js"></script>
+	<script egret="lib" src="bin-debug/model/startPanel/StartProxy.js"></script>
+	<script egret="lib" src="bin-debug/model/startPanel/ViewStart.js"></script>
+	<script egret="lib" src="bin-debug/component/CardItem.js"></script>
+	<script egret="lib" src="bin-debug/mvc/ControllerManager.js"></script>
+	<script egret="lib" src="bin-debug/component/CardMap.js"></script>
+	<script egret="lib" src="bin-debug/component/HandCardItem.js"></script>
+	<script egret="lib" src="bin-debug/component/MyButton.js"></script>
+	<script egret="lib" src="bin-debug/mvc/view/BaseSpriteView.js"></script>
+	<script egret="lib" src="bin-debug/mvc/view/IBaseView.js"></script>
+	<script egret="lib" src="bin-debug/mvc/ViewManager.js"></script>
+	<script egret="lib" src="bin-debug/net/Processor.js"></script>
+	<script egret="lib" src="bin-debug/net/SocketManager.js"></script>
+	<script egret="lib" src="bin-debug/sence/GameSence.js"></script>
+	<script egret="lib" src="bin-debug/sence/LayerManager.js"></script>
+	<script egret="lib" src="bin-debug/sence/SenceLoadIng.js"></script>
+	<script egret="lib" src="bin-debug/sence/SenceManager.js"></script>
+	<script egret="lib" src="bin-debug/sence/UISence.js"></script>
+	<script egret="lib" src="bin-debug/ThemeAdapter.js"></script>
+	<script egret="lib" src="bin-debug/utils/CardTransFormUtil.js"></script>
+	<script egret="lib" src="bin-debug/utils/Dictionary.js"></script>
+	<script egret="lib" src="bin-debug/utils/DisplayUtils.js"></script>
+	<script egret="lib" src="bin-debug/utils/Global.js"></script>
+	<script egret="lib" src="bin-debug/utils/GlobalFunc.js"></script>
+	<script egret="lib" src="bin-debug/utils/LListener.js"></script>
+	<script egret="lib" src="bin-debug/utils/MessageCenter.js"></script>
+	<script egret="lib" src="bin-debug/utils/MoviePool.js"></script>
+	<script egret="lib" src="bin-debug/utils/ObjectPool.js"></script>
+	<script egret="lib" src="bin-debug/utils/ResourceUtils.js"></script>
+	<script egret="lib" src="bin-debug/utils/SoundUtils.js"></script>
+	<script egret="lib" src="bin-debug/utils/StageUtils.js"></script>
 	<!--game_files_end-->
 </head>
 <body>

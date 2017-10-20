@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="ViewLoginSkin" width="1280" height="720" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image source="main_start_jpg" left="0" top="0" right="0" bottom="0"/>
-	<e:Image id="wxLogin" source="button_wx_png" right="340" bottom="58"/>
-	<e:Image id="btnLogin" source="button_quick_png" width="222" height="90" left="340" bottom="48"/>
-</e:Skin>

@@ -12,6 +12,7 @@ var CardItem = (function (_super) {
         var _this = _super.call(this) || this;
         _this.defaultBg = "opposite_block_image_30_png";
         _this.leftBg = "dachupai_left";
+        _this.skinName = "CardItemSkin";
         return _this;
     }
     CardItem.prototype.dataChanged = function () {
@@ -23,6 +24,14 @@ var CardItem = (function (_super) {
             this.cardBg.source = this.defaultBg;
         }
     };
+    Object.defineProperty(CardItem.prototype, "icon", {
+        set: function (source) {
+            this.cardIcon.source = source + "_png";
+            this.cardBg.source = this.defaultBg;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return CardItem;
 }(eui.ItemRenderer));
 __reflect(CardItem.prototype, "CardItem");

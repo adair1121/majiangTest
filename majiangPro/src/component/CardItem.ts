@@ -5,6 +5,7 @@ class CardItem extends eui.ItemRenderer{
 	private leftBg:string = "dachupai_left";
 	public constructor() {
 		super();
+		this.skinName = "CardItemSkin";
 	}
 	protected dataChanged():void{
 		this.cardIcon.source = this.data.icon;
@@ -13,5 +14,9 @@ class CardItem extends eui.ItemRenderer{
 		}else{
 			this.cardBg.source = this.defaultBg;
 		}
+	}
+	public set icon(source:string){
+		this.cardIcon.source = source+"_png";
+		this.cardBg.source = this.defaultBg;
 	}
 }

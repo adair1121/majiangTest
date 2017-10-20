@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="MyHSliderSkin" minWidth="20" minHeight="8" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" width="396">
-	<e:Image id="track" source="progress_bg_png" x="0" y="10" anchorOffsetY="0" height="45" anchorOffsetX="0" width="393"/>
-	<e:ProgressBar id="progressBar" width="396" height="48" x="1" y="9" skinName="MyProgressBarSkin" maximum="1" value="100" slideDuration="0"/>
-    <e:Image id="thumb" source="progress_drag_btn_png" verticalCenter="0"/>
-</e:Skin>

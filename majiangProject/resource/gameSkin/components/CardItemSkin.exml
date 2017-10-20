@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="CardItemSkin" width="38" height="56" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
-	<e:Image id="cardBg" source="opposite_block_image_30_png" left="0" top="0"/>
-	<e:Image id="cardIcon" source="0x01_png" top="0" horizontalCenter="0" anchorOffsetX="0" width="35" anchorOffsetY="0" height="41.7"/>
-</e:Skin>
