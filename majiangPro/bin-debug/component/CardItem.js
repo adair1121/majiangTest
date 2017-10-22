@@ -25,9 +25,20 @@ var CardItem = (function (_super) {
         }
     };
     Object.defineProperty(CardItem.prototype, "icon", {
+        get: function () {
+            return this._icon;
+        },
         set: function (source) {
             this.cardIcon.source = source + "_png";
+            this._icon = source;
             this.cardBg.source = this.defaultBg;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CardItem.prototype, "iconTrans", {
+        get: function () {
+            return parseInt(this._icon);
         },
         enumerable: true,
         configurable: true

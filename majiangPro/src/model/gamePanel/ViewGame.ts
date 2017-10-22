@@ -228,10 +228,10 @@ class ViewGame extends BaseEuiView{
 				this.cardMap.removeItem();
 				this.addCardGroup([msg.drawCard],true);
 			}
-			//此处响应玩家打牌 收到可操作牌组
+			//此处响应玩家摸牌 收到可操作牌组
 			this.ifExitOper = this.judgeOper(msg.KongCards);
 		}else{
-			//其他玩家摸牌显示
+			//其他玩家摸牌显示0
 			var seat:number = this.relativeSeat[msg.seat];
 			var curGroup:eui.Group = this.seatObj[seat];
 			var img:eui.Image = new eui.Image();
@@ -253,7 +253,7 @@ class ViewGame extends BaseEuiView{
 		}
 		
 		if(msg.isWin){
-
+			alert("win")
 		}
 		
 		
@@ -278,8 +278,7 @@ class ViewGame extends BaseEuiView{
 		this.ifExitOper = this.judgeOper(msg.pongKongChow);
 		if(msg.isWin){
 			//胡牌
-		}else{
-
+			alert("win");
 		}
 	}
 	/**判断是否含有操作 */
@@ -356,8 +355,17 @@ class ViewGame extends BaseEuiView{
 	 * 响应别人打出牌吃碰杠等操作完成后
 	 */
 	public playCardResponse():void{
-		this.leftGroup.removeChildren();
-		this.rightGroup.removeChildren();
+		this.leftOper.removeChildren();
+		this.rightOper.removeChildren();
+		this.ifExitOper = false;
+	}
+	/**
+	 * 摸牌响应
+	 */
+	public drawCardResponseRes():void{
+		this.leftOper.removeChildren();
+		this.rightOper.removeChildren();
+		this.ifExitOper = false;
 	}
 	/**
 	 * 离开房间
@@ -443,9 +451,9 @@ class ViewGame extends BaseEuiView{
 						img.source = this.assetObj[dataObj.seat];
 						this.seatObj[dataObj.seat].addChild(img);
 						if(dataObj.seat === data.Seat.North){
-							img.x = this.seatObj[dataObj.seat].numChildren * img.width;
+							img.x = this.seatObj[dataObj.seat].numChildren * 39;
 						}else{
-							img.y = this.seatObj[dataObj.seat].numChildren * img.width;
+							img.y = this.seatObj[dataObj.seat].numChildren * 26;
 						}
 					}
 					if(dataObj.num === 4){
@@ -488,7 +496,7 @@ class ViewGame extends BaseEuiView{
 			// var cardTempleId:number = CardTransFormUtil.trasnFormCardIdWay2(cardGroup[i]);
 			var cardTemple:data.CardConfigTemple = temple.TempleManager.select(cardGroup[i]) as data.CardConfigTemple;
 			var card:HandCardItem = new HandCardItem(cardTemple);
-			card.setOperLabel(cardGroup[i]);
+			card.setOperLabel(cardGroup[i],this.curCardPi,this.curCardLai);
 			if(!ifAddCard){
 				card.x = card.width*this.cardSprite.numChildren;
 			}else{
@@ -599,17 +607,21 @@ class ViewGame extends BaseEuiView{
 		var curMoveGather:HandCardItem[] = [];
 		for(var i:number = 0,item:HandCardItem;i<len;i++){
 			item = this.cardSprite.getChildAt(i) as HandCardItem;
-			var cardType:number = CardTransFormUtil.getCardType(Number(item.cardId));
-			var newCardType:number = CardTransFormUtil.getCardType(Number(this.newCard.cardId));
-			if(newCardType === cardType){
+			var cardType:number = CardTransFormUtil.getCardType(item.cardId);
+			var newCardType:number = CardTransFormUtil.getCardType(this.newCard.cardId);
+			if(newCardType == cardType){
 				//找到了同类型的卡牌
 				var cardId:number = CardTransFormUtil.trasnFormCardIdWay2(Number(item.cardId));
 				var newCardId:number = CardTransFormUtil.trasnFormCardIdWay2(Number(this.newCard.cardId));
 				if(newCardId <= cardId){
 					//新摸到的牌 在当前卡牌后面
 					setX = item.x;
+					if(setX > curX){
+						setX = item.x - item.width;
+					}
 					break;
 				}
+				setX = item.x + item.width;
 			}else{
 				continue;
 			}
@@ -620,12 +632,47 @@ class ViewGame extends BaseEuiView{
 			//未找到同类新卡牌
 			egret.Tween.get(this.newCard).to({x:this.newCard.x - this.newCard.width},this.moveStep).call(()=>{
 				egret.Tween.removeTweens(this.newCard);
-			},this)
+				var moveGather:HandCardItem[] = [];
+				for(var i:number = 0;i<this.cardSprite.numChildren;i++){
+					var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
+					if(item.x >= curX){
+						egret.Tween.get(item).to({x:(item.x - item.width)},this.moveStep).call(()=>{
+							egret.Tween.removeTweens(item);
+						},this)
+					}
+				}
+			},this);
 		}
 	}
 	private searchMoveCardGroup(curX:number,setX:number):void{
 		var moveGather:HandCardItem[] = [];
 		var diction:number = 0;
+		// var min:number = Math.min(curX,setX);
+		// var max:number = Math.max(curX,setX);
+		// if(curX > setX){
+		// 	min = setX,max = curX;
+		// 	diction = 1
+		// }else{
+		// 	min = curX,max = setX;
+		// 	diction = -1
+		// }
+		// for(var i:number = 0;i<this.cardSprite.numChildren;i++){
+		// 	var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
+		// 	if(item.x > min && item.x < max){
+		// 		moveGather.push(item);
+		// 	}
+		// }
+		// egret.Tween.get(this.newCard).to({y: - this.newCard.height - 20},this.moveStep)
+		// .to({x:setX+diction*this.newCard.width},((this.newCard.x - setX)/this.newCard.width)*this.moveStep).call(()=>{
+		// 	for(var m:number = 0;m<moveGather.length;m++){
+		// 		var item:HandCardItem = moveGather[m];
+		// 		egret.Tween.get(item).to({x:(item.x+diction*item.width)},this.moveStep).call(()=>{
+		// 			egret.Tween.removeTweens(item);
+		// 		},this)
+		// 	}
+		// },this).to({y:0},this.moveStep).call(()=>{
+		// 	egret.Tween.removeTweens(this.newCard);
+		// },this);
 		if(setX != curX && Math.abs(curX - setX) != Config.w_handCard){
 			//当前新卡牌与打出卡牌不在同一个位置
 			if(setX < curX){
@@ -717,7 +764,7 @@ class ViewGame extends BaseEuiView{
 			switch(parseInt(name)){
 				case data.Option.Pass:
 					//过
-					this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S,{option:data.Option.Pass});
+					this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S,{option:name});
 					break;
 				default:
 					var cardList:proto.IntList[] = this.curOperGroup[name];
@@ -726,6 +773,7 @@ class ViewGame extends BaseEuiView{
 						this.promptOperGroup(cardList);
 					}else{
 						//当前操作的牌集合只有一张  直接打出
+						this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S,{option:name,cardList:cardList[0].list});
 					}
 			}
 			return;
@@ -740,6 +788,14 @@ class ViewGame extends BaseEuiView{
 				}
 				this.readyState = true;
 				this.applyFunc(GameConsts.RAISEHANDS_C2S);
+				break;
+			case (evt.target.parent.parent == this.promptGroup):
+				var list:CardItem[] = evt.target.parent;
+				var cardArr:number[] = [];
+				list.forEach((card:CardItem)=>{
+					cardArr.push(card.iconTrans);
+				},this)
+				this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S,{option:name,cardList:cardArr});
 				break;
 		}
 	}

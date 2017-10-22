@@ -1539,7 +1539,7 @@ var egret;
             this.$stage = stage;
             this.$nestLevel = nestLevel;
             this.$hasAddToStage = true;
-            egret.DisplayObjectContainer.$EVENT_ADD_TO_STAGE_LIST.push(this);
+            egret.Sprite.$EVENT_ADD_TO_STAGE_LIST.push(this);
         };
         /**
          * @private
@@ -1547,7 +1547,7 @@ var egret;
          */
         DisplayObject.prototype.$onRemoveFromStage = function () {
             this.$nestLevel = 0;
-            egret.DisplayObjectContainer.$EVENT_REMOVE_FROM_STAGE_LIST.push(this);
+            egret.Sprite.$EVENT_REMOVE_FROM_STAGE_LIST.push(this);
         };
         Object.defineProperty(DisplayObject.prototype, "stage", {
             /**
@@ -8999,20 +8999,6 @@ var egret;
      */
     var BitmapData = (function (_super) {
         __extends(BitmapData, _super);
-        /**
-         * Initializes a BitmapData object to refer to the specified source object.
-         * @param source The source object being referenced.
-         * @version Egret 2.4
-         * @platform Web,Native
-         * @language en_US
-         */
-        /**
-         * 创建一个引用指定 source 实例的 BitmapData 对象
-         * @param source 被引用的 source 实例
-         * @version Egret 2.4
-         * @platform Web,Native
-         * @language zh_CN
-         */
         function BitmapData(source) {
             var _this = _super.call(this) || this;
             /**
@@ -13160,6 +13146,9 @@ var egret;
                     if (root !== target.$stage) {
                         target.$getConcatenatedMatrixAt(root, matrix);
                     }
+                    if (DisplayList.$pixelRatio != 1) {
+                        DisplayList.$preMultiplyInto(matrix);
+                    }
                 }
                 else {
                     var bounds = target.$getOriginalBounds();
@@ -13181,6 +13170,9 @@ var egret;
                     var root = displayList.root;
                     if (root !== target.$stage) {
                         target.$getConcatenatedMatrixAt(root, matrix);
+                    }
+                    if (DisplayList.$pixelRatio != 1) {
+                        DisplayList.$preMultiplyInto(matrix);
                     }
                     region.updateRegion(bounds, matrix);
                 }
@@ -13295,7 +13287,7 @@ var egret;
                         renderNode.image = this.bitmapData;
                         renderNode.imageWidth = width;
                         renderNode.imageHeight = height;
-                        renderNode.drawImage(0, 0, width, height, -this.offsetX / DisplayList.$pixelRatio, -this.offsetY / DisplayList.$pixelRatio, width / DisplayList.$pixelRatio, height / DisplayList.$pixelRatio);
+                        renderNode.drawImage(0, 0, width, height, -this.offsetX, -this.offsetY, width / DisplayList.$pixelRatio, height / DisplayList.$pixelRatio);
                     }
                 }
                 this.dirtyList = null;
@@ -13314,8 +13306,8 @@ var egret;
                 var bounds = this.root.$getOriginalBounds();
                 var scaleX = DisplayList.$pixelRatio;
                 var scaleY = DisplayList.$pixelRatio;
-                this.offsetX = -bounds.x * DisplayList.$pixelRatio;
-                this.offsetY = -bounds.y * DisplayList.$pixelRatio;
+                this.offsetX = -bounds.x;
+                this.offsetY = -bounds.y;
                 this.offsetMatrix.setTo(this.offsetMatrix.a, 0, 0, this.offsetMatrix.d, this.offsetX, this.offsetY);
                 var buffer = this.renderBuffer;
                 //在chrome里，小等于256*256的canvas会不启用GPU加速。
@@ -13530,7 +13522,7 @@ var egret;
                 if (!this.root) {
                     this.initialize();
                 }
-                egret.ticker.$addPlayer(this);
+                sys.$ticker.$addPlayer(this);
             };
             /**
              * @private
@@ -13572,7 +13564,7 @@ var egret;
                     return;
                 }
                 this.isPlaying = false;
-                egret.ticker.$removePlayer(this);
+                sys.$ticker.$removePlayer(this);
             };
             /**
              * @private
@@ -13715,9 +13707,8 @@ var egret;
             length = dirtyList.length;
             for (var i = 0; i < length; i++) {
                 var region = dirtyList[i];
-                var pixelRatio = sys.DisplayList.$pixelRatio;
-                context.clearRect(region.minX * pixelRatio, region.minY * pixelRatio, region.width * pixelRatio, region.height * pixelRatio);
-                context.rect(region.minX * pixelRatio, region.minY * pixelRatio, region.width * pixelRatio, region.height * pixelRatio);
+                context.clearRect(region.minX, region.minY, region.width, region.height);
+                context.rect(region.minX, region.minY, region.width, region.height);
             }
             context.clip();
             context.drawImage(this.stageDisplayList.renderBuffer.surface, 0, 0);
@@ -13729,8 +13720,7 @@ var egret;
         function drawDirtyRect(x, y, width, height, context) {
             context.strokeStyle = 'rgb(255,0,0)';
             context.lineWidth = 5;
-            var pixelRatio = sys.DisplayList.$pixelRatio;
-            context.strokeRect(x * pixelRatio - 0.5, y * pixelRatio - 0.5, width * pixelRatio, height * pixelRatio);
+            context.strokeRect(x - 0.5, y - 0.5, width, height);
         }
         /**
          * FPS显示对象
@@ -13782,7 +13772,7 @@ var egret;
                 this.costRender += costRender;
                 this.costTicker += costTicker;
                 if (this.totalTime >= 1000) {
-                    var lastFPS = Math.min(Math.ceil(this.totalTick * 1000 / this.totalTime), egret.ticker.$frameRate);
+                    var lastFPS = Math.min(Math.ceil(this.totalTick * 1000 / this.totalTime), sys.$ticker.$frameRate);
                     var lastDrawCalls = Math.round(this.drawCalls / this.totalTick);
                     var lastDirtyRatio = Math.round(this.dirtyRatio / this.totalTick);
                     var lastCostDirty = Math.round(this.costDirty / this.totalTick);
@@ -14615,6 +14605,7 @@ var egret;
          */
         sys.$requestRenderingFlag = false;
         /**
+         * @private
          * Egret心跳计时器
          */
         var SystemTicker = (function () {
@@ -14639,21 +14630,13 @@ var egret;
                  * 全局帧率
                  */
                 this.$frameRate = 30;
-                /**
-                 * @private
-                 */
                 this.lastTimeStamp = 0;
                 /**
                  * @private
                  * ticker 花销的时间
                  */
                 this.costEnterFrame = 0;
-                /**
-                 * @private
-                 * 是否被暂停
-                 */
-                this.isPaused = false;
-                if (true && egret.ticker) {
+                if (true && sys.$ticker) {
                     egret.$error(1008, "egret.sys.SystemTicker");
                 }
                 sys.$START_TIME = Date.now();
@@ -14761,12 +14744,6 @@ var egret;
                 this.lastCount = this.frameInterval = Math.round(60000 / value);
                 return true;
             };
-            SystemTicker.prototype.pause = function () {
-                this.isPaused = true;
-            };
-            SystemTicker.prototype.resume = function () {
-                this.isPaused = false;
-            };
             /**
              * @private
              * 执行一次刷新
@@ -14778,17 +14755,6 @@ var egret;
                 var length = callBackList.length;
                 var requestRenderingFlag = sys.$requestRenderingFlag;
                 var timeStamp = egret.getTimer();
-                var contexts = egret.lifecycle.contexts;
-                for (var _i = 0, contexts_1 = contexts; _i < contexts_1.length; _i++) {
-                    var c = contexts_1[_i];
-                    if (c.onUpdate) {
-                        c.onUpdate();
-                    }
-                }
-                if (this.isPaused) {
-                    this.lastTimeStamp = timeStamp;
-                    return;
-                }
                 this.callLaterAsyncs();
                 for (var i = 0; i < length; i++) {
                     if (callBackList[i].call(thisObjectList[i], timeStamp)) {
@@ -14915,53 +14881,12 @@ var egret;
         }());
         sys.SystemTicker = SystemTicker;
         __reflect(SystemTicker.prototype, "egret.sys.SystemTicker");
-    })(sys = egret.sys || (egret.sys = {}));
-})(egret || (egret = {}));
-(function (egret) {
-    /**
-     * 心跳计时器单例
-     */
-    egret.$ticker = new egret.sys.SystemTicker();
-    var lifecycle;
-    (function (lifecycle) {
         /**
          * @private
+         * 心跳计时器单例
          */
-        lifecycle.contexts = [];
-        var isActivate = true;
-        var LifecycleContext = (function () {
-            function LifecycleContext() {
-            }
-            LifecycleContext.prototype.pause = function () {
-                if (isActivate) {
-                    isActivate = false;
-                    lifecycle.stage.dispatchEvent(new egret.Event(egret.Event.DEACTIVATE));
-                    if (lifecycle.onPause) {
-                        lifecycle.onPause();
-                    }
-                }
-            };
-            LifecycleContext.prototype.resume = function () {
-                if (!isActivate) {
-                    isActivate = true;
-                    lifecycle.stage.dispatchEvent(new egret.Event(egret.Event.ACTIVATE));
-                    if (lifecycle.onResume) {
-                        lifecycle.onResume();
-                    }
-                }
-            };
-            return LifecycleContext;
-        }());
-        lifecycle.LifecycleContext = LifecycleContext;
-        __reflect(LifecycleContext.prototype, "egret.lifecycle.LifecycleContext");
-        function addLifecycleListener(plugin) {
-            var context = new LifecycleContext();
-            lifecycle.contexts.push(context);
-            plugin(context);
-        }
-        lifecycle.addLifecycleListener = addLifecycleListener;
-    })(lifecycle = egret.lifecycle || (egret.lifecycle = {}));
-    egret.ticker = new egret.sys.SystemTicker();
+        sys.$ticker = new sys.SystemTicker();
+    })(sys = egret.sys || (egret.sys = {}));
 })(egret || (egret = {}));
 if (true) {
     egret_stages = [];
@@ -15628,24 +15553,13 @@ var egret;
                  * 顶点索引。
                  */
                 _this.bounds = new egret.Rectangle();
-                /**
-                 * 使用的混合模式
-                 */
-                _this.blendMode = null;
-                /**
-                 * 相对透明度
-                 */
-                _this.alpha = NaN;
-                /**
-                 * 颜色变换滤镜
-                 */
-                _this.filter = null;
                 _this.type = 7 /* MeshNode */;
                 _this.vertices = [];
                 _this.uvs = [];
                 _this.indices = [];
                 return _this;
             }
+            ;
             /**
              * 绘制一次位图
              */
@@ -16915,46 +16829,17 @@ var egret;
             var length = data.length;
             var pos = 0;
             var m = node.matrix;
-            var blendMode = node.blendMode;
-            var alpha = node.alpha;
-            var saved = false;
             if (m) {
                 context.saveTransform();
                 context.transform(m.a, m.b, m.c, m.d, m.tx, m.ty);
             }
-            if (blendMode) {
-                context.globalCompositeOperation = blendModes[blendMode];
-            }
-            var originAlpha;
-            if (alpha == alpha) {
-                originAlpha = context.globalAlpha;
-                context.globalAlpha *= alpha;
-            }
-            var drawCalls = 0;
-            var filter = node.filter;
-            if (filter) {
-                egret_native.Graphics.setGlobalShader(filter);
-                while (pos < length) {
-                    drawCalls++;
-                    context.drawMesh(image.source, data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], node.imageWidth, node.imageHeight, node.uvs, node.vertices, node.indices, node.bounds);
-                }
-                egret_native.Graphics.setGlobalShader(null);
-            }
-            else {
-                while (pos < length) {
-                    drawCalls++;
-                    context.drawMesh(image.source, data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], node.imageWidth, node.imageHeight, node.uvs, node.vertices, node.indices, node.bounds);
-                }
+            while (pos < length) {
+                context.drawMesh(image.source, data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], data[pos++], node.imageWidth, node.imageHeight, node.uvs, node.vertices, node.indices, node.bounds);
             }
             if (m) {
                 context.restoreTransform();
             }
-            if (blendMode) {
-                context.globalCompositeOperation = defaultCompositeOp;
-            }
-            if (alpha == alpha) {
-                context.globalAlpha = originAlpha;
-            }
+            // TODO 应该计算合理的drawCall？
             return 1;
         };
         /**
@@ -17903,7 +17788,7 @@ var egret;
              * @language zh_CN
              */
             get: function () {
-                return "5.0.1";
+                return "4.1.0";
             },
             enumerable: true,
             configurable: true
@@ -23847,10 +23732,10 @@ var egret;
              * @language zh_CN
              */
             get: function () {
-                return egret.ticker.$frameRate;
+                return egret.sys.$ticker.$frameRate;
             },
             set: function (value) {
-                egret.ticker.$setFrameRate(value);
+                egret.sys.$ticker.$setFrameRate(value);
             },
             enumerable: true,
             configurable: true
@@ -24664,7 +24549,7 @@ var egret;
                 return;
             this.lastCount = this.updateInterval;
             this.lastTimeStamp = egret.getTimer();
-            egret.ticker.$startTick(this.$update, this);
+            egret.sys.$ticker.$startTick(this.$update, this);
             this._running = true;
         };
         /**
@@ -25489,7 +25374,7 @@ var egret;
         if (true && !callBack) {
             egret.$error(1003, "callBack");
         }
-        egret.ticker.$startTick(callBack, thisObject);
+        egret.sys.$ticker.$startTick(callBack, thisObject);
     }
     egret.startTick = startTick;
 })(egret || (egret = {}));
@@ -25546,7 +25431,7 @@ var egret;
         if (true && !callBack) {
             egret.$error(1003, "callBack");
         }
-        egret.ticker.$stopTick(callBack, thisObject);
+        egret.sys.$ticker.$stopTick(callBack, thisObject);
     }
     egret.stopTick = stopTick;
 })(egret || (egret = {}));

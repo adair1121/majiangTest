@@ -79,6 +79,12 @@ var GameController = (function (_super) {
     };
     /** 摸牌响应,摸牌时出现的胡牌杠牌等操作选项的响应 返回*/
     GameController.prototype.drawCardResponseRes = function (msg) {
+        if (msg.isSuccess) {
+            this.gameView.drawCardResponseRes();
+        }
+        else {
+            alert(msg.errMsg);
+        }
     };
     /**打出牌返回 */
     GameController.prototype.playCardRes = function (msg) {

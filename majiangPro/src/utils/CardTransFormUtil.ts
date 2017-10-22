@@ -35,12 +35,12 @@ class CardTransFormUtil {
 	/**
 	 * 获取卡牌类型
 	 */
-	public static getCardType(cardNum:number):number{
+	public static getCardType(cardNum):number{
 		var num:number = cardNum&0xF0;
 		if(num >= 16){
 			return (cardNum&0xF0)>>4
 		}else{
-			return cardNum&0x0F;
+			return cardNum&0xF0;
 		}
 	}
 	/**卡牌转换way2 10进制*/

@@ -47,7 +47,7 @@ var PopCreateRoom = (function (_super) {
         var radioBtn = radioButtonGroup.selection;
         var index = this.radioGroup.getChildIndex(radioBtn);
         this.counts = this.countsAny[index];
-        alert(this.counts);
+        // alert(this.counts);
     };
     PopCreateRoom.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {

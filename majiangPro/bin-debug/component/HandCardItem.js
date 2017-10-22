@@ -15,6 +15,7 @@ var HandCardItem = (function (_super) {
         _this.skinName = "HandCardItemSkin";
         _this.cardId = template.icon;
         _this.path_icon = _this.cardId + "_png";
+        _this.cardIdNum = parseInt(_this.cardId);
         RES.getResByUrl(Config.audio_path + template.manVoice + ".mp3", function (value) {
             this.soundObj[1] = value;
         }, _this, RES.ResourceItem.TYPE_SOUND);
@@ -37,12 +38,12 @@ var HandCardItem = (function (_super) {
     /**
      * 设置痞子或癞子的显示
      */
-    HandCardItem.prototype.setOperLabel = function (oper) {
+    HandCardItem.prototype.setOperLabel = function (oper, pi, lai) {
         this.laiOrPi.visible = true;
-        if (oper === data.Option.Lai) {
+        if (oper === lai) {
             this.laiOrPi.text = "癞";
         }
-        else if (oper === data.Option.Pi) {
+        else if (oper === pi) {
             this.laiOrPi.text = "痞";
         }
         else {

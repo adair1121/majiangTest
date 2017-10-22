@@ -45,7 +45,7 @@ class PopCreateRoom extends BaseEuiView{
 		var radioBtn:eui.RadioButton = radioButtonGroup.selection;
 		var index:number = this.radioGroup.getChildIndex(radioBtn);
 		this.counts = this.countsAny[index];
-		alert(this.counts);
+		// alert(this.counts);
 	}
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
