@@ -38,6 +38,7 @@ var ViewGame = (function (_super) {
         //当前用户是否存在痞子赖子碰等操作
         _this.ifExitOper = false;
         _this.initialized = true;
+        _this.lastCard = false;
         _this.readyState = false;
         //当前可操作的卡牌集合（如点击吃 -- 供选择的卡牌组）形式为{data.Option.Chi:proto.IntList[]}
         _this.curOperGroup = {};
@@ -178,6 +179,7 @@ var ViewGame = (function (_super) {
         this.cardobj = this.cardobj.concat(msg.handCards);
         this.curCardPi = msg.pizi;
         this.curCardLai = msg.laizi;
+        console.log("=========>laizi:" + msg.laizi + "=========>pizi:" + msg.pizi);
         this.dice1 = msg.dice1;
         this.dice2 = msg.dice2;
         this.dealer = msg.dealer;
@@ -185,20 +187,36 @@ var ViewGame = (function (_super) {
     };
     /**处理摸牌 */
     ViewGame.prototype.notifyDealCards = function (msg) {
+        var _this = this;
         if (this.relativeSeat[msg.seat] === data.Seat.South) {
             //如果相对座位为南是 添加手牌到显示组 -- 当前玩家摸牌
             // this.addCardGroup([msg.drawCard],true);
             if (this.initialized) {
                 this.initialized = false;
                 this.curCardGather.push(msg.drawCard);
+                console.log("============>此处为我现在的手牌====>" + this.curCardGather);
                 this.startNewGame(this.dice1, this.dice2, this.relativeSeat[this.dealer]);
             }
             else {
-                this.cardMap.removeItem();
-                this.addCardGroup([msg.drawCard], true);
+                if (DataCenter.playerCount === 1) {
+                    //测试当前为1个玩家是 打牌后立即摸牌 设置newCard会影响后面设置位置 要延迟
+                    var timeOut = egret.setTimeout(function () {
+                        _this.cardMap.removeItem();
+                        _this.addCardGroup([msg.drawCard], true);
+                        egret.clearTimeout(timeOut);
+                    }, this, 100);
+                }
+                else {
+                    this.cardMap.removeItem();
+                    this.addCardGroup([msg.drawCard], true);
+                }
             }
             //此处响应玩家摸牌 收到可操作牌组
             this.ifExitOper = this.judgeOper(msg.KongCards);
+            //测试输出
+            for (var i = 0; i < msg.KongCards.length; i++) {
+                console.log("=====>此处为收到的操作组=====》" + msg.KongCards[i].list);
+            }
         }
         else {
             //其他玩家摸牌显示0
@@ -255,37 +273,43 @@ var ViewGame = (function (_super) {
     ViewGame.prototype.judgeOper = function (oper) {
         //待确定修改
         var operGather = [];
+        var curOper;
         for (var i = 0; i < oper.length; i++) {
-            if (oper[i].list.length >= 4) {
-                operGather.push(data.Option.Kong);
-                if (!this.curOperGroup[data.Option.Kong]) {
-                    this.curOperGroup[data.Option.Kong] = [];
-                }
-                this.curOperGroup[data.Option.Kong].push(oper[i]);
-                continue;
+            if (oper[i].list.length >= 4 && oper[i].list[0] != this.curCardLai && oper[i].list[0] != this.curCardPi) {
+                //杠
+                curOper = data.Option.Kong;
             }
-            for (var j = 0; j < oper[i].list.length; j++) {
-                var value = oper[i].list[j];
-                if (value === this.curCardPi) {
-                    operGather.push(data.Option.Pi);
-                    if (!this.curOperGroup[data.Option.Pi]) {
-                        this.curOperGroup[data.Option.Pi] = [];
-                    }
-                    this.curOperGroup[data.Option.Pi].push(oper[i]);
-                    continue;
+            else if (oper[i].list.length >= 3 && oper[i].list[0] != this.curCardLai && oper[i].list[0] != this.curCardPi) {
+                //碰或吃
+                if (oper[i].list[0] == oper[i].list[1]) {
+                    //碰
+                    curOper = data.Option.Pong;
                 }
-                else if (value === this.curCardLai) {
-                    if (!this.curOperGroup[data.Option.Lai]) {
-                        this.curOperGroup[data.Option.Lai] = [];
-                    }
-                    this.curOperGroup[data.Option.Lai].push(oper[i]);
-                    operGather.push(data.Option.Lai);
-                    continue;
+                else {
+                    //吃
+                    curOper = data.Option.Chow;
                 }
             }
+            else {
+                //痞子癞子
+                for (var j = 0; j < oper[i].list.length; j++) {
+                    var value = oper[i].list[j];
+                    if (value === this.curCardPi) {
+                        curOper = data.Option.Pi;
+                    }
+                    else if (value === this.curCardLai) {
+                        curOper = data.Option.Lai;
+                    }
+                }
+            }
+            operGather.push(curOper);
+            if (!this.curOperGroup[curOper]) {
+                this.curOperGroup[curOper] = [];
+            }
+            this.curOperGroup[curOper].push(oper[i]);
         }
         if (operGather.length) {
-            operGather.push(data.Option.Pass);
+            // operGather.push(data.Option.Pass);
             this.createOper(operGather);
             return true;
         }
@@ -585,6 +609,7 @@ var ViewGame = (function (_super) {
     /**设置牌位置 */
     ViewGame.prototype.setCardToPosition = function (curX) {
         var _this = this;
+        this.lastCard = false;
         var len = this.cardSprite.numChildren - 1;
         var setX = -1;
         var curMoveGather = [];
@@ -602,8 +627,10 @@ var ViewGame = (function (_super) {
                     if (setX > curX) {
                         setX = item.x - item.width;
                     }
+                    this.lastCard = false;
                     break;
                 }
+                this.lastCard = true;
                 setX = item.x + item.width;
             }
             else {
@@ -659,7 +686,7 @@ var ViewGame = (function (_super) {
         // },this).to({y:0},this.moveStep).call(()=>{
         // 	egret.Tween.removeTweens(this.newCard);
         // },this);
-        if (setX != curX && Math.abs(curX - setX) != Config.w_handCard) {
+        if (setX != curX) {
             //当前新卡牌与打出卡牌不在同一个位置
             if (setX < curX) {
                 diction = 1;
@@ -675,8 +702,15 @@ var ViewGame = (function (_super) {
                 diction = -1;
                 for (var j = 0; j < this.cardSprite.numChildren; j++) {
                     var item = this.cardSprite.getChildAt(j);
-                    if (item.x <= setX && item.x > curX) {
-                        moveGather.push(item);
+                    if (this.lastCard) {
+                        if (item.x < setX && item.x > curX) {
+                            moveGather.push(item);
+                        }
+                    }
+                    else {
+                        if (item.x <= setX && item.x > curX) {
+                            moveGather.push(item);
+                        }
                     }
                 }
             }
@@ -706,7 +740,7 @@ var ViewGame = (function (_super) {
         this.rightOper.removeChildren();
         var passImg = new eui.Image();
         passImg.source = "room_oper_" + data.Option.Pass + "_png";
-        this.rightGroup.addChild(passImg);
+        this.rightOper.addChild(passImg);
         passImg.name = data.Option.Pass + "";
         passImg.width = 63, passImg.height = 78;
         passImg.x = this.rightOper.width - passImg.width;
@@ -722,7 +756,7 @@ var ViewGame = (function (_super) {
                 this.rightOper.addChild(img);
                 img.width = 63;
                 img.height = 78;
-                img.x = this.rightOper.width - this.rightGroup.numChildren * (img.width + 10);
+                img.x = this.rightOper.width - this.rightOper.numChildren * (img.width + 10);
             }
         }
     };
@@ -737,6 +771,7 @@ var ViewGame = (function (_super) {
                 var cardTemple = temple.TempleManager.select(itemList[j]);
                 cardItem.icon = cardTemple.icon;
                 group.addChild(cardItem);
+                cardItem.x = j * cardItem.width;
             }
             this.promptGroup.addChild(group);
             this.promptGroup.width += group.width + 10;

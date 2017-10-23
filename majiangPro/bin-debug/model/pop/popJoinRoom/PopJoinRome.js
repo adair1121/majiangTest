@@ -32,9 +32,8 @@ var PopJoinRome = (function (_super) {
         this.initRoomNum();
         this.collect.source = [{ num: "1" }, { num: "2" }, { num: "3" }, { num: "4" }, { num: "5" }, { num: "6" },
             { num: "7" }, { num: "8" }, { num: "9" }, { num: "r" }, { num: "0" }, { num: "d" }];
-        // this.x = (this.myParent.width >> 1) - (this.measuredWidth>>1);
-        // this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
-        this.x = this.y = 0;
+        this.x = (this.myParent.width >> 1) - (this.measuredWidth >> 1);
+        this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
     };
     PopJoinRome.prototype.initRoomNum = function () {
         this.romeNum = "";
@@ -47,6 +46,7 @@ var PopJoinRome = (function (_super) {
      */
     PopJoinRome.prototype.close = function (param) {
         App.ViewManager.close(ViewConst.Join);
+        this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.INIT_STARTPANEL);
     };
     PopJoinRome.prototype.onItemTap = function (evt) {
         switch (evt.item.num) {

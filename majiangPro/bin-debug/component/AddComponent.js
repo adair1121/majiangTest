@@ -11,6 +11,8 @@ var AddComponent = (function (_super) {
     function AddComponent() {
         var _this = _super.call(this) || this;
         _this.count = 0;
+        _this.max = 0;
+        _this.min = 0;
         _this.skinName = "AddComponentSkin";
         return _this;
     }
@@ -20,10 +22,20 @@ var AddComponent = (function (_super) {
     AddComponent.prototype.onTouchTap = function (evt) {
         switch (evt.target) {
             case this.addBtn:
+                if (this.max) {
+                    if (this.count >= this.max) {
+                        return;
+                    }
+                }
                 this.count += 1;
                 this.num.text = this.count + "";
                 break;
             case this.reduceBtn:
+                if (this.min) {
+                    if (this.count <= this.min) {
+                        return;
+                    }
+                }
                 if (this.count > 0) {
                     this.count -= 1;
                     this.num.text = this.count + "";
@@ -38,6 +50,20 @@ var AddComponent = (function (_super) {
         set: function (value) {
             this.count = value;
             this.num.text = this.count + "";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AddComponent.prototype, "maxNum", {
+        set: function (value) {
+            this.max = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AddComponent.prototype, "minNum", {
+        set: function (value) {
+            this.min = value;
         },
         enumerable: true,
         configurable: true

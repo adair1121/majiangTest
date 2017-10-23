@@ -6,6 +6,7 @@ class PopCreateRoom extends BaseEuiView{
 	public radioGroup:eui.Group;
 	public baseScore:AddComponent;
 	public rewardTop:AddComponent;
+	public peopleNum:AddComponent;
 	private countsAny:number[] = [8,16];
 	private counts:number = 0;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
@@ -33,12 +34,16 @@ class PopCreateRoom extends BaseEuiView{
 		this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
 		this.baseScore.m_count = 0;
 		this.rewardTop.m_count = 0;
+		this.peopleNum.m_count = 1;
+		this.peopleNum.maxNum = 4;
+		this.peopleNum.minNum = 1;
 	}
 	/**
 	 * 面板关闭执行函数
 	 */
-	public close(param:any[]):void{
-		
+	public close(param?:any[]):void{
+		App.ViewManager.close(ViewConst.Create);
+		this.applyControllerFunc(ControllerConst.START_CONTROLLER,StartConsts.INIT_STARTPANEL)
 	}
 	private radioChangeHandler(evt:eui.UIEvent):void{
 		var radioButtonGroup:eui.RadioButtonGroup = evt.target;
@@ -50,7 +55,7 @@ class PopCreateRoom extends BaseEuiView{
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
 			case this.btnClose:
-				App.ViewManager.close(ViewConst.Create);
+				this.close();
 				break;
 			case this.buttonSure:
 				//加入房间
@@ -62,9 +67,13 @@ class PopCreateRoom extends BaseEuiView{
 					alert("请设置封顶");
 					return;
 				}
+				if(!this.peopleNum.m_count){
+					alert("请设置游戏人数");
+					return;
+				}
 				App.ViewManager.close(ViewConst.Create);
-				DataCenter.playerCount = 2;
-				var obj:any = {basicScore:this.baseScore.m_count,times:this.rewardTop.m_count,playerCount:2}
+				DataCenter.playerCount = this.peopleNum.m_count;
+				var obj:any = {basicScore:this.baseScore.m_count,times:this.rewardTop.m_count,playerCount:DataCenter.playerCount}
 				this.applyControllerFunc(ControllerConst.START_CONTROLLER,StartConsts.CREATE_ROOM_C2S,obj);
 				break;
 		}

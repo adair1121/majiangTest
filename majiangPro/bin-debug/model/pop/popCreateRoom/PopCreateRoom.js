@@ -36,11 +36,16 @@ var PopCreateRoom = (function (_super) {
         this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
         this.baseScore.m_count = 0;
         this.rewardTop.m_count = 0;
+        this.peopleNum.m_count = 1;
+        this.peopleNum.maxNum = 4;
+        this.peopleNum.minNum = 1;
     };
     /**
      * 面板关闭执行函数
      */
     PopCreateRoom.prototype.close = function (param) {
+        App.ViewManager.close(ViewConst.Create);
+        this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.INIT_STARTPANEL);
     };
     PopCreateRoom.prototype.radioChangeHandler = function (evt) {
         var radioButtonGroup = evt.target;
@@ -52,7 +57,7 @@ var PopCreateRoom = (function (_super) {
     PopCreateRoom.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.btnClose:
-                App.ViewManager.close(ViewConst.Create);
+                this.close();
                 break;
             case this.buttonSure:
                 //加入房间
@@ -64,9 +69,13 @@ var PopCreateRoom = (function (_super) {
                     alert("请设置封顶");
                     return;
                 }
+                if (!this.peopleNum.m_count) {
+                    alert("请设置游戏人数");
+                    return;
+                }
                 App.ViewManager.close(ViewConst.Create);
-                DataCenter.playerCount = 2;
-                var obj = { basicScore: this.baseScore.m_count, times: this.rewardTop.m_count, playerCount: 2 };
+                DataCenter.playerCount = this.peopleNum.m_count;
+                var obj = { basicScore: this.baseScore.m_count, times: this.rewardTop.m_count, playerCount: DataCenter.playerCount };
                 this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.CREATE_ROOM_C2S, obj);
                 break;
         }

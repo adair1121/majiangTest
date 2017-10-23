@@ -25,6 +25,8 @@ var StartController = (function (_super) {
         _this.registerFunc(StartConsts.JOIN_ROOM_C2S, _this.joinRoom, _this);
         //注册加入房间s2c
         _this.registerFunc(StartConsts.JOIN_ROOM_S2C, _this.joinRoomRes, _this);
+        //注册其他模块消息
+        _this.registerFunc(StartConsts.INIT_STARTPANEL, function () { _this.startView.initData(); }, _this);
         return _this;
     }
     StartController.prototype.creatRoom = function (dataObj) {

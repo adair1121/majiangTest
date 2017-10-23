@@ -31,9 +31,8 @@ class PopJoinRome extends BaseEuiView{
 		this.initRoomNum();
 		this.collect.source = [{num:"1"},{num:"2"},{num:"3"},{num:"4"},{num:"5"},{num:"6"},
 								{num:"7"},{num:"8"},{num:"9"},{num:"r"},{num:"0"},{num:"d"}];
-		// this.x = (this.myParent.width >> 1) - (this.measuredWidth>>1);
-		// this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
-		this.x = this.y = 0
+		this.x = (this.myParent.width >> 1) - (this.measuredWidth>>1);
+		this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
 	}
 	private initRoomNum():void{
 		this.romeNum = "";
@@ -46,6 +45,7 @@ class PopJoinRome extends BaseEuiView{
 	 */
 	public close(param:any[]):void{
 		App.ViewManager.close(ViewConst.Join);
+		this.applyControllerFunc(ControllerConst.START_CONTROLLER,StartConsts.INIT_STARTPANEL)
 	}
 	private onItemTap(evt:eui.ItemTapEvent):void{
 		switch(evt.item.num){

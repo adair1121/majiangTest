@@ -16,5 +16,7 @@
 		<e:Image id="buttonSure" source="button_sure_png" x="438" y="422"/>
 		<ns1:AddComponent id="baseScore" width="263" height="42" x="395" y="224" skinName="AddComponentSkin"/>
 		<ns1:AddComponent id="rewardTop" width="263" height="42" x="396" y="312" skinName="AddComponentSkin"/>
+		<e:Label text="选择人数:" y="388" textColor="0xED9D38" fontFamily="SimHei" horizontalCenter="-171.5"/>
+		<ns1:AddComponent id="peopleNum" width="263" height="42" x="396" y="382" skinName="AddComponentSkin"/>
 	</e:Group>
 </e:Skin>

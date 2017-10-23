@@ -33,6 +33,7 @@ class GameController extends BaseController{
 		this.registerFunc(GameConsts.DRAWCARDRESPONSE_C2S,this.drawCardResponse,this);
 		this.registerFunc(GameConsts.PLAYCARD_C2S,this.playCard,this);
 		this.registerFunc(GameConsts.PLAYCARDRESPONSE_C2S,this.playCardResponse,this);
+		
 	}
 	/**举手 */
 	private onRaiseHands(dataObj:any):void{

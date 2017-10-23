@@ -22,6 +22,8 @@ class StartController extends BaseController{
 		this.registerFunc(StartConsts.JOIN_ROOM_C2S,this.joinRoom,this);
 		//注册加入房间s2c
 		this.registerFunc(StartConsts.JOIN_ROOM_S2C,this.joinRoomRes,this);
+		//注册其他模块消息
+		this.registerFunc(StartConsts.INIT_STARTPANEL,()=>{this.startView.initData()},this);
 	}
 	private creatRoom(dataObj:any):void{
 		this.startProxy.createRoom(dataObj);

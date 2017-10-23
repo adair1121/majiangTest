@@ -28,12 +28,13 @@ class ViewLogin extends BaseEuiView{
 	 * 面板关闭执行函数
 	 */
 	public close(param:any[]):void{
-
+		this.clickState = false;
 	}
+	private clickState:boolean = false;
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){
 			case this.btnLogin:
-				if(Config.connectState){
+				if(Config.connectState && !this.clickState){
 					var account = GlobalFunc.guid();
 					var pwd ="111111";
 					// egret.localStorage.clear();
@@ -51,6 +52,7 @@ class ViewLogin extends BaseEuiView{
 					// App.ViewManager.open(ViewConst.Start);
 				}else{
 					alert("网络不好,请稍后再试");
+					this.clickState = false;
 				}
 				break;
 			case this.wxLogin:

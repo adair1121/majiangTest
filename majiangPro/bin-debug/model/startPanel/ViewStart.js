@@ -18,13 +18,22 @@ var ViewStart = (function (_super) {
      */
     ViewStart.prototype.initUI = function () {
         _super.prototype.initUI.call(this);
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
+        this.maskSp = new egret.Sprite();
+        this.addChild(this.maskSp);
+        this.maskSp.graphics.beginFill(0xcccccc, 0.5);
+        this.maskSp.graphics.drawRect(0, 0, Config.w_width, Config.w_height);
+        this.maskSp.graphics.endFill();
+        this.addChild(this.maskSp);
+        this.maskSp.visible = false;
+        this.maskSp.touchEnabled = true;
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this, false);
     };
     /**
      * 对面板数据进行初始化
      */
     ViewStart.prototype.initData = function () {
         _super.prototype.initData.call(this);
+        this.maskSp.visible = false;
     };
     /**
      * 面板开启执行函数
@@ -35,26 +44,32 @@ var ViewStart = (function (_super) {
         this.playerId.text = "ID:" + userInfo.userId + "";
         DataCenter.playerId = userInfo.userId;
         this.cardNum.text = userInfo.cardCount + "";
+        this.maskSp.visible = false;
     };
     /**
      * 面板关闭执行函数
      */
     ViewStart.prototype.close = function (param) {
+        this.maskSp.visible = false;
     };
     ViewStart.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.createRoomBtn:
                 // App.ViewManager.close(ViewConst.Start);
                 // App.ViewManager.open(ViewConst.Game);
+                this.maskSp.visible = true;
                 App.ViewManager.open(ViewConst.Create);
                 break;
             case this.joinRoomBtn:
+                this.maskSp.visible = true;
                 App.ViewManager.open(ViewConst.Join);
                 break;
             case this.buttonSet:
+                this.maskSp.visible = true;
                 App.ViewManager.open(ViewConst.SystemSet);
                 break;
             case this.buttonScore:
+                this.maskSp.visible = true;
                 App.ViewManager.open(ViewConst.MyScore);
                 break;
         }

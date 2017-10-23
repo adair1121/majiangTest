@@ -10,6 +10,7 @@ var ViewLogin = (function (_super) {
     __extends(ViewLogin, _super);
     function ViewLogin($controller, $parent) {
         var _this = _super.call(this, $controller, $parent) || this;
+        _this.clickState = false;
         _this.skinName = "ViewLoginSkin";
         return _this;
     }
@@ -35,11 +36,12 @@ var ViewLogin = (function (_super) {
      * 面板关闭执行函数
      */
     ViewLogin.prototype.close = function (param) {
+        this.clickState = false;
     };
     ViewLogin.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {
             case this.btnLogin:
-                if (Config.connectState) {
+                if (Config.connectState && !this.clickState) {
                     var account = GlobalFunc.guid();
                     var pwd = "111111";
                     // egret.localStorage.clear();
@@ -55,6 +57,7 @@ var ViewLogin = (function (_super) {
                 }
                 else {
                     alert("网络不好,请稍后再试");
+                    this.clickState = false;
                 }
                 break;
             case this.wxLogin:
