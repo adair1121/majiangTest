@@ -13,6 +13,7 @@ var CardItem = (function (_super) {
         _this.defaultBg = "opposite_block_image_30_png";
         _this.leftBg = "dachupai_left";
         _this.skinName = "CardItemSkin";
+        _this.laiOrPi.visible = false;
         return _this;
     }
     CardItem.prototype.dataChanged = function () {
@@ -43,6 +44,21 @@ var CardItem = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /**
+     * 设置痞子或癞子的显示
+     */
+    CardItem.prototype.setOperLabel = function (oper, pi, lai) {
+        this.laiOrPi.visible = true;
+        if (oper === lai) {
+            this.laiOrPi.text = "癞";
+        }
+        else if (oper === pi) {
+            this.laiOrPi.text = "痞";
+        }
+        else {
+            this.laiOrPi.visible = false;
+        }
+    };
     return CardItem;
 }(eui.ItemRenderer));
 __reflect(CardItem.prototype, "CardItem");

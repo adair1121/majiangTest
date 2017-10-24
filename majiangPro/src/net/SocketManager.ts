@@ -22,8 +22,10 @@ module SocketManager{
            this.MessType =new proto.messType();
            this.handler =new proto.Processor();
         }
+        private callBack:Function;
+        private thisArg:any;
         //连接服务器
-        public connectServer(host: string = "", port: number = 80) {
+        public connectServer(host: string = "", port: number = 80,callBack:Function,arg:any) {
             //todo之前有数据的话，把自前数据清掉
             // if(this.sock!=null){
             //  if(this.sock.connected){
@@ -34,11 +36,14 @@ module SocketManager{
             //  }
             // }
             // Global.showWaritPanel();
+            this.callBack = callBack;
+            this.thisArg = arg;
             this.buf.endian=egret.Endian.LITTLE_ENDIAN;
             this.lenbuf.endian=egret.Endian.LITTLE_ENDIAN;
             this._arr.endian=egret.Endian.LITTLE_ENDIAN;
             this.sock = new egret.WebSocket();
             this.sock.type = "webSocketTypeBinary";
+            this.sock.addEventListener(egret.IOErrorEvent.IO_ERROR,this.onError,this);
             this.sock.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
             this.sock.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
             this.sock.addEventListener(egret.Event.CLOSE, this.onSocketClose, this);
@@ -50,7 +55,15 @@ module SocketManager{
             // Global.hideWaritPanel();
             Config.connectState = true;
             this.handler.do_connect();
+            this.callBack.call(this.thisArg);
             //game.AppFacade.getInstance().sendNotification(SysNotify.CONNECT_SERVER_SUCCESS);
+        }
+        /**
+         * 连接错误
+         */
+        public onError():void{
+            Config.connectState = false;
+            this.callBack.call(this.thisArg);
         }
         public onSocketClose(): void {
             // Global.hideWaritPanel();

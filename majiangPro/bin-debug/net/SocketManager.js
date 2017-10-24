@@ -21,7 +21,7 @@ var SocketManager;
             this.handler = new proto.Processor();
         }
         //连接服务器
-        Connection.prototype.connectServer = function (host, port) {
+        Connection.prototype.connectServer = function (host, port, callBack, arg) {
             if (host === void 0) { host = ""; }
             if (port === void 0) { port = 80; }
             //todo之前有数据的话，把自前数据清掉
@@ -34,11 +34,14 @@ var SocketManager;
             //  }
             // }
             // Global.showWaritPanel();
+            this.callBack = callBack;
+            this.thisArg = arg;
             this.buf.endian = egret.Endian.LITTLE_ENDIAN;
             this.lenbuf.endian = egret.Endian.LITTLE_ENDIAN;
             this._arr.endian = egret.Endian.LITTLE_ENDIAN;
             this.sock = new egret.WebSocket();
             this.sock.type = "webSocketTypeBinary";
+            this.sock.addEventListener(egret.IOErrorEvent.IO_ERROR, this.onError, this);
             this.sock.addEventListener(egret.ProgressEvent.SOCKET_DATA, this.onReceiveMessage, this);
             this.sock.addEventListener(egret.Event.CONNECT, this.onSocketOpen, this);
             this.sock.addEventListener(egret.Event.CLOSE, this.onSocketClose, this);
@@ -49,7 +52,15 @@ var SocketManager;
             // Global.hideWaritPanel();
             Config.connectState = true;
             this.handler.do_connect();
+            this.callBack.call(this.thisArg);
             //game.AppFacade.getInstance().sendNotification(SysNotify.CONNECT_SERVER_SUCCESS);
+        };
+        /**
+         * 连接错误
+         */
+        Connection.prototype.onError = function () {
+            Config.connectState = false;
+            this.callBack.call(this.thisArg);
         };
         Connection.prototype.onSocketClose = function () {
             // Global.hideWaritPanel();

@@ -23,6 +23,7 @@ var HandCardItem = (function (_super) {
             this.soundObj[2] = value;
         }, _this, RES.ResourceItem.TYPE_SOUND);
         _this.laiOrPi.visible = false;
+        _this.scaleX = _this.scaleY = 0.8;
         return _this;
     }
     HandCardItem.prototype.childrenCreated = function () {

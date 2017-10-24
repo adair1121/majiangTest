@@ -116,7 +116,36 @@ var CardMap = (function (_super) {
         }
     };
     /**平常出牌移除item */
-    CardMap.prototype.removeItem = function () {
+    CardMap.prototype.removeItem = function (ifLast) {
+        if (ifLast === void 0) { ifLast = false; }
+        if (ifLast) {
+            var basPos = [data.Seat.West, data.Seat.South, data.Seat.East, data.Seat.North];
+            var index = basPos.indexOf(this.firstSeat);
+            var arr1 = basPos.splice(0, index);
+            var arr2 = basPos.splice(index);
+            var positionGather = arr2.concat(arr1);
+            var group;
+            var seat;
+            for (var i = 0; i < positionGather.length; i++) {
+                group = this.seatObj[positionGather[i]];
+                seat = positionGather[i];
+                if (group.numChildren) {
+                    break;
+                }
+            }
+            if (seat === data.Seat.West) {
+                var index = 0;
+            }
+            else {
+                var index = group.numChildren - 1;
+            }
+            var curItemGroup = group.getChildAt(index);
+            curItemGroup.removeChild(curItemGroup.getChildAt(curItemGroup.numChildren - 1));
+            if (!curItemGroup.numChildren) {
+                group.removeChild(curItemGroup);
+            }
+            return;
+        }
         if (this.curGroup.numChildren) {
             this.clockWithRemove(true);
         }

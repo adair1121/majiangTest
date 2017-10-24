@@ -108,7 +108,34 @@ class CardMap extends eui.Component{
 		}
 	}
 	/**平常出牌移除item */
-	public removeItem():void{
+	public removeItem(ifLast:boolean = false):void{
+		if(ifLast){
+			var basPos:number[] = [data.Seat.West,data.Seat.South,data.Seat.East,data.Seat.North];
+			var index:number = basPos.indexOf(this.firstSeat);
+			var arr1:number[] = basPos.splice(0,index);
+			var arr2:number[] = basPos.splice(index);
+			var positionGather:number[] = arr2.concat(arr1);
+			var group:eui.Group;
+			var seat:number;
+			for(var i:number = 0;i<positionGather.length;i++){
+				group = this.seatObj[positionGather[i]];
+				seat = positionGather[i];
+				if(group.numChildren){
+					break;
+				}
+			}
+			if(seat === data.Seat.West){
+				var index:number = 0;
+			}else{
+				var index:number = group.numChildren - 1;
+			}
+			var curItemGroup:eui.Group = group.getChildAt(index) as eui.Group;
+			curItemGroup.removeChild(curItemGroup.getChildAt(curItemGroup.numChildren - 1));
+			if(!curItemGroup.numChildren){
+				group.removeChild(curItemGroup);
+			}
+			return;
+		}
 		if(this.curGroup.numChildren){
 			this.clockWithRemove(true)
 		}else{

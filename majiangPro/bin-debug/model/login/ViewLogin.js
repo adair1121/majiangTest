@@ -39,25 +39,39 @@ var ViewLogin = (function (_super) {
         this.clickState = false;
     };
     ViewLogin.prototype.onTouchHandler = function (evt) {
+        var _this = this;
         switch (evt.target) {
             case this.btnLogin:
-                if (Config.connectState && !this.clickState) {
-                    var account = GlobalFunc.guid();
-                    var pwd = "111111";
-                    // egret.localStorage.clear();
-                    // if(!account){
-                    // 	account = GlobalFunc.guid();
-                    // 	egret.localStorage.setItem("account",account);
-                    // }
-                    // if(!pwd){
-                    // 	pwd = "111111";
-                    // 	egret.localStorage.setItem("pwd",pwd);
-                    // }
-                    this.applyFunc(LoginConsts.LOGIN_C2S, { userName: account, pwd: pwd });
+                if (!this.clickState) {
+                    this.clickState = true;
+                    var ip = this.ip.text;
+                    if (!ip) {
+                        ip = Config.gameHost;
+                    }
+                    SocketManager.getInstance().connectServer(ip, Config.gamePort, function () {
+                        if (Config.connectState) {
+                            _this.clickState = false;
+                            var account = GlobalFunc.guid();
+                            var pwd = "111111";
+                            // egret.localStorage.clear();
+                            // if(!account){
+                            // 	account = GlobalFunc.guid();
+                            // 	egret.localStorage.setItem("account",account);
+                            // }
+                            // if(!pwd){
+                            // 	pwd = "111111";
+                            // 	egret.localStorage.setItem("pwd",pwd);
+                            // }
+                            _this.applyFunc(LoginConsts.LOGIN_C2S, { userName: account, pwd: pwd });
+                        }
+                        else {
+                            alert("连接错误");
+                            _this.clickState = false;
+                        }
+                    }, this);
                 }
                 else {
-                    alert("网络不好,请稍后再试");
-                    this.clickState = false;
+                    alert("正在连接");
                 }
                 break;
             case this.wxLogin:

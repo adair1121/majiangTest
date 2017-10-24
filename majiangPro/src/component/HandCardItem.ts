@@ -20,6 +20,7 @@ class HandCardItem extends eui.Component{
 			this.soundObj[2] = value;
 		},this,RES.ResourceItem.TYPE_SOUND);
 		this.laiOrPi.visible = false;
+		this.scaleX = this.scaleY = 0.8;
 	}
 	protected childrenCreated():void{
 		this.cardIcon.source = this.path_icon;
