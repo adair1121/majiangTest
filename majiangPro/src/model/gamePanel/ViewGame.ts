@@ -227,12 +227,11 @@ class ViewGame extends BaseEuiView{
 			//如果相对座位为南是 添加手牌到显示组 -- 当前玩家摸牌
 			// this.addCardGroup([msg.drawCard],true);
 			if(this.initialized){
-				this.initialized = false;
 				this.curCardGather.push(msg.drawCard);
 				console.log("============>此处为我现在的手牌====>"+this.curCardGather);
 				this.startNewGame(this.dice1,this.dice2,this.relativeSeat[this.dealer]);
 			}else{
-				if(DataCenter.playerCount === 1){
+				// if(DataCenter.playerCount === 1){
 					//测试当前为1个玩家是 打牌后立即摸牌 设置newCard会影响后面设置位置 要延迟
 					var timeOut = egret.setTimeout(()=>{
 						if(this.curOption === -1){
@@ -242,15 +241,15 @@ class ViewGame extends BaseEuiView{
 						}
 						this.addCardGroup([msg.drawCard],true);
 						egret.clearTimeout(timeOut);
-					},this,100);
-				}else{
-					if(this.curOption === -1){
-						this.cardMap.removeItem();
-					}else{
-						this.cardMap.removeItem(true);
-					}
-					this.addCardGroup([msg.drawCard],true);
-				}
+					},this,300);
+				// }else{
+				// 	if(this.curOption === -1){
+				// 		this.cardMap.removeItem();
+				// 	}else{
+				// 		this.cardMap.removeItem(true);
+				// 	}
+				// 	this.addCardGroup([msg.drawCard],true);
+				// }
 				
 			}
 			//此处响应玩家摸牌 收到可操作牌组
@@ -259,25 +258,23 @@ class ViewGame extends BaseEuiView{
 			for(var i:number = 0;i<msg.KongCards.length;i++){
 				console.log("=====>此处为收到的操作组=====》"+msg.KongCards[i].list)
 			}
-			
 		}else{
-			//其他玩家摸牌显示0
-			var seat:number = this.relativeSeat[msg.seat];
-			var curGroup:eui.Group = this.seatObj[seat];
-			var img:eui.Image = new eui.Image();
-			img.source = this.assetObj[seat];
-			curGroup.addChild(img);
-			if(seat === data.Seat.North){
-				img.x = curGroup.numChildren * img.width;
-				curGroup.x -= img.width;
-			}else{
-				img.y = curGroup.numChildren * img.width;
-				curGroup.y -= img.width;
-			}
 			if(this.initialized){
-				this.initialized = false;
 				this.startNewGame(this.dice1,this.dice2,this.relativeSeat[this.dealer]);
 			}else{
+				//其他玩家摸牌显示0
+				var seat:number = this.relativeSeat[msg.seat];
+				var curGroup:eui.Group = this.seatObj[seat];
+				var img:eui.Image = new eui.Image();
+				img.source = this.assetObj[seat];
+				curGroup.addChild(img);
+				if(seat === data.Seat.North){
+					img.x = curGroup.numChildren * img.width;
+					curGroup.x -= img.width;
+				}else{
+					img.y = curGroup.numChildren * img.width;
+					curGroup.y -= img.width;
+				}
 				if(this.curOption === -1){
 					this.cardMap.removeItem();
 				}else{
@@ -285,12 +282,9 @@ class ViewGame extends BaseEuiView{
 				}
 			}
 		}
-		
 		if(msg.isWin){
-			alert("win")
+			alert("win");
 		}
-		
-		
 	}
 	/**通知其他人打牌信息 */
 	public notifyPlayCard(msg:proto.s_NotifyPlayCard):void{
@@ -320,6 +314,7 @@ class ViewGame extends BaseEuiView{
 		//待确定修改
 		var operGather:number[] = [];
 		var curOper:number;
+		this.curOperGroup = {};
 		for(var i:number = 0;i<oper.length;i++){
 			if(oper[i].list.length >= 4 && oper[i].list[0] != this.curCardLai && oper[i].list[0] != this.curCardPi){
 				//杠
@@ -434,12 +429,23 @@ class ViewGame extends BaseEuiView{
 					handGroup.removeChildAt(0);
 				}
 			},this);
+			curGroup.addChild(group);
+			group.x = curGroup.width;
+			curGroup.width += group.width;
 			if(seat === data.Seat.South){
 				this.sortHandCards(this.cardSprite);
 			}
-			curGroup.addChild(group);
-			curGroup.width += group.width;
-			handGroup.x -= curGroup.width;
+			if(seat === data.Seat.South || seat === data.Seat.North){
+				curGroup.x -= group.width;
+				if(curGroup.x < handGroup.x + handGroup.width){
+					handGroup.x -= Math.abs(handGroup.x + handGroup.width - curGroup.x);
+				}
+			}else{
+				curGroup.y -= group.width;
+				if(curGroup.y < handGroup.y + handGroup.height){
+					handGroup.y -= Math.abs(handGroup.y + handGroup.height - curGroup.y)
+				}
+			}
 		}
 	}
 	/**
@@ -500,6 +506,7 @@ class ViewGame extends BaseEuiView{
 		CardTransFormUtil.startGetCard(seat,this.cardobj,this.cardSprite,(dataObj)=>{
 			if(dataObj.final){
 				//切牌发牌完毕
+				this.initialized = false;
 				this.cardSprite.removeChildren();
 				var curCardNum:number;
 				if(seat === data.Seat.South){
@@ -698,12 +705,14 @@ class ViewGame extends BaseEuiView{
 		
 	}
 	private lastCard:boolean = false;
+	private cardIndex:number = -1;
 	/**设置牌位置 */
 	private setCardToPosition(curX:number):void{
 		this.lastCard = false;
 		var len:number = this.cardSprite.numChildren-1;
 		var setX:number = -1;
 		var curMoveGather:HandCardItem[] = [];
+		this.cardIndex = -1;
 		for(var i:number = 0,item:HandCardItem;i<len;i++){
 			item = this.cardSprite.getChildAt(i) as HandCardItem;
 			var cardType:number = CardTransFormUtil.getCardType(item.cardId);
@@ -712,6 +721,7 @@ class ViewGame extends BaseEuiView{
 				//找到了同类型的卡牌
 				var cardId:number = CardTransFormUtil.trasnFormCardIdWay2(Number(item.cardId));
 				var newCardId:number = CardTransFormUtil.trasnFormCardIdWay2(Number(this.newCard.cardId));
+				this.cardIndex = i;
 				if(newCardId <= cardId){
 					//新摸到的牌 在当前卡牌后面
 					setX = item.x;
@@ -722,7 +732,8 @@ class ViewGame extends BaseEuiView{
 					break;
 				}
 				this.lastCard = true;
-				if(setX < curX){
+				this.cardIndex += 1;
+				if(item.x < curX){
 					setX = item.x + (item.width*0.8);
 				}else{
 					setX = item.x;
@@ -735,31 +746,46 @@ class ViewGame extends BaseEuiView{
 			this.searchMoveCardGroup(curX,setX);
 		}else{
 			//未找到同类新卡牌
-			egret.Tween.get(this.newCard).to({x:this.newCard.x - (this.newCard.width*0.8)},this.moveStep).call(()=>{
-				egret.Tween.removeTweens(this.newCard);
-				var moveGather:HandCardItem[] = [];
-				for(var i:number = 0;i<this.cardSprite.numChildren;i++){
-					var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
-					if(item.x >= curX){
-						egret.Tween.get(item).to({x:(item.x - (item.width*0.8))},this.moveStep).call(()=>{
-							egret.Tween.removeTweens(item);
-						},this)
-					}
+			// egret.Tween.get(this.newCard).to({x:this.newCard.x - (this.newCard.width*0.8)},this.moveStep).call(()=>{
+			// 	egret.Tween.removeTweens(this.newCard);
+			// 	var moveGather:HandCardItem[] = [];
+			// 	for(var i:number = 0;i<this.cardSprite.numChildren;i++){
+			// 		var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
+			// 		if(item.x >= curX){
+			// 			egret.Tween.get(item).to({x:(item.x - (item.width*0.8))},this.moveStep).call(()=>{
+			// 				egret.Tween.removeTweens(item);
+			// 			},this)
+			// 		}
+			// 	}
+			// },this);
+			this.cardIndex = this.cardSprite.numChildren - 1;
+			//未找到同类新卡牌
+			for(var i:number = 0;i<this.cardSprite.numChildren;i++){
+				var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
+				if(item.x >= curX){
+					egret.Tween.get(item).to({x:(item.x - (item.width*0.8))},this.moveStep).call(()=>{
+						egret.Tween.removeTweens(item);
+					},this)
 				}
+			}
+			egret.Tween.get(this.newCard).to({x:this.newCard.x - (this.newCard.width*0.8*2)},this.moveStep*2).call(()=>{
+					egret.Tween.removeTweens(this.newCard);
 			},this);
+			
 		}
 	}
+	/**查询移动卡牌组合 */
 	private searchMoveCardGroup(curX:number,setX:number):void{
 		var moveGather:HandCardItem[] = [];
 		var diction:number = 0;
-		if(setX != curX){
+		if(Math.abs(setX - curX ) > 3){
 			//当前新卡牌与打出卡牌不在同一个位置
 			if(setX < curX){
 				diction = 1;
 				//当前设置位置在打出牌位置前面
 				for(var i:number = 0;i<this.cardSprite.numChildren;i++){
 					var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
-					if(item.x >= setX && item.x < curX){
+					if(item.x >= setX-3 && item.x < curX + 3){
 						moveGather.push(item);
 					}
 				}
@@ -767,14 +793,8 @@ class ViewGame extends BaseEuiView{
 				diction = -1;
 				for(var j:number = 0;j<this.cardSprite.numChildren;j++){
 					var item:HandCardItem = this.cardSprite.getChildAt(j) as HandCardItem;
-					if(this.lastCard){
-						if(item.x < setX && item.x > curX){
-							moveGather.push(item);
-						}
-					}else{
-						if(item.x <= setX && item.x > curX){
-							moveGather.push(item);
-						}
+					if(item.x <= setX + 3 && item.x > curX - 3){
+						moveGather.push(item);
 					}
 				}
 			}
@@ -782,11 +802,12 @@ class ViewGame extends BaseEuiView{
 			.to({x:setX},((this.newCard.x - setX)/(this.newCard.width*0.8))*this.moveStep).call(()=>{
 				for(var m:number = 0;m<moveGather.length;m++){
 					var item:HandCardItem = moveGather[m];
-					egret.Tween.get(item).to({x:(item.x+diction*item.width*0.8)},this.moveStep).call(()=>{
+					egret.Tween.get(item).to({x:(item.x+diction*item.width*0.8)},this.moveStep).call((data)=>{
 						egret.Tween.removeTweens(item);
-					},this)
+					},this,[{item:item,index:m}])
 				}
 			},this).to({y:0},this.moveStep).call(()=>{
+				this.setCardLayerRelation();
 				egret.Tween.removeTweens(this.newCard);
 			},this);
 			
@@ -794,8 +815,17 @@ class ViewGame extends BaseEuiView{
 			egret.Tween.get(this.newCard).to({y: - (this.newCard.height*0.8) - 20},this.moveStep)
 			.to({x:curX},((this.newCard.x - curX)/(this.newCard.width*0.8))*this.moveStep)
 			.to({y:0},this.moveStep).call(()=>{
+				this.setCardLayerRelation();
 				egret.Tween.removeTweens(this.newCard);
 			},this);
+		}
+	}
+	/**设置层级 */
+	private setCardLayerRelation():void{
+		if(DataCenter.playerCount === 1){
+			this.cardSprite.setChildIndex(this.cardSprite.getChildAt(this.cardSprite.numChildren-2),this.cardIndex);
+		}else{
+			this.cardSprite.setChildIndex(this.cardSprite.getChildAt(this.cardSprite.numChildren-1),this.cardIndex);
 		}
 	}
 	/**生成对应操作 */

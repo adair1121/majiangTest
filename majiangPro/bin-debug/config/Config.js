@@ -52,6 +52,8 @@ Config.soundEffectPercent = 50;
 Config.path_card = "../resource/assets/ui/card/";
 /**音频路径 */
 Config.audio_path = "../resource/assets/audio/";
+/**特效路径 */
+Config.movie_path = "../resource/assets/movie/";
 /**时间戳 */
 Config.time_stamps = 0;
 __reflect(Config.prototype, "Config");

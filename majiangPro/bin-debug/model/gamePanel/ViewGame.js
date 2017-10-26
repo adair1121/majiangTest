@@ -40,6 +40,7 @@ var ViewGame = (function (_super) {
         _this.initialized = true;
         _this.curOption = -1; //默认值为-1 普通摸牌
         _this.lastCard = false;
+        _this.cardIndex = -1;
         _this.readyState = false;
         //当前可操作的卡牌集合（如点击吃 -- 供选择的卡牌组）形式为{data.Option.Chi:proto.IntList[]}
         _this.curOperGroup = {};
@@ -193,34 +194,23 @@ var ViewGame = (function (_super) {
             //如果相对座位为南是 添加手牌到显示组 -- 当前玩家摸牌
             // this.addCardGroup([msg.drawCard],true);
             if (this.initialized) {
-                this.initialized = false;
                 this.curCardGather.push(msg.drawCard);
                 console.log("============>此处为我现在的手牌====>" + this.curCardGather);
                 this.startNewGame(this.dice1, this.dice2, this.relativeSeat[this.dealer]);
             }
             else {
-                if (DataCenter.playerCount === 1) {
-                    //测试当前为1个玩家是 打牌后立即摸牌 设置newCard会影响后面设置位置 要延迟
-                    var timeOut = egret.setTimeout(function () {
-                        if (_this.curOption === -1) {
-                            _this.cardMap.removeItem();
-                        }
-                        else {
-                            _this.cardMap.removeItem(true);
-                        }
-                        _this.addCardGroup([msg.drawCard], true);
-                        egret.clearTimeout(timeOut);
-                    }, this, 100);
-                }
-                else {
-                    if (this.curOption === -1) {
-                        this.cardMap.removeItem();
+                // if(DataCenter.playerCount === 1){
+                //测试当前为1个玩家是 打牌后立即摸牌 设置newCard会影响后面设置位置 要延迟
+                var timeOut = egret.setTimeout(function () {
+                    if (_this.curOption === -1) {
+                        _this.cardMap.removeItem();
                     }
                     else {
-                        this.cardMap.removeItem(true);
+                        _this.cardMap.removeItem(true);
                     }
-                    this.addCardGroup([msg.drawCard], true);
-                }
+                    _this.addCardGroup([msg.drawCard], true);
+                    egret.clearTimeout(timeOut);
+                }, this, 300);
             }
             //此处响应玩家摸牌 收到可操作牌组
             this.ifExitOper = this.judgeOper(msg.KongCards);
@@ -230,25 +220,24 @@ var ViewGame = (function (_super) {
             }
         }
         else {
-            //其他玩家摸牌显示0
-            var seat = this.relativeSeat[msg.seat];
-            var curGroup = this.seatObj[seat];
-            var img = new eui.Image();
-            img.source = this.assetObj[seat];
-            curGroup.addChild(img);
-            if (seat === data.Seat.North) {
-                img.x = curGroup.numChildren * img.width;
-                curGroup.x -= img.width;
-            }
-            else {
-                img.y = curGroup.numChildren * img.width;
-                curGroup.y -= img.width;
-            }
             if (this.initialized) {
-                this.initialized = false;
                 this.startNewGame(this.dice1, this.dice2, this.relativeSeat[this.dealer]);
             }
             else {
+                //其他玩家摸牌显示0
+                var seat = this.relativeSeat[msg.seat];
+                var curGroup = this.seatObj[seat];
+                var img = new eui.Image();
+                img.source = this.assetObj[seat];
+                curGroup.addChild(img);
+                if (seat === data.Seat.North) {
+                    img.x = curGroup.numChildren * img.width;
+                    curGroup.x -= img.width;
+                }
+                else {
+                    img.y = curGroup.numChildren * img.width;
+                    curGroup.y -= img.width;
+                }
                 if (this.curOption === -1) {
                     this.cardMap.removeItem();
                 }
@@ -290,6 +279,7 @@ var ViewGame = (function (_super) {
         //待确定修改
         var operGather = [];
         var curOper;
+        this.curOperGroup = {};
         for (var i = 0; i < oper.length; i++) {
             if (oper[i].list.length >= 4 && oper[i].list[0] != this.curCardLai && oper[i].list[0] != this.curCardPi) {
                 //杠
@@ -409,12 +399,24 @@ var ViewGame = (function (_super) {
                     handGroup.removeChildAt(0);
                 }
             }, this);
+            curGroup.addChild(group);
+            group.x = curGroup.width;
+            curGroup.width += group.width;
             if (seat === data.Seat.South) {
                 this.sortHandCards(this.cardSprite);
             }
-            curGroup.addChild(group);
-            curGroup.width += group.width;
-            handGroup.x -= curGroup.width;
+            if (seat === data.Seat.South || seat === data.Seat.North) {
+                curGroup.x -= group.width;
+                if (curGroup.x < handGroup.x + handGroup.width) {
+                    handGroup.x -= Math.abs(handGroup.x + handGroup.width - curGroup.x);
+                }
+            }
+            else {
+                curGroup.y -= group.width;
+                if (curGroup.y < handGroup.y + handGroup.height) {
+                    handGroup.y -= Math.abs(handGroup.y + handGroup.height - curGroup.y);
+                }
+            }
         }
     };
     /**
@@ -477,6 +479,7 @@ var ViewGame = (function (_super) {
         CardTransFormUtil.startGetCard(seat, this.cardobj, this.cardSprite, function (dataObj) {
             if (dataObj.final) {
                 //切牌发牌完毕
+                _this.initialized = false;
                 _this.cardSprite.removeChildren();
                 var curCardNum;
                 if (seat === data.Seat.South) {
@@ -691,6 +694,7 @@ var ViewGame = (function (_super) {
         var len = this.cardSprite.numChildren - 1;
         var setX = -1;
         var curMoveGather = [];
+        this.cardIndex = -1;
         for (var i = 0, item; i < len; i++) {
             item = this.cardSprite.getChildAt(i);
             var cardType = CardTransFormUtil.getCardType(item.cardId);
@@ -699,6 +703,7 @@ var ViewGame = (function (_super) {
                 //找到了同类型的卡牌
                 var cardId = CardTransFormUtil.trasnFormCardIdWay2(Number(item.cardId));
                 var newCardId = CardTransFormUtil.trasnFormCardIdWay2(Number(this.newCard.cardId));
+                this.cardIndex = i;
                 if (newCardId <= cardId) {
                     //新摸到的牌 在当前卡牌后面
                     setX = item.x;
@@ -709,7 +714,8 @@ var ViewGame = (function (_super) {
                     break;
                 }
                 this.lastCard = true;
-                if (setX < curX) {
+                this.cardIndex += 1;
+                if (item.x < curX) {
                     setX = item.x + (item.width * 0.8);
                 }
                 else {
@@ -725,32 +731,46 @@ var ViewGame = (function (_super) {
         }
         else {
             //未找到同类新卡牌
-            egret.Tween.get(this.newCard).to({ x: this.newCard.x - (this.newCard.width * 0.8) }, this.moveStep).call(function () {
-                egret.Tween.removeTweens(_this.newCard);
-                var moveGather = [];
-                for (var i = 0; i < _this.cardSprite.numChildren; i++) {
-                    var item = _this.cardSprite.getChildAt(i);
-                    if (item.x >= curX) {
-                        egret.Tween.get(item).to({ x: (item.x - (item.width * 0.8)) }, _this.moveStep).call(function () {
-                            egret.Tween.removeTweens(item);
-                        }, _this);
-                    }
+            // egret.Tween.get(this.newCard).to({x:this.newCard.x - (this.newCard.width*0.8)},this.moveStep).call(()=>{
+            // 	egret.Tween.removeTweens(this.newCard);
+            // 	var moveGather:HandCardItem[] = [];
+            // 	for(var i:number = 0;i<this.cardSprite.numChildren;i++){
+            // 		var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
+            // 		if(item.x >= curX){
+            // 			egret.Tween.get(item).to({x:(item.x - (item.width*0.8))},this.moveStep).call(()=>{
+            // 				egret.Tween.removeTweens(item);
+            // 			},this)
+            // 		}
+            // 	}
+            // },this);
+            this.cardIndex = this.cardSprite.numChildren - 1;
+            //未找到同类新卡牌
+            for (var i = 0; i < this.cardSprite.numChildren; i++) {
+                var item = this.cardSprite.getChildAt(i);
+                if (item.x >= curX) {
+                    egret.Tween.get(item).to({ x: (item.x - (item.width * 0.8)) }, this.moveStep).call(function () {
+                        egret.Tween.removeTweens(item);
+                    }, this);
                 }
+            }
+            egret.Tween.get(this.newCard).to({ x: this.newCard.x - (this.newCard.width * 0.8 * 2) }, this.moveStep * 2).call(function () {
+                egret.Tween.removeTweens(_this.newCard);
             }, this);
         }
     };
+    /**查询移动卡牌组合 */
     ViewGame.prototype.searchMoveCardGroup = function (curX, setX) {
         var _this = this;
         var moveGather = [];
         var diction = 0;
-        if (setX != curX) {
+        if (Math.abs(setX - curX) > 3) {
             //当前新卡牌与打出卡牌不在同一个位置
             if (setX < curX) {
                 diction = 1;
                 //当前设置位置在打出牌位置前面
                 for (var i = 0; i < this.cardSprite.numChildren; i++) {
                     var item = this.cardSprite.getChildAt(i);
-                    if (item.x >= setX && item.x < curX) {
+                    if (item.x >= setX - 3 && item.x < curX + 3) {
                         moveGather.push(item);
                     }
                 }
@@ -759,15 +779,8 @@ var ViewGame = (function (_super) {
                 diction = -1;
                 for (var j = 0; j < this.cardSprite.numChildren; j++) {
                     var item = this.cardSprite.getChildAt(j);
-                    if (this.lastCard) {
-                        if (item.x < setX && item.x > curX) {
-                            moveGather.push(item);
-                        }
-                    }
-                    else {
-                        if (item.x <= setX && item.x > curX) {
-                            moveGather.push(item);
-                        }
+                    if (item.x <= setX + 3 && item.x > curX - 3) {
+                        moveGather.push(item);
                     }
                 }
             }
@@ -775,11 +788,12 @@ var ViewGame = (function (_super) {
                 .to({ x: setX }, ((this.newCard.x - setX) / (this.newCard.width * 0.8)) * this.moveStep).call(function () {
                 for (var m = 0; m < moveGather.length; m++) {
                     var item = moveGather[m];
-                    egret.Tween.get(item).to({ x: (item.x + diction * item.width * 0.8) }, _this.moveStep).call(function () {
+                    egret.Tween.get(item).to({ x: (item.x + diction * item.width * 0.8) }, _this.moveStep).call(function (data) {
                         egret.Tween.removeTweens(item);
-                    }, _this);
+                    }, _this, [{ item: item, index: m }]);
                 }
             }, this).to({ y: 0 }, this.moveStep).call(function () {
+                _this.setCardLayerRelation();
                 egret.Tween.removeTweens(_this.newCard);
             }, this);
         }
@@ -787,8 +801,18 @@ var ViewGame = (function (_super) {
             egret.Tween.get(this.newCard).to({ y: -(this.newCard.height * 0.8) - 20 }, this.moveStep)
                 .to({ x: curX }, ((this.newCard.x - curX) / (this.newCard.width * 0.8)) * this.moveStep)
                 .to({ y: 0 }, this.moveStep).call(function () {
+                _this.setCardLayerRelation();
                 egret.Tween.removeTweens(_this.newCard);
             }, this);
+        }
+    };
+    /**设置层级 */
+    ViewGame.prototype.setCardLayerRelation = function () {
+        if (DataCenter.playerCount === 1) {
+            this.cardSprite.setChildIndex(this.cardSprite.getChildAt(this.cardSprite.numChildren - 2), this.cardIndex);
+        }
+        else {
+            this.cardSprite.setChildIndex(this.cardSprite.getChildAt(this.cardSprite.numChildren - 1), this.cardIndex);
         }
     };
     /**生成对应操作 */

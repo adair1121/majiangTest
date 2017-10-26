@@ -47,6 +47,8 @@ class Config {
 	public static path_card:string = "../resource/assets/ui/card/";
 	/**音频路径 */
 	public static audio_path:string = "../resource/assets/audio/";
+	/**特效路径 */
+	public static movie_path:string = "../resource/assets/movie/";
 	/**网络连接状态 */
 	public static connectState:boolean;
 	/**当前游戏宽度 */
