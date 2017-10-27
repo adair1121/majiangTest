@@ -288,9 +288,11 @@ class ViewGame extends BaseEuiView{
 	}
 	/**通知其他人打牌信息 */
 	public notifyPlayCard(msg:proto.s_NotifyPlayCard):void{
-		if(this.relativeSeat[msg.seat] === data.Seat.South){
-			return;
-		}
+		// if(this.relativeSeat[msg.seat] === data.Seat.South){
+		// 	//此处响应玩家打牌 收到可操作牌组
+		// 	this.ifExitOper = this.judgeOper(msg.pongKongChow);
+		// 	return;
+		// }
 		var cardTemple:data.CardConfigTemple = temple.TempleManager.select(msg.playCard) as data.CardConfigTemple;
 		var item:any = {cardBg:1,icon:cardTemple.icon + "_png"}
 		this.addCardItem(this.dachuObj[this.relativeSeat[msg.seat]],item);
@@ -302,8 +304,12 @@ class ViewGame extends BaseEuiView{
 		}else{
 			curGroup.y -= Config.w_tieldCard;
 		}
-		//此处响应玩家打牌 收到可操作牌组
+		// //此处响应玩家打牌 收到可操作牌组
 		this.ifExitOper = this.judgeOper(msg.pongKongChow);
+		// if(!this.ifExitOper){
+		// 	//过
+		// 	this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S,{option:data.Option.Pass});
+		// }
 		if(msg.isWin){
 			//胡牌
 			alert("win");
@@ -339,7 +345,9 @@ class ViewGame extends BaseEuiView{
 					}
 				}
 			}
-			operGather.push(curOper);
+			if(operGather.indexOf(curOper) === -1){
+				operGather.push(curOper);
+			}
 			if(!this.curOperGroup[curOper]){
 				this.curOperGroup[curOper] = [];
 			}
@@ -356,18 +364,21 @@ class ViewGame extends BaseEuiView{
 	 * 打牌响应 等待其他玩家响应
 	 */
 	public notifyPlayResponse(msg:proto.s_NotifyPlayResponse):void{
-		if(this.relativeSeat[msg.seat] === data.Seat.South){
-			//如果收到的是当前打牌用户 返回
-			return;
+		if(msg.pongKongChow.length && this.relativeSeat[msg.seat] != data.Seat.South){
+			this.operShow(this.relativeSeat[msg.seat],msg.pongKongChow)
 		}
-		if(!msg.pongKongChow.length){
-			//过
-			this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S,{option:data.Option.Pass});
-		}else{
-			this.curFocusSeat = this.relativeSeat[msg.seat];
-			//提示对应操作
-			this.createOper([msg.option]);
-		}
+		// if(this.relativeSeat[msg.seat] === data.Seat.South){
+		// 	//如果收到的是当前打牌用户 返回
+		// 	return;
+		// }
+		// if(!msg.pongKongChow.length){
+		// 	//过
+		// 	this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S,{option:data.Option.Pass});
+		// }else{
+		// 	this.curFocusSeat = this.relativeSeat[msg.seat];
+		// 	//提示对应操作
+		// 	// this.createOper([msg.option]);
+		// }
 
 	}
 	/**
@@ -382,13 +393,13 @@ class ViewGame extends BaseEuiView{
 		
 	}
 	/**
-	 * 响应别人打出牌吃碰杠等操作完成后
+	 * 响应别人打出牌自己的吃碰杠等操作完成后
 	 */
 	public playCardResponse():void{
 		this.leftOper.removeChildren();
 		this.rightOper.removeChildren();
 		this.ifExitOper = false;
-		this.operShow(this.curFocusSeat);
+		this.operShow(this.curFocusSeat,this.curOutCardList);
 	}
 	/**
 	 * 摸牌响应操作
@@ -396,18 +407,19 @@ class ViewGame extends BaseEuiView{
 	public drawCardResponseRes():void{
 		this.leftOper.removeChildren();
 		this.rightOper.removeChildren();
+		this.promptGroup.removeChildren();
 		this.ifExitOper = false;
-		this.operShow(data.Seat.South);
+		this.operShow(data.Seat.South,this.curOutCardList);
 	}
 	/**
 	 * 响应操作后 吃碰杠显示
 	 */
-	private operShow(seat:number):void{
-		if(this.curOperGroup && this.curOutCardList.length){
+	private operShow(seat:number,operList:number[]):void{
+		if(operList.length){
 			var curGroup:eui.Group = this["out_"+seat+"_group"];
 			var handGroup:eui.Group = this.seatObj[seat];
 			var group:eui.Group = new eui.Group();
-			this.curOutCardList.forEach((cardNum:number,index:number)=>{
+			operList.forEach((cardNum:number,index:number)=>{
 				var cardItem:CardItem = new CardItem();
 				var cardTemple:data.CardConfigTemple = temple.TempleManager.select(cardNum) as data.CardConfigTemple;
 				cardItem.icon = cardTemple.icon;
@@ -435,15 +447,10 @@ class ViewGame extends BaseEuiView{
 			if(seat === data.Seat.South){
 				this.sortHandCards(this.cardSprite);
 			}
-			if(seat === data.Seat.South || seat === data.Seat.North){
+			if(seat === data.Seat.South){
 				curGroup.x -= group.width;
 				if(curGroup.x < handGroup.x + handGroup.width){
 					handGroup.x -= Math.abs(handGroup.x + handGroup.width - curGroup.x);
-				}
-			}else{
-				curGroup.y -= group.width;
-				if(curGroup.y < handGroup.y + handGroup.height){
-					handGroup.y -= Math.abs(handGroup.y + handGroup.height - curGroup.y)
 				}
 			}
 		}
@@ -876,9 +883,11 @@ class ViewGame extends BaseEuiView{
 	private curOperGroup:any = {};
 	//当前出牌集合
 	private curOutCardList:number[];
+	
 	private onTouchHandler(evt:egret.TouchEvent):void{
+		var name:string;
 		if(evt.target.parent === this.leftOper || evt.target.parent ===this.rightOper){
-			var name:string = evt.target.name;
+			name = evt.target.name;
 			switch(parseInt(name)){
 				case data.Option.Pass:
 					//过
@@ -900,6 +909,21 @@ class ViewGame extends BaseEuiView{
 			}
 			return;
 		}
+		if(evt.target.parent instanceof CardItem){
+			this.curOutCardList = [];
+			if(!this.promptGroup.numChildren){
+				return;
+			}
+			var cardArr:number[] = [];
+			var group:eui.Group = evt.target.parent.parent;
+			for(var i:number = 0;i<group.numChildren;i++){
+				var item:CardItem = group.getChildAt(i) as CardItem;
+				cardArr.push(item.iconTrans);
+			}
+			this.curOutCardList = this.curOutCardList.concat(cardArr);
+			this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S,{option:data.Option.Chow,cardList:cardArr});
+			return;
+		}
 		switch(evt.target){
 			case this.buttonYaoQing:
 				//邀请微信好友
@@ -910,15 +934,6 @@ class ViewGame extends BaseEuiView{
 				}
 				this.readyState = true;
 				this.applyFunc(GameConsts.RAISEHANDS_C2S);
-				break;
-			case (evt.target.parent.parent == this.promptGroup):
-				var list:CardItem[] = evt.target.parent;
-				var cardArr:number[] = [];
-				list.forEach((card:CardItem)=>{
-					cardArr.push(card.iconTrans);
-				},this)
-				this.curOutCardList = this.curOutCardList.concat(cardArr);
-				this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S,{option:name,cardList:cardArr});
 				break;
 		}
 	}

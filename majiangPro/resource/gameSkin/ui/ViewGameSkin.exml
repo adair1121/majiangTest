@@ -118,19 +118,19 @@
 		<e:TileLayout requestedColumnCount="8" horizontalGap="2" verticalGap="2"/>
 		</e:layout>
 	</e:List>
-	<e:List id="out_103_group" width="0" height="48.48" includeIn="game" anchorOffsetY="0" rotation="90" itemRendererSkinName="CardItemSkin" left="120" bottom="168">
+	<e:List id="out_103_group" width="0" height="48.48" includeIn="game" anchorOffsetY="0" rotation="90" itemRendererSkinName="CardItemSkin" left="49" bottom="163">
 		<e:layout>
 		<e:HorizontalLayout/>
 		</e:layout>
 	</e:List>
 	<e:Group id="leftGroup" width="48.48" height="388" anchorOffsetX="0" anchorOffsetY="0" left="120" includeIn="game" y="164"/>
-	<e:List id="out_101_group" width="0" height="48.48" includeIn="game" anchorOffsetY="0" rotation="-90" itemRendererSkinName="CardItemSkin" right="121" anchorOffsetX="0" bottom="168">
+	<e:List id="out_101_group" width="0" height="48.48" includeIn="game" anchorOffsetY="0" rotation="-90" itemRendererSkinName="CardItemSkin" right="42" anchorOffsetX="0" bottom="168">
 		<e:layout>
 		<e:HorizontalLayout/>
 		</e:layout>
 	</e:List>
 	<e:Group id="rightGroup" width="48.48" height="388" anchorOffsetX="0" anchorOffsetY="0" includeIn="game" right="120" y="164"/>
-	<e:List id="out_104_group" width="0" height="48.48" includeIn="game" anchorOffsetY="0" rotation="180" itemRendererSkinName="CardItemSkin" left="293" top="78">
+	<e:List id="out_104_group" width="0" height="48.48" includeIn="game" anchorOffsetY="0" rotation="180" itemRendererSkinName="CardItemSkin" left="291" top="19">
 		<e:layout>
 		<e:HorizontalLayout/>
 		</e:layout>
