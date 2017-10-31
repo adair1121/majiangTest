@@ -43,6 +43,8 @@ var ViewGame = (function (_super) {
         _this.kongCards = [];
         _this.curOutCard = {};
         _this.curOperType = 0; // 响应类型 0:响应摸牌 1:响应别人出牌
+        _this.touchNum = 0;
+        _this.timerStartState = false;
         _this.lastCard = false;
         _this.cardIndex = -1;
         _this.readyState = false;
@@ -81,9 +83,12 @@ var ViewGame = (function (_super) {
         this.assetObj[data.Seat.North] = "shoupai_duijia_png";
         this.assetObj[data.Seat.East] = "shoupai_you_png";
         this.assetObj[data.Seat.West] = "shoupai_zuo_png";
+        this.timer = new egret.Timer(300, 1);
+        this.timer.addEventListener(egret.TimerEvent.TIMER, this.onTimer, this);
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
         this.cardSprite.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onCardItemTap, this);
         this.cardSprite.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.onCardTouchBegin, this);
+        this.cardSprite.addEventListener(egret.TouchEvent.TOUCH_END, this.doubleTouch, this);
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.onCardTouchEnd, this);
     };
     /**
@@ -626,6 +631,29 @@ var ViewGame = (function (_super) {
         this.clickState = true;
         this.curStageY = evt.stageY;
         this.curTarget = evt.target.parent;
+    };
+    ViewGame.prototype.onTimer = function (evt) {
+        if (this.touchNum >= 2) {
+            //doubleclick
+            if (this.curFocusSeat === data.Seat.South && this.skin.currentState === this.TYPE_GAME && !this.ifExitOper) {
+                //==此处需要与服务器进行交互===
+                var card = CardTransFormUtil.trasnFormCardIdWay2(Number(this.curTarget.cardId));
+                console.log("============当前打的牌是-----====》：" + this.curTarget.cardId);
+                this.applyFunc(GameConsts.PLAYCARD_C2S, card);
+            }
+        }
+        this.touchNum = 0;
+        this.timerStartState = false;
+    };
+    ViewGame.prototype.doubleTouch = function (evt) {
+        if (evt.target.parent === this.curTarget) {
+            //点击的同一张牌
+            this.touchNum += 1;
+            if (!this.timerStartState) {
+                this.timer.start();
+            }
+            this.timerStartState = true;
+        }
     };
     ViewGame.prototype.onCardTouchEnd = function (evt) {
         if (this.clickState && this.curFocusSeat === data.Seat.South && this.skin.currentState === this.TYPE_GAME && !this.ifExitOper) {
