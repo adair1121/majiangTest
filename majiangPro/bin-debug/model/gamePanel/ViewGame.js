@@ -113,6 +113,28 @@ var ViewGame = (function (_super) {
         this.topGroup.removeChildren();
         this.leftGroup.removeChildren();
         this.rightGroup.removeChildren();
+        this.leftOper.removeChildren();
+        this.rightOper.removeChildren();
+        this.out_101_group.removeChildren();
+        this.out_102_group.removeChildren();
+        this.out_103_group.removeChildren();
+        this.out_104_group.removeChildren();
+        this.kongCards = [];
+        this.curOutCard = {};
+        this.readyState = false;
+        this.curOperGroup = {};
+        this.curOutCardList = [];
+        this.touchNum = 0;
+        this.timerStartState = false;
+        this.curCardGather = [];
+        if (this.cardMap && this.cardMap.parent && this.cardMap.parent.contains(this.cardMap)) {
+            this.cardMap.parent.removeChild(this.cardMap);
+        }
+        this.readyBtn.visible = true;
+        this.bottomHand.visible = false;
+        this.leftHand.visible = false;
+        this.rightHand.visible = false;
+        this.topHand.visible = false;
         this.initialized = true;
     };
     /**
@@ -256,7 +278,13 @@ var ViewGame = (function (_super) {
         }
         if (msg.isWin) {
             alert("win");
+            this.winOper();
         }
+    };
+    //胜利后的操作
+    ViewGame.prototype.winOper = function () {
+        this.skin.currentState = this.TYPE_WAIT;
+        this.initData();
     };
     /**通知其他人打牌信息 */
     ViewGame.prototype.notifyPlayCard = function (msg) {
@@ -288,6 +316,7 @@ var ViewGame = (function (_super) {
         if (msg.isWin) {
             //胡牌
             alert("win");
+            this.winOper();
         }
     };
     /**判断是否含有操作 */
