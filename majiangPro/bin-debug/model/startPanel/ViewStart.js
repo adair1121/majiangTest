@@ -72,6 +72,10 @@ var ViewStart = (function (_super) {
                 this.maskSp.visible = true;
                 App.ViewManager.open(ViewConst.MyScore);
                 break;
+            case this.buttonShare:
+            case this.buttonIntro:
+                alert("敬请期待");
+                break;
         }
     };
     return ViewStart;

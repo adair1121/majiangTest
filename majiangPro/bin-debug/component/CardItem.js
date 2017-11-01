@@ -11,7 +11,7 @@ var CardItem = (function (_super) {
     function CardItem() {
         var _this = _super.call(this) || this;
         _this.defaultBg = "opposite_block_image_30_png";
-        _this.leftBg = "dachupai_left";
+        _this.leftBg = "dachupai_left_png";
         _this.skinName = "CardItemSkin";
         _this.laiOrPi.visible = false;
         return _this;
@@ -50,10 +50,10 @@ var CardItem = (function (_super) {
     CardItem.prototype.setOperLabel = function (oper, pi, lai) {
         this.laiOrPi.visible = true;
         if (oper === lai) {
-            this.laiOrPi.text = "癞";
+            this.laiOrPi.source = "icon_lai_png";
         }
         else if (oper === pi) {
-            this.laiOrPi.text = "痞";
+            this.laiOrPi.source = "icon_pi_png";
         }
         else {
             this.laiOrPi.visible = false;

@@ -22,8 +22,8 @@ var HandCardItem = (function (_super) {
         RES.getResByUrl(Config.audio_path + template.womenVoice + ".mp3", function (value) {
             this.soundObj[2] = value;
         }, _this, RES.ResourceItem.TYPE_SOUND);
-        _this.laiOrPi.visible = false;
         _this.scaleX = _this.scaleY = 0.8;
+        _this.laiOrPiIcon.visible = true;
         return _this;
     }
     HandCardItem.prototype.childrenCreated = function () {
@@ -40,15 +40,15 @@ var HandCardItem = (function (_super) {
      * 设置痞子或癞子的显示
      */
     HandCardItem.prototype.setOperLabel = function (oper, pi, lai) {
-        this.laiOrPi.visible = true;
+        this.laiOrPiIcon.visible = true;
         if (oper === lai) {
-            this.laiOrPi.text = "癞";
+            this.laiOrPiIcon.source = "icon_lai_png";
         }
         else if (oper === pi) {
-            this.laiOrPi.text = "痞";
+            this.laiOrPiIcon.source = "icon_pi_png";
         }
         else {
-            this.laiOrPi.visible = false;
+            this.laiOrPiIcon.visible = false;
         }
     };
     return HandCardItem;

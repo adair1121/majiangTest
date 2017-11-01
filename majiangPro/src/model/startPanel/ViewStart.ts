@@ -7,6 +7,8 @@ class ViewStart extends BaseEuiView{
 	public addCardBtn:eui.Image;
 	public buttonSet:eui.Image;
 	public buttonScore:eui.Image;
+	public buttonShare:eui.Image;
+	public buttonIntro:eui.Image;
 	public cardNum:eui.Label;
 	private maskSp:egret.Sprite;
 	public constructor($controller:BaseController,$parent:egret.DisplayObjectContainer) {
@@ -71,6 +73,10 @@ class ViewStart extends BaseEuiView{
 			case this.buttonScore:
 				this.maskSp.visible = true;
 				App.ViewManager.open(ViewConst.MyScore);
+				break;
+			case this.buttonShare:
+			case this.buttonIntro:
+				alert("敬请期待");
 				break;
 		}
 	}

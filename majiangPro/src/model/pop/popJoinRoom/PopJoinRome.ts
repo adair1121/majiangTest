@@ -31,8 +31,8 @@ class PopJoinRome extends BaseEuiView{
 		this.initRoomNum();
 		this.collect.source = [{num:"1"},{num:"2"},{num:"3"},{num:"4"},{num:"5"},{num:"6"},
 								{num:"7"},{num:"8"},{num:"9"},{num:"r"},{num:"0"},{num:"d"}];
-		this.x = (this.myParent.width >> 1) - (this.measuredWidth>>1);
-		this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
+		this.x = (Config.w_width >> 1) - (this.width>>1);
+		this.y = (Config.w_height >> 1) - (this.height >> 1);
 	}
 	private initRoomNum():void{
 		this.romeNum = "";

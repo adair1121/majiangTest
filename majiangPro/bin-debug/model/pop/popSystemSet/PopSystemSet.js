@@ -36,8 +36,8 @@ var PopSystemSet = (function (_super) {
         this.sndEffectSlider.progressBar.value = Config.soundEffectPercent;
         this.sndSlider.value = Config.bgSoundPercent;
         this.sndSlider.progressBar.value = Config.bgSoundPercent;
-        this.x = (this.myParent.width >> 1) - (this.measuredWidth >> 1);
-        this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
+        this.x = (Config.w_width >> 1) - (this.width >> 1);
+        this.y = (Config.w_height >> 1) - (this.height >> 1);
     };
     PopSystemSet.prototype.effectSndChangeHandler = function (evt) {
         Config.soundEffectPercent = evt.target.value;

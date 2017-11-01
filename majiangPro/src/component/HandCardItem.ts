@@ -5,8 +5,8 @@ class HandCardItem extends eui.Component{
 	private soundObj:any = {};
 	private sound:egret.Sound;
 	private channel:egret.SoundChannel;
-	public laiOrPi:eui.Label;
 	public cardIdNum:number;
+	public laiOrPiIcon:eui.Image;
 	public constructor(template:data.CardConfigTemple) {
 		super();
 		this.skinName = "HandCardItemSkin";
@@ -19,8 +19,8 @@ class HandCardItem extends eui.Component{
 		RES.getResByUrl(Config.audio_path + template.womenVoice+".mp3",function(value){
 			this.soundObj[2] = value;
 		},this,RES.ResourceItem.TYPE_SOUND);
-		this.laiOrPi.visible = false;
 		this.scaleX = this.scaleY = 0.8;
+		this.laiOrPiIcon.visible = true;
 	}
 	protected childrenCreated():void{
 		this.cardIcon.source = this.path_icon;
@@ -36,13 +36,13 @@ class HandCardItem extends eui.Component{
 	 * 设置痞子或癞子的显示
 	 */
 	public setOperLabel(oper:number,pi:number,lai:number):void{
-		this.laiOrPi.visible = true;
+		this.laiOrPiIcon.visible = true;
 		if(oper === lai){
-			this.laiOrPi.text = "癞";
+			this.laiOrPiIcon.source = "icon_lai_png";
 		}else if(oper === pi){
-			this.laiOrPi.text = "痞";
+			this.laiOrPiIcon.source = "icon_pi_png";
 		}else{
-			this.laiOrPi.visible = false;
+			this.laiOrPiIcon.visible = false;
 		}
 
 	}

@@ -212,6 +212,12 @@ var ViewGame = (function (_super) {
         this.cardobj = this.cardobj.concat(msg.handCards);
         this.curCardPi = msg.pizi;
         this.curCardLai = msg.laizi;
+        var piTemple = temple.TempleManager.select(msg.pizi);
+        var laiTemple = temple.TempleManager.select(msg.laizi);
+        this.pi.icon = piTemple.icon;
+        this.pi.setOperLabel(this.curCardPi, this.curCardPi, this.curCardLai);
+        this.lai.icon = laiTemple.icon;
+        this.lai.setOperLabel(this.curCardLai, this.curCardPi, this.curCardLai);
         this.dice1 = msg.dice1;
         this.dice2 = msg.dice2;
         this.dealer = msg.dealer;
@@ -288,20 +294,27 @@ var ViewGame = (function (_super) {
     };
     /**通知其他人打牌信息 */
     ViewGame.prototype.notifyPlayCard = function (msg) {
-        // if(this.relativeSeat[msg.seat] === data.Seat.South){
-        // 	//此处响应玩家打牌 收到可操作牌组
-        // 	this.ifExitOper = this.judgeOper(msg.pongKongChow);
-        // 	return;
-        // }
+        if (this.relativeSeat[msg.seat] === data.Seat.South) {
+            //此处响应玩家打牌 收到可操作牌组
+            return;
+        }
         var cardTemple = temple.TempleManager.select(msg.playCard);
-        var item = { cardBg: 1, icon: cardTemple.icon + "_png" };
+        var cardBg = 0;
         this.curOutCard.card = msg.playCard;
         this.curOutCard.seat = this.relativeSeat[msg.seat];
-        this.addCardItem(this.dachuObj[this.relativeSeat[msg.seat]], item);
-        var seat = this.relativeSeat[msg.seat];
-        var curGroup = this.seatObj[seat];
+        if (this.curOutCard.seat === data.Seat.East || this.curOutCard.seat === data.Seat.West) {
+            cardBg = 1;
+        }
+        else {
+            cardBg = 0;
+        }
+        var item = { cardBg: cardBg, icon: cardTemple.icon + "_png" };
+        if (this.curOutCard.seat != data.Seat.South) {
+            this.addCardItem(this.dachuObj[this.relativeSeat[msg.seat]], item);
+        }
+        var curGroup = this.seatObj[this.curOutCard.seat];
         curGroup.removeChildAt(curGroup.numChildren - 1);
-        if (seat === data.Seat.North) {
+        if (this.curOutCard.seat === data.Seat.North) {
             curGroup.x -= Config.w_tieldCard;
         }
         else {
@@ -461,9 +474,9 @@ var ViewGame = (function (_super) {
                 this.sortHandCards(this.cardSprite);
             }
             if (seat === data.Seat.South) {
-                curGroup.x -= group.width;
-                if (curGroup.x < handGroup.x + handGroup.width) {
-                    handGroup.x -= Math.abs(handGroup.x + handGroup.width - curGroup.x);
+                var stagePos = handGroup.localToGlobal(handGroup.getChildAt(0).x, handGroup.getChildAt(0).y);
+                if ((curGroup.x + curGroup.width) > stagePos.x) {
+                    handGroup.x += Math.abs(stagePos.x - (curGroup.x + curGroup.width));
                 }
             }
         }
@@ -702,13 +715,6 @@ var ViewGame = (function (_super) {
     };
     /**出牌 */
     ViewGame.prototype.outCard = function (seat, iconId, ifGroup) {
-        if (ifGroup) {
-            if (seat === data.Seat.South) {
-            }
-            else {
-            }
-            return;
-        }
         if (seat === data.Seat.South) {
             var obj = { icon: this.curTarget.path_icon };
             //将打出的牌移除当前手牌
@@ -718,25 +724,46 @@ var ViewGame = (function (_super) {
             //移除手牌item
             var curX = this.curTarget.x;
             this.cardSprite.removeChild(this.curTarget);
-            if (this.curTarget != this.newCard) {
-                this.setCardToPosition(curX);
+            if (!!this.newCard) {
+                if (this.curTarget != this.newCard) {
+                    this.setCardToPosition(curX);
+                }
+            }
+            else {
+                //当前吃碰杠操作后的出牌
+                var moveGather = [];
+                for (var m = 0; m < this.cardSprite.numChildren; m++) {
+                    var hitem = this.cardSprite.getChildAt(m);
+                    if (hitem.x >= this.curTarget.x - 3) {
+                        moveGather.push(hitem);
+                    }
+                }
+                for (var n = 0; n < moveGather.length; n++) {
+                    var hitem2 = moveGather[n];
+                    egret.Tween.get(hitem2).to({ x: (hitem2.x + (-1 * hitem2.width * 0.8)) }, this.moveStep).call(function () {
+                        egret.Tween.removeTweens(hitem2);
+                    }, this);
+                }
             }
         }
         else {
             var mx = 0;
             var my = 0;
             var moveStepObj = {};
+            var cardBg = 0;
             if (seat === data.Seat.East || seat === data.Seat.West) {
                 my = 1;
                 mx = 0;
+                cardBg = 1;
             }
             else {
                 mx = 1;
                 my = 0;
+                cardBg = 0;
             }
             //其他玩家打出手牌
             var index = (Math.random() * 12 + 1) >> 0;
-            this.addCardItem(this.dachuObj[seat], { cardBg: 1, icon: iconId + "_png" });
+            this.addCardItem(this.dachuObj[seat], { cardBg: cardBg, icon: iconId + "_png" });
             var len = this.seatObj[seat].numChildren;
             var arr = [];
             for (var i = 0; i < len; i++) {
@@ -802,31 +829,18 @@ var ViewGame = (function (_super) {
             this.searchMoveCardGroup(curX, setX);
         }
         else {
-            //未找到同类新卡牌
-            // egret.Tween.get(this.newCard).to({x:this.newCard.x - (this.newCard.width*0.8)},this.moveStep).call(()=>{
-            // 	egret.Tween.removeTweens(this.newCard);
-            // 	var moveGather:HandCardItem[] = [];
-            // 	for(var i:number = 0;i<this.cardSprite.numChildren;i++){
-            // 		var item:HandCardItem = this.cardSprite.getChildAt(i) as HandCardItem;
-            // 		if(item.x >= curX){
-            // 			egret.Tween.get(item).to({x:(item.x - (item.width*0.8))},this.moveStep).call(()=>{
-            // 				egret.Tween.removeTweens(item);
-            // 			},this)
-            // 		}
-            // 	}
-            // },this);
             this.cardIndex = this.cardSprite.numChildren - 1;
             //未找到同类新卡牌
-            for (var i = 0; i < this.cardSprite.numChildren; i++) {
-                var item = this.cardSprite.getChildAt(i);
-                if (item.x >= curX) {
-                    egret.Tween.get(item).to({ x: (item.x - (item.width * 0.8)) }, this.moveStep).call(function () {
-                        egret.Tween.removeTweens(item);
-                    }, this);
-                }
-            }
-            egret.Tween.get(this.newCard).to({ x: this.newCard.x - (this.newCard.width * 0.8 * 2) }, this.moveStep * 2).call(function () {
+            egret.Tween.get(this.newCard).to({ x: this.newCard.x - (this.newCard.width * 0.8) }, this.moveStep).call(function () {
                 egret.Tween.removeTweens(_this.newCard);
+                for (var i = 0; i < _this.cardSprite.numChildren; i++) {
+                    var item = _this.cardSprite.getChildAt(i);
+                    if (item.x >= curX) {
+                        egret.Tween.get(item).to({ x: (item.x - (item.width * 0.8)) }, _this.moveStep).call(function () {
+                            egret.Tween.removeTweens(item);
+                        }, _this);
+                    }
+                }
             }, this);
         }
     };

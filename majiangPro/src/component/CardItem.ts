@@ -2,9 +2,9 @@ class CardItem extends eui.ItemRenderer{
 	public cardIcon:eui.Image;
 	public cardBg:eui.Image;
 	private defaultBg:string = "opposite_block_image_30_png";
-	private leftBg:string = "dachupai_left";
+	private leftBg:string = "dachupai_left_png";
 	private _icon:string;
-	public laiOrPi:eui.Label;
+	public laiOrPi:eui.Image;
 	public constructor() {
 		super();
 		this.skinName = "CardItemSkin";
@@ -17,7 +17,6 @@ class CardItem extends eui.ItemRenderer{
 		}else{
 			this.cardBg.source = this.defaultBg;
 		}
-		
 	}
 	public set icon(source:string){
 		this.cardIcon.source = source+"_png";
@@ -36,9 +35,9 @@ class CardItem extends eui.ItemRenderer{
 	public setOperLabel(oper:number,pi:number,lai:number):void{
 		this.laiOrPi.visible = true;
 		if(oper === lai){
-			this.laiOrPi.text = "癞";
+			this.laiOrPi.source = "icon_lai_png";
 		}else if(oper === pi){
-			this.laiOrPi.text = "痞";
+			this.laiOrPi.source = "icon_pi_png";
 		}else{
 			this.laiOrPi.visible = false;
 		}

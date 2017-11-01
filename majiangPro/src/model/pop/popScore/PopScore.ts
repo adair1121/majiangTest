@@ -17,8 +17,8 @@ class PopScore extends BaseEuiView{
 	 * 面板开启执行函数
 	 */
 	public open(param:any[]):void{
-		this.x = (this.myParent.width >> 1) - (this.measuredWidth>>1);
-		this.y = (this.myParent.height >> 1) - (this.measuredHeight >> 1);
+		this.x = (Config.w_width >> 1) - (this.width>>1);
+		this.y = (Config.w_height >> 1) - (this.height >> 1);
 	}
 	
 	/**
