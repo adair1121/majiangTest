@@ -12,13 +12,14 @@ class PopScore extends BaseEuiView{
 	public initUI():void{
 		super.initUI();
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchHandler,this);
+		this.x = (Config.w_width >> 1) - (this.width>>1);
+		this.y = (Config.w_height >> 1) - (this.height >> 1);
 	}
 	/**
 	 * 面板开启执行函数
 	 */
 	public open(param:any[]):void{
-		this.x = (Config.w_width >> 1) - (this.width>>1);
-		this.y = (Config.w_height >> 1) - (this.height >> 1);
+		
 	}
 	
 	/**
@@ -26,6 +27,7 @@ class PopScore extends BaseEuiView{
 	 */
 	public close(param:any[]):void{
 		App.ViewManager.close(ViewConst.MyScore);
+		this.applyControllerFunc(ControllerConst.START_CONTROLLER,StartConsts.INIT_STARTPANEL)
 	}
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){

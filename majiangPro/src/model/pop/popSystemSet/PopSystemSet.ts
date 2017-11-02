@@ -21,6 +21,8 @@ class PopSystemSet extends BaseEuiView{
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchHandler,this);
 		this.sndEffectSlider.addEventListener(eui.UIEvent.CHANGE, this.effectSndChangeHandler, this);
 		this.sndSlider.addEventListener(eui.UIEvent.CHANGE, this.bgSndChangeHandler, this);
+		this.x = (Config.w_width >> 1) - (this.width>>1);
+		this.y = (Config.w_height >> 1) - (this.height >> 1);
 	}
 	/**
 	 * 面板开启执行函数
@@ -30,8 +32,7 @@ class PopSystemSet extends BaseEuiView{
 		this.sndEffectSlider.progressBar.value = Config.soundEffectPercent;
 		this.sndSlider.value = Config.bgSoundPercent;
 		this.sndSlider.progressBar.value = Config.bgSoundPercent;
-		this.x = (Config.w_width >> 1) - (this.width>>1);
-		this.y = (Config.w_height >> 1) - (this.height >> 1);
+		
 	}
 	private effectSndChangeHandler(evt:eui.UIEvent):void{
 		Config.soundEffectPercent = evt.target.value;
@@ -46,6 +47,7 @@ class PopSystemSet extends BaseEuiView{
 	 */
 	public close(param:any[]):void{
 		App.ViewManager.close(ViewConst.SystemSet);
+		this.applyControllerFunc(ControllerConst.START_CONTROLLER,StartConsts.INIT_STARTPANEL)
 	}
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		switch(evt.target){

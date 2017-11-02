@@ -19,19 +19,20 @@ var PopScore = (function (_super) {
     PopScore.prototype.initUI = function () {
         _super.prototype.initUI.call(this);
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
+        this.x = (Config.w_width >> 1) - (this.width >> 1);
+        this.y = (Config.w_height >> 1) - (this.height >> 1);
     };
     /**
      * 面板开启执行函数
      */
     PopScore.prototype.open = function (param) {
-        this.x = (Config.w_width >> 1) - (this.width >> 1);
-        this.y = (Config.w_height >> 1) - (this.height >> 1);
     };
     /**
      * 面板关闭执行函数
      */
     PopScore.prototype.close = function (param) {
         App.ViewManager.close(ViewConst.MyScore);
+        this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.INIT_STARTPANEL);
     };
     PopScore.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {

@@ -124,6 +124,7 @@ var ViewGame = (function (_super) {
         this.readyState = false;
         this.curOperGroup = {};
         this.curOutCardList = [];
+        this.curOutGroup = null;
         this.touchNum = 0;
         this.timerStartState = false;
         this.curCardGather = [];
@@ -310,6 +311,7 @@ var ViewGame = (function (_super) {
         }
         var item = { cardBg: cardBg, icon: cardTemple.icon + "_png" };
         if (this.curOutCard.seat != data.Seat.South) {
+            this.curOutGroup = this.dachuObj[this.relativeSeat[msg.seat]];
             this.addCardItem(this.dachuObj[this.relativeSeat[msg.seat]], item);
         }
         var curGroup = this.seatObj[this.curOutCard.seat];
@@ -388,6 +390,10 @@ var ViewGame = (function (_super) {
     ViewGame.prototype.notifyPlayResponse = function (msg) {
         if (msg.pongKongChow.length) {
             this.curFocusSeat = this.relativeSeat[msg.seat];
+            if (msg.pongKongChow.length && msg.option != data.Option.Lai && msg.option != data.Option.Pi) {
+                var source = this.curOutGroup.source;
+                this.curOutGroup.removeItemAt(source.length - 1);
+            }
             this.operShow(this.relativeSeat[msg.seat], msg.pongKongChow);
         }
         // if(this.relativeSeat[msg.seat] === data.Seat.South){
@@ -421,8 +427,8 @@ var ViewGame = (function (_super) {
         this.rightOper.removeChildren();
         this.promptGroup.removeChildren();
         this.ifExitOper = false;
-        var curOutGroup = this["out_" + this.curOutCard.seat + "_group"];
-        curOutGroup.removeChildAt(curOutGroup.numChildren - 1);
+        this.newCard = null;
+        console.log(this.curOutGroup);
         // this.operShow(this.curFocusSeat,this.curOutCardList);
     };
     /**
@@ -463,9 +469,6 @@ var ViewGame = (function (_super) {
                         }
                     }
                 }
-                else {
-                    handGroup.removeChildAt(0);
-                }
             }, this);
             curGroup.addChild(group);
             group.x = curGroup.width;
@@ -474,9 +477,9 @@ var ViewGame = (function (_super) {
                 this.sortHandCards(this.cardSprite);
             }
             if (seat === data.Seat.South) {
-                var stagePos = handGroup.localToGlobal(handGroup.getChildAt(0).x, handGroup.getChildAt(0).y);
+                var stagePos = this.cardSprite.localToGlobal(this.cardSprite.getChildAt(0).x, this.cardSprite.getChildAt(0).y);
                 if ((curGroup.x + curGroup.width) > stagePos.x) {
-                    handGroup.x += Math.abs(stagePos.x - (curGroup.x + curGroup.width));
+                    this.cardSprite.x += Math.abs(stagePos.x - (curGroup.x + curGroup.width));
                 }
             }
         }
@@ -721,6 +724,8 @@ var ViewGame = (function (_super) {
             this.curCardGather.splice(this.searchHandCard(parseInt(this.curTarget.cardId)), 1);
             //打出牌添加数据源
             this.addCardItem(this.southCollect, obj);
+            //当前打出牌组
+            this.curOutGroup = this.southCollect;
             //移除手牌item
             var curX = this.curTarget.x;
             this.cardSprite.removeChild(this.curTarget);
@@ -747,43 +752,6 @@ var ViewGame = (function (_super) {
             }
         }
         else {
-            var mx = 0;
-            var my = 0;
-            var moveStepObj = {};
-            var cardBg = 0;
-            if (seat === data.Seat.East || seat === data.Seat.West) {
-                my = 1;
-                mx = 0;
-                cardBg = 1;
-            }
-            else {
-                mx = 1;
-                my = 0;
-                cardBg = 0;
-            }
-            //其他玩家打出手牌
-            var index = (Math.random() * 12 + 1) >> 0;
-            this.addCardItem(this.dachuObj[seat], { cardBg: cardBg, icon: iconId + "_png" });
-            var len = this.seatObj[seat].numChildren;
-            var arr = [];
-            for (var i = 0; i < len; i++) {
-                if (i > index) {
-                    arr.push(this.seatObj[seat].getChildAt(i));
-                }
-            }
-            this.seatObj[seat].removeChildAt(index);
-            for (var j = 0; j < arr.length; j++) {
-                var item = arr[j];
-                if (mx) {
-                    moveStepObj = { x: item.x - item.width };
-                }
-                if (my) {
-                    moveStepObj = { y: item.y - item.height };
-                }
-                egret.Tween.get(item).to(moveStepObj, this.moveStep).call(function () {
-                    egret.Tween.removeTweens(item);
-                }, this);
-            }
         }
     };
     /**设置牌位置 */

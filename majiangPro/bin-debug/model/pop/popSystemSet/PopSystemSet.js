@@ -27,6 +27,8 @@ var PopSystemSet = (function (_super) {
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
         this.sndEffectSlider.addEventListener(eui.UIEvent.CHANGE, this.effectSndChangeHandler, this);
         this.sndSlider.addEventListener(eui.UIEvent.CHANGE, this.bgSndChangeHandler, this);
+        this.x = (Config.w_width >> 1) - (this.width >> 1);
+        this.y = (Config.w_height >> 1) - (this.height >> 1);
     };
     /**
      * 面板开启执行函数
@@ -36,8 +38,6 @@ var PopSystemSet = (function (_super) {
         this.sndEffectSlider.progressBar.value = Config.soundEffectPercent;
         this.sndSlider.value = Config.bgSoundPercent;
         this.sndSlider.progressBar.value = Config.bgSoundPercent;
-        this.x = (Config.w_width >> 1) - (this.width >> 1);
-        this.y = (Config.w_height >> 1) - (this.height >> 1);
     };
     PopSystemSet.prototype.effectSndChangeHandler = function (evt) {
         Config.soundEffectPercent = evt.target.value;
@@ -52,6 +52,7 @@ var PopSystemSet = (function (_super) {
      */
     PopSystemSet.prototype.close = function (param) {
         App.ViewManager.close(ViewConst.SystemSet);
+        this.applyControllerFunc(ControllerConst.START_CONTROLLER, StartConsts.INIT_STARTPANEL);
     };
     PopSystemSet.prototype.onTouchHandler = function (evt) {
         switch (evt.target) {

@@ -24,6 +24,8 @@ var PopJoinRome = (function (_super) {
         this.keyList.dataProvider = this.collect;
         this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouchHandler, this);
         this.keyList.addEventListener(eui.ItemTapEvent.ITEM_TAP, this.onItemTap, this);
+        this.x = (Config.w_width >> 1) - (this.width >> 1);
+        this.y = (Config.w_height >> 1) - (this.height >> 1);
     };
     /**
      * 面板开启执行函数
@@ -32,8 +34,6 @@ var PopJoinRome = (function (_super) {
         this.initRoomNum();
         this.collect.source = [{ num: "1" }, { num: "2" }, { num: "3" }, { num: "4" }, { num: "5" }, { num: "6" },
             { num: "7" }, { num: "8" }, { num: "9" }, { num: "r" }, { num: "0" }, { num: "d" }];
-        this.x = (Config.w_width >> 1) - (this.width >> 1);
-        this.y = (Config.w_height >> 1) - (this.height >> 1);
     };
     PopJoinRome.prototype.initRoomNum = function () {
         this.romeNum = "";

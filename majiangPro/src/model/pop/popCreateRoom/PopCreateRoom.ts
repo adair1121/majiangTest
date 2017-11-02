@@ -25,13 +25,14 @@ class PopCreateRoom extends BaseEuiView{
 		this.counts = 8;
 		this.addEventListener(egret.TouchEvent.TOUCH_TAP,this.onTouchHandler,this);
 		radioButtonGroup.addEventListener(eui.UIEvent.CHANGE, this.radioChangeHandler, this);
+		this.x = (Config.w_width >> 1) - (this.width>>1);
+		this.y = (Config.w_height >> 1) - (this.height >> 1);
 	}
 	/**
 	 * 面板开启执行函数
 	 */
 	public open(param:any[]):void{
-		this.x = (Config.w_width >> 1) - (this.width>>1);
-		this.y = (Config.w_height >> 1) - (this.height >> 1);
+		
 		this.baseScore.m_count = 0;
 		this.rewardTop.m_count = 0;
 		this.peopleNum.m_count = 1;
