@@ -128,6 +128,7 @@ var ViewGame = (function (_super) {
         this.touchNum = 0;
         this.timerStartState = false;
         this.curCardGather = [];
+        this.cardSprite.x = 0;
         if (this.cardMap && this.cardMap.parent && this.cardMap.parent.contains(this.cardMap)) {
             this.cardMap.parent.removeChild(this.cardMap);
         }
@@ -215,10 +216,14 @@ var ViewGame = (function (_super) {
         this.curCardLai = msg.laizi;
         var piTemple = temple.TempleManager.select(msg.pizi);
         var laiTemple = temple.TempleManager.select(msg.laizi);
-        this.pi.icon = piTemple.icon;
-        this.pi.setOperLabel(this.curCardPi, this.curCardPi, this.curCardLai);
-        this.lai.icon = laiTemple.icon;
-        this.lai.setOperLabel(this.curCardLai, this.curCardPi, this.curCardLai);
+        if (!!piTemple) {
+            this.pi.icon = piTemple.icon;
+            this.pi.setOperLabel(this.curCardPi, this.curCardPi, this.curCardLai);
+        }
+        if (!!laiTemple) {
+            this.lai.icon = laiTemple.icon;
+            this.lai.setOperLabel(this.curCardLai, this.curCardPi, this.curCardLai);
+        }
         this.dice1 = msg.dice1;
         this.dice2 = msg.dice2;
         this.dealer = msg.dealer;
@@ -284,14 +289,19 @@ var ViewGame = (function (_super) {
             }
         }
         if (msg.isWin) {
-            alert("win");
             this.winOper();
         }
     };
     //胜利后的操作
     ViewGame.prototype.winOper = function () {
-        this.skin.currentState = this.TYPE_WAIT;
-        this.initData();
+        var _this = this;
+        //此处为测试使用
+        var timeOut = egret.setTimeout(function () {
+            alert("win");
+            egret.clearTimeout(timeOut);
+            _this.skin.currentState = _this.TYPE_WAIT;
+            _this.initData();
+        }, this, 2000);
     };
     /**通知其他人打牌信息 */
     ViewGame.prototype.notifyPlayCard = function (msg) {
@@ -309,7 +319,7 @@ var ViewGame = (function (_super) {
         else {
             cardBg = 0;
         }
-        var item = { cardBg: cardBg, icon: cardTemple.icon + "_png" };
+        var item = { cardBg: cardBg, icon: cardTemple.icon + "_png", id: cardTemple.id };
         if (this.curOutCard.seat != data.Seat.South) {
             this.curOutGroup = this.dachuObj[this.relativeSeat[msg.seat]];
             this.addCardItem(this.dachuObj[this.relativeSeat[msg.seat]], item);
@@ -330,7 +340,6 @@ var ViewGame = (function (_super) {
         // }
         if (msg.isWin) {
             //胡牌
-            alert("win");
             this.winOper();
         }
     };
@@ -390,11 +399,27 @@ var ViewGame = (function (_super) {
     ViewGame.prototype.notifyPlayResponse = function (msg) {
         if (msg.pongKongChow.length) {
             this.curFocusSeat = this.relativeSeat[msg.seat];
+            var type = -1;
+            var kongCard = -1;
             if (msg.pongKongChow.length && msg.option != data.Option.Lai && msg.option != data.Option.Pi) {
-                var source = this.curOutGroup.source;
-                this.curOutGroup.removeItemAt(source.length - 1);
+                if (msg.option === data.Option.Kong) {
+                    type = msg.pongKongChow.pop();
+                    if (type === 1) {
+                    }
+                    else {
+                        //明杠 杠别人的
+                        var source = this.curOutGroup.source;
+                        kongCard = source[source.length - 1].id;
+                        this.curOutGroup.removeItemAt(source.length - 1);
+                    }
+                }
+                else {
+                    var source = this.curOutGroup.source;
+                    kongCard = source[source.length - 1].id;
+                    this.curOutGroup.removeItemAt(source.length - 1);
+                }
             }
-            this.operShow(this.relativeSeat[msg.seat], msg.pongKongChow);
+            this.operShow(this.relativeSeat[msg.seat], msg.pongKongChow, type, kongCard);
         }
         // if(this.relativeSeat[msg.seat] === data.Seat.South){
         // 	//如果收到的是当前打牌用户 返回
@@ -444,25 +469,40 @@ var ViewGame = (function (_super) {
     /**
      * 响应操作后 吃碰杠显示
      */
-    ViewGame.prototype.operShow = function (seat, operList) {
+    ViewGame.prototype.operShow = function (seat, operList, kongType, kongCard) {
         var _this = this;
         if (operList.length) {
             var curGroup = this["out_" + seat + "_group"];
             var handGroup = this.seatObj[seat];
             var group = new eui.Group();
             operList.forEach(function (cardNum, index) {
-                var cardItem = new CardItem();
-                var cardTemple = temple.TempleManager.select(cardNum);
-                cardItem.icon = cardTemple.icon;
-                cardItem.setOperLabel(cardTemple.id, _this.curCardPi, _this.curCardLai);
+                var cardItem;
+                if (kongType === 1) {
+                    //暗杠
+                    cardItem = new eui.Image();
+                    cardItem.source = "opposite_block_back_29_png";
+                }
+                else {
+                    cardItem = new CardItem();
+                    var cardTemple = temple.TempleManager.select(cardNum);
+                    cardItem.icon = cardTemple.icon;
+                    cardItem.setOperLabel(cardTemple.id, _this.curCardPi, _this.curCardLai);
+                }
                 group.addChild(cardItem);
                 if (seat === data.Seat.South) {
                     cardItem.scaleX = cardItem.scaleY = 1.3;
+                    cardItem.x = index * 36 * 1.3;
                 }
-                cardItem.x = index * cardItem.width;
+                else {
+                    cardItem.x = index * 36;
+                }
                 if (seat === data.Seat.South) {
                     for (var i = _this.cardSprite.numChildren - 1; i >= 0; i--) {
                         var item = _this.cardSprite.getChildAt(i);
+                        if (kongCard != -1 && item.cardIdNum === kongCard) {
+                            //当前显示组合中 碰吃别人的牌中 自己的手牌也存在时 不移除
+                            continue;
+                        }
                         if (item.cardIdNum == cardNum) {
                             _this.cardSprite.removeChild(item);
                             break;
@@ -719,7 +759,7 @@ var ViewGame = (function (_super) {
     /**出牌 */
     ViewGame.prototype.outCard = function (seat, iconId, ifGroup) {
         if (seat === data.Seat.South) {
-            var obj = { icon: this.curTarget.path_icon };
+            var obj = { icon: this.curTarget.path_icon, id: this.curTarget.cardIdNum };
             //将打出的牌移除当前手牌
             this.curCardGather.splice(this.searchHandCard(parseInt(this.curTarget.cardId)), 1);
             //打出牌添加数据源
@@ -934,6 +974,7 @@ var ViewGame = (function (_super) {
                     var cardList = this.curOperGroup[name];
                     if (cardList.length > 1) {
                         //供用户选择当前操作的出牌集合
+                        this.curOption = parseInt(name);
                         this.promptOperGroup(cardList);
                     }
                     else {
@@ -965,10 +1006,10 @@ var ViewGame = (function (_super) {
             }
             this.curOutCardList = this.curOutCardList.concat(cardArr);
             if (this.curOperType) {
-                this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S, { option: data.Option.Chow, cardList: cardArr });
+                this.applyFunc(GameConsts.PLAYCARDRESPONSE_C2S, { option: this.curOption, cardList: cardArr });
             }
             else {
-                this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S, { option: data.Option.Chow, cardList: cardArr });
+                this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S, { option: this.curOption, cardList: cardArr });
             }
             return;
         }
