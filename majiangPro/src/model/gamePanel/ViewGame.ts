@@ -1006,7 +1006,7 @@ class ViewGame extends BaseEuiView{
 	private curOperGroup:any = {};
 	//当前出牌集合
 	private curOutCardList:number[];
-	
+	public effectGroup:eui.Group;
 	private onTouchHandler(evt:egret.TouchEvent):void{
 		var name:string;
 		if(evt.target.parent === this.leftOper || evt.target.parent ===this.rightOper){
@@ -1041,7 +1041,13 @@ class ViewGame extends BaseEuiView{
 							this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S,{option:name,cardList:cardList[0].list});
 						}
 					}
+					var mc:MovieClip = new MovieClip();
+					this.effectGroup.addChild(mc);
+					mc.loadFile(Config.movie_path+name,true,1,()=>{
+						this.effectGroup.removeChild(mc);
+					})
 			}
+			
 			return;
 		}
 		if(evt.target.parent instanceof CardItem){

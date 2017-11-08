@@ -151,4 +151,5 @@
 		<ns1:CardItem id="pi" width="38" height="56" includeIn="game" skinName="CardItemSkin" left="25" top="39"/>
 		<ns1:CardItem id="lai" width="38" height="56" includeIn="game" skinName="CardItemSkin" right="25" top="39"/>
 	</e:Group>
+	<e:Group id="effectGroup" width="200" height="200" includeIn="game" horizontalCenter="0" verticalCenter="0"/>
 </e:Skin>

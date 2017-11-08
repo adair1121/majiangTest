@@ -954,6 +954,7 @@ var ViewGame = (function (_super) {
         }
     };
     ViewGame.prototype.onTouchHandler = function (evt) {
+        var _this = this;
         var name;
         if (evt.target.parent === this.leftOper || evt.target.parent === this.rightOper) {
             name = evt.target.name;
@@ -990,6 +991,11 @@ var ViewGame = (function (_super) {
                             this.applyFunc(GameConsts.DRAWCARDRESPONSE_C2S, { option: name, cardList: cardList[0].list });
                         }
                     }
+                    var mc = new MovieClip();
+                    this.effectGroup.addChild(mc);
+                    mc.loadFile(Config.movie_path + name, true, 1, function () {
+                        _this.effectGroup.removeChild(mc);
+                    });
             }
             return;
         }

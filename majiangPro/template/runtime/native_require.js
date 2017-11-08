@@ -20,7 +20,7 @@ var game_file_list = [
 	"bin-debug/mvc/controller/BaseController.js",
 	"bin-debug/mvc/model/BaseModel.js",
 	"bin-debug/mvc/proxy/BaseProxy.js",
-	"bin-debug/model/pop/popCreateRoom/PopCreateRoomController.js",
+	"bin-debug/model/pop/popCreateRoom/PopCreateRoomModel.js",
 	"bin-debug/component/MyHSlider.js",
 	"bin-debug/component/PlayerRoleInfo.js",
 	"bin-debug/component/TimeComponent.js",
@@ -54,8 +54,8 @@ var game_file_list = [
 	"bin-debug/model/login/LoginProxy.js",
 	"bin-debug/model/login/ViewLogin.js",
 	"bin-debug/model/pop/popCreateRoom/PopCreateRoom.js",
+	"bin-debug/model/pop/popCreateRoom/PopCreateRoomController.js",
 	"bin-debug/AssetAdapter.js",
-	"bin-debug/model/pop/popCreateRoom/PopCreateRoomModel.js",
 	"bin-debug/model/pop/popCreateRoom/PopCreateRoomProxy.js",
 	"bin-debug/model/pop/popJoinRoom/PopJoinRome.js",
 	"bin-debug/model/pop/popJoinRoom/PopJoinRoomController.js",
@@ -93,11 +93,13 @@ var game_file_list = [
 	"bin-debug/utils/GlobalFunc.js",
 	"bin-debug/utils/LListener.js",
 	"bin-debug/utils/MessageCenter.js",
+	"bin-debug/utils/MovieClip.js",
 	"bin-debug/utils/MoviePool.js",
 	"bin-debug/utils/ObjectPool.js",
 	"bin-debug/utils/ResourceUtils.js",
 	"bin-debug/utils/SoundUtils.js",
 	"bin-debug/utils/StageUtils.js",
+	"bin-debug/utils/TimerUtils.js",
 	//----auto game_file_list end----
 ];
 
